@@ -4,7 +4,7 @@ Minhas notas e observações de estudo sobre diversos temas de tecnologia
 
 ## Index
 
-1. Git
+1. [Git](git/index.md)
 1. AWS Básico
 1. Doker
 1. Kubernetes
