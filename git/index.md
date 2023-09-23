@@ -15,6 +15,8 @@ git <verb> --help
 man git-<verb>
 ```
 
+ [top](#git-table-of-contents)
+
 ## Getting a git repository
 
 * Init
@@ -55,6 +57,12 @@ man git-<verb>
     * git://
     * user@server:path/to/repo.git, which uses the SSH transfer protocol.
 
+[top](#git-table-of-contents)
+
 ## Working with Remotes
 
+[top](#git-table-of-contents)
+
 ## Recording Changes to the Repository
+
+[top](#git-table-of-contents)
