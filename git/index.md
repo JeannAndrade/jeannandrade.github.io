@@ -1,9 +1,12 @@
 # Git (Table of Contents)
 
+Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas também pode ter outros apontamentos de fontes variadas.
+
 1. [Help](#help)
-2. [Getting a git repository](#getting-a-git-repository)
-3. [Working with Remotes](#working-with-remotes)
-4. [Recording Changes to the Repository](#recording-changes-to-the-repository)
+1. [Ciclo de vida do status de seus arquivos](#ciclo-de-vida-do-status-de-seus-arquivos)
+1. [Getting a git repository](#getting-a-git-repository)
+1. [Recording Changes to the Repository](#recording-changes-to-the-repository)
+1. [Working with Remotes](#working-with-remotes)
 
 ## Help
 
@@ -17,52 +20,163 @@ man git-<verb>
 
  [top](#git-table-of-contents)
 
+## Ciclo de vida do status de seus arquivos
+
+![Ciclo de vida do status de um arquivo git](img/ciclo_vida_status_git_file.png "Ciclo de vida - git status file")
+
+ [top](#git-table-of-contents)
+
 ## Getting a git repository
 
-* Init
+### Init
 
-  * Para iniciar um repositório
+Para iniciar um repositório, primeiro vá até a pasta desejada e digite o comando:
 
-    Primeiro vá até a pasta desejada e digite o comando
+`git init`
 
-    `git init`
+Será criada uma pasta .git com toda a estrutura necessária ao git, porém nenhum arquivo está sendo monitorado. Ainda será necessário realizar o 'add' e o "commit' nos arquivos que deseja monitorar.
 
-  * Para iniciar um servidor
+Para iniciar um repositório remoto que só irá armazenar as alterações. Ele será o nosso servidor de git. Ninguém irá trabalhar diretamente nesta pasta.
 
-    `git init --bare`
+`git init --bare`
 
-    para iniciar um repositório remoto que só irá armazenar as alterações.  Ele será o nosso servidor de git. Ninguém irá trabalhar diretamente nesta pasta
+### Clone
 
-* Clone
+Para clonar um servidor e atribuir o nome da pasta que ele terá na sua máquina:
 
-  * Para clonar um servidor
+`git clone <url> <nome-pasta>`
 
-    `git clone <url> <nome-pasta>`
+url pode ser o endereço de um servidor git criado com o git init --bare ou um endereço web válido
 
-    url pode ser o endereço de um servidor git criado com o git init --bare ou um endereço web válido
+Exemplos:
 
-    Exemplos:
+```git
+git clone <https://github.com/libgit2/libgit2>
+git clone <https://github.com/libgit2/libgit2> mylibgit
+```
 
-    ```git
-    git clone <https://github.com/libgit2/libgit2>
-    git clone <https://github.com/libgit2/libgit2> mylibgit
-    ```
+Para clonar um branch específico de um projeto
 
-  * Para clonar um branch específico de um projeto
+`Git clone <url> -b branchName`
 
-    `Git clone <url> -b branchName`
+Os seguintes protocolos são suportados pelo git:
 
-  * Protocolos
-    * https://
-    * git://
-    * user@server:path/to/repo.git, which uses the SSH transfer protocol.
+* https://
+* git:// e user@server:path/to/repo.git, which uses the SSH transfer protocol.
+
+[top](#git-table-of-contents)
+
+## Recording Changes to the Repository
+
+### Tracking New Files
+
+Para levar um arquivo de Untracked para Staged:
+
+```git
+git add file_name
+git add directory_name
+git add .
+```
+
+The git add command takes a path name for either a file or a directory; if it’s a directory, the command adds all the files in that directory recursively.
+
+### Staging Modified Files
+
+O comando 'add' também é usando para tornar um aquivo alterado em 'staged for commit'
+
+### Making merge-conflicted files as resolved
+
+Também é usado para tornar 'resolvidos' arquivos com conflito no merge
+
+__git add is a multipurpose command — you use it to begin tracking new files, to stage files, and to do other things like marking merge-conflicted files as
+resolved. It may be helpful to think of it more as “add precisely this content to the next commit”__
+
+### Ignoring Files
+
+O arquivo .gitignore é usado para sinalizar ao git quais arquivos na pasta não devem ser monitorados
+
+```git
+*.[oa]
+*~
+```
+
+The first line tells Git to ignore any files ending in “.o” or “.a” — object and archive files that may be the product of building your code. The second line tells Git to ignore all files whose names end with a tilde (~), which is used by many text editors such as Emacs to mark temporary files. You may also
+include a log, tmp, or pid directory; automatically generated documentation; and so on.
+
+### Viewing Your Staged and Unstaged Changes
+
+To see what you’ve changed but not yet staged:
+
+`git diff`
+
+If you want to see what you’ve staged that will go into your next commitÇ
+
+`git diff --staged`
+
+This command compares your staged changes to your last commit
 
 [top](#git-table-of-contents)
 
 ## Working with Remotes
 
-[top](#git-table-of-contents)
+### Remote
 
-## Recording Changes to the Repository
+Para ver quais servidores remotos estão configurados:
+
+```git
+git remote (para listar os repositórios remotos que o repositório local conhece)
+git remote -v (verbose para listar mais detalhes)
+```
+
+Para fazer um repositório local conhecer um repositório remoto:
+
+```git
+git remote add <name> <url> (a url pode ser um endereço local, na rede, na web)
+git remote add pb <https://github.com/paulboone/ticgit>
+```
+
+add remote repositories
+
+remove remotes that are no longer valid
+
+manage various remote branches
+
+define them as being tracked or not
+
+Pull (puxe)
+
+Para baixar os arquivos do servidor git
+
+git pull <nome-servidor-remoto> <nome-branch>
+
+If your current branch is set up to track a remote branch
+
+you can use the git pull command to automatically fetch and then merge that remote branch into your current branch. This may be an easier or more comfortable workflow for you; and by default, the git clone command automatically sets up your local master branch to track the remote master branch (or whatever the default branch is called) on the server you cloned from. Running git pull generally fetches data from the server you originally cloned from and automatically tries to merge it into the code you’re currently working on.
+
+Fetch
+
+to get data from your remote projects
+
+git fetch <remote> (fetch the existing branch from our remote repository)
+
+The command goes out to that remote project and pulls down all the data from that remote project that you don’t have yet. After you do this, you should have references to all the branches from that remote, which you can merge in or inspect at any time.
+
+It’s important to note that the git fetch command only downloads the data to your local repository — it doesn’t automatically merge it with any of your work or modify what you’re currently working on. You have to merge it manually into your work when you’re ready.
+
+Push (Empurre)
+
+Para subir um conjunto de arquivos para o servidor git
+
+git push <nome-servidor-remoto> <nome-branch>
+
+git push origin master
+
+git push local master
+
+This command works only if you cloned from a server to which you have write access and if nobody has pushed in the meantime. If you and someone else clone at the same time and they push upstream and then you push upstream, your push will rightly be rejected. You’ll have to fetch their work first and incorporate it into yours before you’ll be allowed to push. See Git Branching for more detailed information on how to push to remote servers.
+
+para subir um branch criado localmente para servidor remoto
+
+git push --set-upstream origin nome-branch
 
 [top](#git-table-of-contents)
