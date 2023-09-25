@@ -115,6 +115,8 @@ If you want to see what you’ve staged that will go into your next commitÇ
 
 This command compares your staged changes to your last commit
 
+### Committing Your Changes
+
 [top](#git-table-of-contents)
 
 ## Working with Remotes
