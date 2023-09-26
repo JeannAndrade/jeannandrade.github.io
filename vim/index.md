@@ -58,10 +58,14 @@ Vejamos algumas das principais teclas de movimentação sobre o conteúdo do arq
 | gg | Mome o cursor para a primeira linha do arquivo. |
 | G | Move o cursor para a última linha do arquivo. |
 
+[top](#editor-vim-table-of-contents)
+
 ## Modo de inserção
 
 Para começar a escrever, pressione “i” em seu teclado. O vim entra em modo de inserção, que você comprova pelo rodapé da tela, onde fica a seguinte marcação:
 – – — INSERT —
+
+[top](#editor-vim-table-of-contents)
 
 ## Teclas para inserção de texto
 
@@ -75,6 +79,8 @@ Para começar a escrever, pressione “i” em seu teclado. O vim entra em modo 
 | O | Adiciona uma linha vazia acima da linha corrente |
 
 Pressione a tecla ESC para voltar em modo de comandos
+
+[top](#editor-vim-table-of-contents)
 
 ## Salvando e/ou saindo do arquivo
 
@@ -91,6 +97,8 @@ Estando no modo de comando, digite estas combinações para o fim desejado:
 | :q! | Sai forçado |
 | :wq! | Salva e sai forçado |
 
+[top](#editor-vim-table-of-contents)
+
 ## Desfazendo e refazendo uma ação
 
 É claro que você pode desfazer uma ação que você considera errado, ou que errou ao digitar o texto. É só utilizar: u
@@ -98,6 +106,8 @@ Estando no modo de comando, digite estas combinações para o fim desejado:
 Shift+u => Desfaz todas as modificações feitas no arquivo.
 
 Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
+
+[top](#editor-vim-table-of-contents)
 
 ## Localização de texto
 
@@ -108,6 +118,8 @@ Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
 | n | Repete o último comando utilizando / ou ? |
 | N | Repete o último comando / ou ? ao contrário (baixo para cima) |
 | Ctrl+g | Mostra o nome do arquivo, o número da linha corrente e o total de linhas |
+
+[top](#editor-vim-table-of-contents)
 
 ## Remoção de caracteres
 
@@ -123,6 +135,8 @@ Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
 | cc | Apaga a linha atual e copia para a área de transferência |
 | cNc | Apaga N linhas e copia para a área de transferência |
 
+[top](#editor-vim-table-of-contents)
+
 ## Copiar e colar
 
 | Comando | Descrição |
@@ -131,6 +145,8 @@ Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
 | 5yy | Copia as próximas 5 linhas a partir da posição atual do cursor |
 | p | Cola o que foi copiado na linha abaixo do cursor atual |
 | Np | Cola N vezes o conteúdo da área de transferência |
+
+[top](#editor-vim-table-of-contents)
 
 ## Substituição de textos
 
@@ -150,6 +166,8 @@ Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
 | :10,20s/^/# | Insere o caracter # no início (^) das linhas 10 a 20 |
 | :10,20s/^#/ | Remove o primeiro carater nas linhas 10 a 20 |
 | :% s/./\u&/gc | Converte para maiúsculas (\u) o primeiro caracter (.) de cada linha. |
+
+[top](#editor-vim-table-of-contents)
 
 ## Opções para o comando SET
 
@@ -179,6 +197,8 @@ Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
 | undolevels ul=N | Guarde os N últimos comandos para desfazer (padrão=1000) |
 | vb t_vb= | Retira o “beep” de erro |
 
+[top](#editor-vim-table-of-contents)
+
 ## Invertendo maiúsculas/minúsculas
 
 | Comando | Descrição |
@@ -191,6 +211,8 @@ Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
 
 Observação: Onde está escrito “seleciona”, é para fazer utilizando o modo visual (v).
 
+[top](#editor-vim-table-of-contents)
+
 ## Modo visual do vim
 
 Entre no modo visual: v
@@ -201,6 +223,8 @@ Utilizando normalmente as teclas Backspace/Delete, ou entrando em modo visual (v
 Você pode remover até o final de uma palavra, utilizando: dw
 Pode também remover até o final de uma frase: d$
 
+[top](#editor-vim-table-of-contents)
+
 ## Copiando e colando textos no vim (utilizando o mouse)
 
 Selecione o texto necessário com o botão esquerdo do mouse. Quando você for colar, saiba que o texto será colado a partir de onde se encontra o cursor (esse que aparece, às vezes piscando e às vezes não, quando você está digitando). Para colar, depois de ter selecionado o texto, você pode utilizar uma dessas opções:
@@ -210,6 +234,8 @@ Selecione o texto necessário com o botão esquerdo do mouse. Quando você for c
 3. Pressionando o botão do meio do mouse (mouse de 3 botões);
 
 Observação: Lembre-se que o vim deve estar no modo de inserção.
+
+[top](#editor-vim-table-of-contents)
 
 ## Comandos mais comuns
 
@@ -242,3 +268,5 @@ Observação: Lembre-se que o vim deve estar no modo de inserção.
 | :wq | Salva e fecha |
 | :exit ou “:x” (sem aspas) | Fecha e grava se necessário |
 | :help | ajuda do VI |
+
+[top](#editor-vim-table-of-contents)
