@@ -12,4 +12,4 @@ Minhas notas e observações de estudo sobre diversos temas de tecnologia
 1. [Vim](vim/index.md)
 1. Lunix
 1. MongoDb
-1.
+1. [Code Review](code_review/index.md)
