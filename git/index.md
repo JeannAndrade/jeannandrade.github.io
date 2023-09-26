@@ -68,6 +68,29 @@ Os seguintes protocolos são suportados pelo git:
 
 ## Recording Changes to the Repository
 
+### Checking the Status of Your Files
+
+The main tool you use to determine which files are in which state is the `git status` command.
+
+Se quiser uma saída mais simplificada para o comando este comando, use o parametro -s ou --short
+
+| Símbilo | Descrição |
+| ----------- | ----------- |
+| ?? | Arquivos ainda não monitorados pelo git |
+| A | new files that have been added to the staging area |
+| M | modified files|
+
+```git
+$ git status -s
+ M README
+MM Rakefile
+A  lib/git.rb
+M  lib/simplegit.rb
+?? LICENSE.txt
+```
+
+ There are two columns to the output - the left-hand column indicates the status of the staging area and the right-hand column indicates the status of the working tree. So for example in that output, the README file is modified in the working directory but not yet staged, while the lib/simplegit.rb file is modified and staged. The Rakefile was modified, staged and then modified again, so there are changes to it that are both staged and unstaged.
+
 ### Tracking New Files
 
 Para levar um arquivo de Untracked para Staged:
@@ -109,7 +132,7 @@ To see what you’ve changed but not yet staged:
 
 `git diff`
 
-If you want to see what you’ve staged that will go into your next commitÇ
+If you want to see what you’ve staged that will go into your next commit
 
 `git diff --staged`
 
@@ -182,3 +205,11 @@ para subir um branch criado localmente para servidor remoto
 git push --set-upstream origin nome-branch
 
 [top](#git-table-of-contents)
+
+## Principais comandos
+
+[init](#init)
+[clone](#clone)
+[status](#checking-the-status-of-your-files)
+[add](#tracking-new-files)
+[diff](#viewing-your-staged-and-unstaged-changes)
