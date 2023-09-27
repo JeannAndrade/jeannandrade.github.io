@@ -7,6 +7,7 @@ Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas
 1. [Getting a git repository](#getting-a-git-repository)
 1. [Recording Changes to the Repository](#recording-changes-to-the-repository)
 1. [Working with Remotes](#working-with-remotes)
+1. [Principais comandos](#principais-comandos)
 
 ## Help
 
@@ -140,6 +141,25 @@ This command compares your staged changes to your last commit
 
 ### Committing Your Changes
 
+Para commitar tudo que está em staged o comando é:
+
+`git commit`
+
+Remember that anything that is still unstaged — any files you have created or modified that you haven’t run git add on since you edited them — won’t go into this commit. They will stay as modified files on
+your disk.
+
+A variante `git commit -v` abrirá o editor da sua preferência com o resultado do 'diff' para que seja possível ver exatamente o que está sendo comitado.
+
+Outro opção é adicionar a mesnagem inline:
+
+`git commit -m "mensgem do commit"`
+
+### Skipping the Staging Area
+
+Adicionando a opção -a ao command `git commit` fará que qualquer arquivo monitorado pelo git, mas ainda não incluído na area de stage, seja adicionado automaticamente. Arquivos não monitorados pelo git ficarão de fora do commit.
+
+### Removing Files
+
 [top](#git-table-of-contents)
 
 ## Working with Remotes
@@ -208,8 +228,4 @@ git push --set-upstream origin nome-branch
 
 ## Principais comandos
 
-[init](#init)
-[clone](#clone)
-[status](#checking-the-status-of-your-files)
-[add](#tracking-new-files)
-[diff](#viewing-your-staged-and-unstaged-changes)
+[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes)
