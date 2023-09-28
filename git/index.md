@@ -6,6 +6,7 @@ Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas
 1. [Ciclo de vida do status de seus arquivos](#ciclo-de-vida-do-status-de-seus-arquivos)
 1. [Getting a git repository](#getting-a-git-repository)
 1. [Recording Changes to the Repository](#recording-changes-to-the-repository)
+1. [Viewing the Commit History](#viewing-the-commit-history)
 1. [Working with Remotes](#working-with-remotes)
 1. [Principais comandos](#principais-comandos)
 
@@ -160,9 +161,39 @@ Adicionando a opção -a ao command `git commit` fará que qualquer arquivo moni
 
 ### Removing Files
 
+Para remover um arquivo do Git, você tem que removê-lo dos arquivos monitorados (mais precisamente removê-lo da area de stage) e então comitar.
+
+`git rm file_name`
+
+Se você já modificou o arquivo ou já o adicionou a area de stage, você deve forçar a remoção com o opção -f.
+
+Se quiser remover o arquivo da area de stage, mas ainda sim quer mante-lo no disco, use a opção `--cached`. Isso é útil quando você acidentalmente adiciona a area de stage algum arquivo importante, que é necessário para o projeto, mas vc não precisa mantê-lo no Git.
+
+### Renomeando arquivos
+
+Assim como ocorre com o Linux, renomear um arquivo é feito através do comando `mv`.
+
+git mv file_from file_to
+
+O próprio Git considera essa operação com um renomeio.
+
 [top](#git-table-of-contents)
 
-## Working with Remotes
+## Viewing the Commit History
+
+Para ver o histórico de alterações do repositório, o comando é o `git log`
+
+De forma padrão, o git log irá exibir a lista de commits na ordem reversa cronologicamente, as mais recentes irão aparece primeiro.
+
+A opção -p ou --patch mostra a diferença adicionada em cada commit e vc ainda pode adicionar um limite na quantidade de commits a serem exibidos.
+
+`git log -p -2`
+
+Outra opção importante é o --pretty que pode ser oneline, short, full, fuller, format
+
+`git log --pretty=oneline -2`
+
+[top](#git-table-of-contents)
 
 ### Remote
 
@@ -228,4 +259,4 @@ git push --set-upstream origin nome-branch
 
 ## Principais comandos
 
-[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes)
+[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history)
