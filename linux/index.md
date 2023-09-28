@@ -36,13 +36,13 @@ Foram usados como fonte:
 | hostname | lista o nome da máquina |
 | hostname -i | vai listas os IPs da máquina |
 | ip a | lista os IPs da máquina e mac e outras info |
-| grep | filtra a informação. Ex ip a | grep inet  |
+| grep | filtra a informação. Ex ip a \| grep inet  |
 | ping | verifica se está havendo comunicação com outras máquinas |
 | free-h & free-m | verifica o uso da memório da máquina |
 | top | é como se fosse o monitor do sistema, só que mais simplificado |
 | htop | mesmo que o top, só que mais formatado para humanos |
 | ps | listas os processos rodando no terminal |
-| ps aux | lista os processos do sistema, geralmente ẽ usado com o filtro grep. ps aux | grep gnome-terminal |
+| ps aux | lista os processos do sistema, geralmente ẽ usado com o filtro grep. ps aux \| grep gnome-terminal |
 | pgrep | já é a combinação do ps com o grep. Ex. pgrep gnome-terminal |
 | kill | serve para gerenciar processos. Matar o processo |
 | df -h | lista os recursos de dados do sistema |

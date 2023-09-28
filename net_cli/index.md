@@ -89,11 +89,13 @@ dotnet remove package Microsoft.EntityFrameworkCore.SqlServer
 
 ### Adicionando Package ao projeto
 
+```dotnet
 dotnet add SimpleApp.Tests package Moq --version 4.13.1
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 3.1.5
 dotnet add package Swashbuckle.AspNetCore --version 5.0.0-rc2
+```
 
 [top](#table-of-contents)
 
