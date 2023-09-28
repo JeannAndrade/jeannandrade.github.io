@@ -10,6 +10,6 @@ Minhas notas e observações de estudo sobre diversos temas de tecnologia
 1. Kubernetes
 1. .Net cli
 1. [Vim](vim/index.md)
-1. Lunix
+1. [Terminal Lunix](linux/index.md)
 1. MongoDb
 1. [Code Review](code_review/index.md)
