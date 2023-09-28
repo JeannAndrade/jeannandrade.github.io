@@ -76,7 +76,7 @@ The main tool you use to determine which files are in which state is the `git st
 
 Se quiser uma saída mais simplificada para o comando este comando, use o parametro -s ou --short
 
-| Símbilo | Descrição |
+| Símbolo | Descrição |
 | ----------- | ----------- |
 | ?? | Arquivos ainda não monitorados pelo git |
 | A | new files that have been added to the staging area |
