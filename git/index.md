@@ -7,6 +7,7 @@ Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas
 1. [Getting a git repository](#getting-a-git-repository)
 1. [Recording Changes to the Repository](#recording-changes-to-the-repository)
 1. [Viewing the Commit History](#viewing-the-commit-history)
+1. [Desfazendo as coisas](#desfazendo-as-coisas)
 1. [Working with Remotes](#working-with-remotes)
 1. [Principais comandos](#principais-comandos)
 
@@ -155,6 +156,8 @@ Outro opção é adicionar a mesnagem inline:
 
 `git commit -m "mensgem do commit"`
 
+Quando vc precisa corrigir um commit, ou porque esquecer de acrescentar um arquivo ou porque errou na mensagem e deseja corrigir, use o `git add` para acrescentar o que falta e depois use o `commit --amend`. Neste caso o commit anterior nem será exibido no histórico. O nome commit passará a ser a única entrada no histórico.
+
 ### Skipping the Staging Area
 
 Adicionando a opção -a ao command `git commit` fará que qualquer arquivo monitorado pelo git, mas ainda não incluído na area de stage, seja adicionado automaticamente. Arquivos não monitorados pelo git ficarão de fora do commit.
@@ -193,57 +196,76 @@ Outra opção importante é o --pretty que pode ser oneline, short, full, fuller
 
 `git log --pretty=oneline -2`
 
+| Opção | Efeito | Exemplo |
+| ----- | -----| ----- |
+| --since | commits desde | --since=2.weeks --since="2008-01-15" --since="2 years 1 day 3 minutes ago" |
+| --until | commits até | --since="2008-01-15" --until="2008-02-15" |
+| --author | commits por autor | --author='Junio C Hamano' |
+| --grep | filtra por palavra na mensagem | --grep="layout" |
+
+You can specify more than one instance of both the --author and --grep search criteria, which will limit the commit output to commits that match any of the
+--author patterns and any of the --grep patterns; however, adding the --all-match option further limits the output to just those commits that match all --grep patterns.
+
+A parte de log tem outras opções muito interessantes sobre filtros, na página 44 até 46.
+
 [top](#git-table-of-contents)
 
-### Remote
+## Desfazendo as coisas
 
-Para ver quais servidores remotos estão configurados:
+### Retirando um arquivo da area de stage
+
+`git reset HEAD file_name`
+
+O arquivo foi colocado na area de stage com o comando `add`, mas agora vc precisa retira-lo dessa area.
+
+### Desfazendo alterações em arquivo no diretório de trabalho
+
+`git checkout -- file_name`
+
+Aqui o arquivo foi alterado, mas ainda não foi dado o add. Dessa forma ele está alterado, mas não está na area de stage. Ex. git checkout -- CONTRIBUTING.md
+
+[top](#git-table-of-contents)
+
+## Working with Remotes
+
+### Para ver quais servidores remotos estão configurados
 
 ```git
 git remote (para listar os repositórios remotos que o repositório local conhece)
 git remote -v (verbose para listar mais detalhes)
 ```
 
-Para fazer um repositório local conhecer um repositório remoto:
+### Para fazer um repositório local conhecer um repositório remoto
 
 ```git
 git remote add <name> <url> (a url pode ser um endereço local, na rede, na web)
 git remote add pb <https://github.com/paulboone/ticgit>
 ```
 
-add remote repositories
+### Fetching from Your Remotes
 
-remove remotes that are no longer valid
-
-manage various remote branches
-
-define them as being tracked or not
-
-Pull (puxe)
-
-Para baixar os arquivos do servidor git
-
-git pull <nome-servidor-remoto> <nome-branch>
-
-If your current branch is set up to track a remote branch
-
-you can use the git pull command to automatically fetch and then merge that remote branch into your current branch. This may be an easier or more comfortable workflow for you; and by default, the git clone command automatically sets up your local master branch to track the remote master branch (or whatever the default branch is called) on the server you cloned from. Running git pull generally fetches data from the server you originally cloned from and automatically tries to merge it into the code you’re currently working on.
-
-Fetch
-
-to get data from your remote projects
-
-git fetch <remote> (fetch the existing branch from our remote repository)
+`git fetch remote`
 
 The command goes out to that remote project and pulls down all the data from that remote project that you don’t have yet. After you do this, you should have references to all the branches from that remote, which you can merge in or inspect at any time.
 
-It’s important to note that the git fetch command only downloads the data to your local repository — it doesn’t automatically merge it with any of your work or modify what you’re currently working on. You have to merge it manually into your work when you’re ready.
+### Pulling from Your Remotes
 
-Push (Empurre)
+`git Pull`
+
+If your current branch is set up to track a remote branch (see the next section and Git Branching for more information), you can use the git pull command to automatically fetch and then merge that remote branch into your current branch.
+
+Para baixar um branch específico, use `git pull nome-servidor-remoto nome-branch`
+
+### Diferença entre fetch e pull
+
+It’s important to note that the git fetch command only downloads the data to your local repository — it doesn’t automatically merge it with any of your work or
+modify what you’re currently working on. You have to merge it manually into your work when you’re ready. Git pull command will automatically fetch and then merge that remote branch into your current branch.
+
+### Pushing to Your Remotes
 
 Para subir um conjunto de arquivos para o servidor git
 
-git push <nome-servidor-remoto> <nome-branch>
+git push nome-servidor-remoto nome-branch
 
 git push origin master
 
@@ -259,4 +281,4 @@ git push --set-upstream origin nome-branch
 
 ## Principais comandos
 
-[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history)
+[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes)
