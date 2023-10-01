@@ -43,18 +43,18 @@ Vejamos algumas das principais teclas de movimentação sobre o conteúdo do arq
 | H | Move o cursor para a primeira linha da tela. |
 | M | Move o cursor para o meio da tela. |
 | L | Move o cursor para a última linha da tela. |
-| h | Move o cursor para caracter a esquerda. |
+| h | Move o cursor para caractere a esquerda. |
 | j | Move o cursor para linha abaixo. |
 | k | Move o cursor para linha acima. |
-| l | Move o cursor para caracter a direita. |
+| l | Move o cursor para caractere a direita. |
 | w | Move o cursor para o início da próxima palavra (não ignorando a pontuação). |
 | W | Move o cursor para o início da próxima palavra (ignorando a pontuação). |
 | b | Move o cursor para o início da palavra anterior (não ignorando a pontuação). |
 | B | Move o cursor para o início da palavra anterior (ignorando a pontuação). |
 | 0 (zero) | Move o cursor para o início da linha corrente. |
-| ^ | Move o cursor para o primeiro caracter não branco da linha. |
+| ^ | Move o cursor para o primeiro caractere não branco da linha. |
 | $ | Move o cursor para o fim da linha corrente. |
-| nG | Move o cursor para a linha de número “n” (susbstitua n pelo número da linha).
+| nG | Move o cursor para a linha de número “n” (substitua n pelo número da linha).
 | gg | Mome o cursor para a primeira linha do arquivo. |
 | G | Move o cursor para a última linha do arquivo. |
 
@@ -113,7 +113,7 @@ Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
 
 | Comando | Descrição |
 | ------ | ------ |
-| /palavra | Procura pela palavra ou caracter acima ou abaixo do texto |
+| /palavra | Procura pela palavra ou caractere acima ou abaixo do texto |
 | ?palavra | Move para a ocorrência anterior da palavra (para repetir a busca use “n”) |
 | n | Repete o último comando utilizando / ou ? |
 | N | Repete o último comando / ou ? ao contrário (baixo para cima) |
@@ -125,13 +125,13 @@ Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
 
 | Comando | Descrição |
 | ------ | ------ |
-| x | Apaga o caracter onde o cursor estiver |
+| x | Apaga o caractere onde o cursor estiver |
 | dd | Apaga a linha inteira onde o cursor estive |
 | D | Apaga a linha a partir da posição do cursor até o fim |
 | J | Une a linha corrente à próxima |
-| 5dd | Removeas próximas 5 linhas a partir da posição do atual do cursor |(qualquer número) |
+| 5dd | Remove as próximas 5 linhas a partir da posição do atual do cursor |(qualquer número) |
 | :A,Bd | Deleta da linha A até a linha B e copia para a área de transferência |
-| Ctrl + h | Apaga último caracter à esquerda (no modo de inserção) |
+| Ctrl + h | Apaga último caractere à esquerda (no modo de inserção) |
 | cc | Apaga a linha atual e copia para a área de transferência |
 | cNc | Apaga N linhas e copia para a área de transferência |
 
@@ -152,7 +152,7 @@ Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
 
 | Comando | Descrição |
 | ------ | ------ |
-| rCARACTER | Substitui o caracter onde o cursor se encontra pelo caracter especificado em CARACTER |
+| rCARACTER | Substitui o caractere onde o cursor se encontra pelo caractere especificado em CARACTERE |
 | RTEXTO | Substitui o texto corrente pelo texto digitado (sobrepõe) |
 | cw | Remove a palavra corrente para substituição |
 | cc | Remove a linha corrente para substituição |
@@ -163,9 +163,9 @@ Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
 | :% s/velho/novo/g | Substitui em todo o arquivo (%), todas (g) as ocorrências de “velho” por “novo” |
 | :% s/velho/novo/gc | Igual ao anterior, mas pedindo confirmação para cada substituição |
 | :% s/^String[0-9]//gc | Expressões regulares também funcionam, como no sed |
-| :10,20s/^/# | Insere o caracter # no início (^) das linhas 10 a 20 |
-| :10,20s/^#/ | Remove o primeiro carater nas linhas 10 a 20 |
-| :% s/./\u&/gc | Converte para maiúsculas (\u) o primeiro caracter (.) de cada linha. |
+| :10,20s/^/# | Insere o caractere # no início (^) das linhas 10 a 20 |
+| :10,20s/^#/ | Remove o primeiro caractere nas linhas 10 a 20 |
+| :% s/./\u&/gc | Converte para maiúsculas (\u) o primeiro caractere (.) de cada linha. |
 
 [top](#editor-vim-table-of-contents)
 
@@ -177,16 +177,16 @@ Se você precisar voltar o texto na tela, utilize as teclas Ctrl + r.
 | autowrite aw | Salva a cada alteração |
 | backspace bs | Comportamento backspace (1 ou 2) |
 | errorbell eb | Campainha de erro |
-| expandtab et | Troca tab por espacos |
+| expandtab et | Troca tab por espaços |
 | fileformat=dos ff | Converte o arquivo para DOS |
 | hidden hid | Preserva o buffer |
-| hlsearch hls | Elumina a última procura |
+| hlsearch hls | Ilumina a última procura |
 | cursorline | Exibe uma linha onde o cursor se encontra |
 | ignorecase ic | Case insensitive na busca |
 | incsearch is | Ilumina procura enquanto digita |
 | laststatus=2 | Mostra linha de estado |
 | lazyredraw lz | Não redesenha em macros |
-| lines=N | Múmero de linhas na tela |
+| lines=N | Número de linhas na tela |
 | magic | Usar mágicas na procura de padrões |
 | number nu | Mostra núm da linha |
 | report=N | Mostra aviso quando N linhas mudaram (0=sempre) |
@@ -242,7 +242,7 @@ Observação: Lembre-se que o vim deve estar no modo de inserção.
 | Comando | Descrição |
 | ------ | ------ |
 | :e arquivo | abre o arquivo |
-| :e. | abre o diretorio atual para selecionar um arquivo |
+| :e. | abre o diretório atual para selecionar um arquivo |
 | :Vex | abre uma janela vertical para selecionar um novo arquivo a ser editado |
 | Ctrl+w seguido de v | abre uma janela vertical |
 | Ctrl+w seguido de s | abre uma janela horizontal |
@@ -259,8 +259,8 @@ Observação: Lembre-se que o vim deve estar no modo de inserção.
 | Ctrl+w+j | ir para janela inferior |
 | Ctrl+w Ctrl+w | alternar entre janelas |
 | :! | Permite executar um comando do shell e retorna ao vim (Ex: :!ls = executa o comando ls e retorna ao vim) |
-| :.! | Executa um comando no shell e insere a saída no vim abaixo do cursor (Ex: :.!ls = executa o comando ls e intere a saida no vim) |
-| :r! | Executa um comando no shell e insere a saída no vim acima do cursor (Ex: :r!ls = executa o comando ls e intere a saida no vim) |
+| :.! | Executa um comando no shell e insere a saída no vim abaixo do cursor (Ex: :.!ls = executa o comando ls e insere a saída no vim) |
+| :r! | Executa um comando no shell e insere a saída no vim acima do cursor (Ex: :r!ls = executa o comando ls e insere a saída no vim) |
 | :quit ou :q | Fecha |
 | :quit! ou :q! | Fecha sem gravar |
 | :w | Salva o arquivo |

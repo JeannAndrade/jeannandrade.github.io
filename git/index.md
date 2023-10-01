@@ -75,7 +75,7 @@ Os seguintes protocolos são suportados pelo git:
 
 The main tool you use to determine which files are in which state is the `git status` command.
 
-Se quiser uma saída mais simplificada para o comando este comando, use o parametro -s ou --short
+Se quiser uma saída mais simplificada para o comando este comando, use o parâmetro -s ou --short
 
 | Símbolo | Descrição |
 | ----------- | ----------- |
@@ -152,9 +152,9 @@ your disk.
 
 A variante `git commit -v` abrirá o editor da sua preferência com o resultado do 'diff' para que seja possível ver exatamente o que está sendo comitado.
 
-Outro opção é adicionar a mesnagem inline:
+Outro opção é adicionar a mensagem inline:
 
-`git commit -m "mensgem do commit"`
+`git commit -m "mensagem do commit"`
 
 Quando vc precisa corrigir um commit, ou porque esquecer de acrescentar um arquivo ou porque errou na mensagem e deseja corrigir, use o `git add` para acrescentar o que falta e depois use o `commit --amend`. Neste caso o commit anterior nem será exibido no histórico. O nome commit passará a ser a única entrada no histórico.
 
@@ -164,13 +164,13 @@ Adicionando a opção -a ao command `git commit` fará que qualquer arquivo moni
 
 ### Removing Files
 
-Para remover um arquivo do Git, você tem que removê-lo dos arquivos monitorados (mais precisamente removê-lo da area de stage) e então comitar.
+Para remover um arquivo do Git, você tem que removê-lo dos arquivos monitorados (mais precisamente removê-lo da area de stage) e então fazer commit.
 
 `git rm file_name`
 
 Se você já modificou o arquivo ou já o adicionou a area de stage, você deve forçar a remoção com o opção -f.
 
-Se quiser remover o arquivo da area de stage, mas ainda sim quer mante-lo no disco, use a opção `--cached`. Isso é útil quando você acidentalmente adiciona a area de stage algum arquivo importante, que é necessário para o projeto, mas vc não precisa mantê-lo no Git.
+Se quiser remover o arquivo da area de stage, mas ainda sim quer mantê-lo no disco, use a opção `--cached`. Isso é útil quando você acidentalmente adiciona a area de stage algum arquivo importante, que é necessário para o projeto, mas vc não precisa mantê-lo no Git.
 
 ### Renomeando arquivos
 
@@ -261,17 +261,15 @@ Para baixar um branch específico, use `git pull nome-servidor-remoto nome-branc
 It’s important to note that the git fetch command only downloads the data to your local repository — it doesn’t automatically merge it with any of your work or
 modify what you’re currently working on. You have to merge it manually into your work when you’re ready. Git pull command will automatically fetch and then merge that remote branch into your current branch.
 
-### Pushing to Your Remotes
+### Inspecionar um remote
 
-Para subir um conjunto de arquivos para o servidor git
+Para obter mais informações sobre um remote, vc usa o comando `git remote show nome_do_remote`. Ex.:  git remote show origin
 
-git push nome-servidor-remoto nome-branch
+Esse comando mostra:
 
-git push origin master
-
-git push local master
-
-This command works only if you cloned from a server to which you have write access and if nobody has pushed in the meantime. If you and someone else clone at the same time and they push upstream and then you push upstream, your push will rightly be rejected. You’ll have to fetch their work first and incorporate it into yours before you’ll be allowed to push. See Git Branching for more detailed information on how to push to remote servers.
+* which branch is automatically pushed to when you run git push while on certain branches.
+* which remote branches on the server you don’t yet have
+* which remote branches you have that have been removed from the server, and multiple local branches that are able to merge automatically with their remote-tracking branch when you run git pull.
 
 para subir um branch criado localmente para servidor remoto
 
