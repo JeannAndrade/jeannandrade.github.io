@@ -361,9 +361,9 @@ Se você precisa fazer mudanças, como corrigir um bug em uma versão antiga, po
 
 Se você fizer um commit, seu branch version2 será um pouco diferente de sua tag v2.0.0, pois avançará com suas novas alterações, então tome cuidado.
 
-## Aliases (atalhos)
-
 [top](#git-table-of-contents)
+
+## Aliases (atalhos)
 
 Você pode configurar atalhos no git usando o comando de configuração `git config --global alias`
 
@@ -377,6 +377,8 @@ Você pode configurar atalhos no git usando o comando de configuração `git con
 | git config --global alias.ph push | git ph |
 | git config --global alias.unstage 'reset HEAD --' | git unstage fileA |
 | git config --global alias.last 'log -1 HEAD' | git last |
+
+[top](#git-table-of-contents)
 
 ## Gerando uma nova chave SSH e adicionando-a ao agente SSH
 
@@ -396,3 +398,5 @@ Página oficial para os 3 maiores versionadores que eu utilizo
 1. ssh-add ~/.ssh/id_ed25519
 1. Adicionar a chave gerado ao seu versionador
     1. [github](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+
+[top](#git-table-of-contents)

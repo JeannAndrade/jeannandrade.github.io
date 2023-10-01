@@ -1,6 +1,6 @@
-# Bem vindo ao jeannandrade.github.io
+# Bem vindo à minha página de anotações
 
-Minhas notas e observações de estudo sobre diversos temas de tecnologia
+Minhas notas e observações de estudo sobre diversos temas de tecnologia. Esta página está em contante evolução.
 
 ## Hard Skills
 
