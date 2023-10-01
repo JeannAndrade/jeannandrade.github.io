@@ -242,6 +242,28 @@ git remote add <name> <url> (a url pode ser um endereço local, na rede, na web)
 git remote add pb <https://github.com/paulboone/ticgit>
 ```
 
+### Inspecionar um remote
+
+Para obter mais informações sobre um remote, vc usa o comando `git remote show nome_do_remote`. Ex.:  git remote show origin
+
+Esse comando mostra:
+
+* which branch is automatically pushed to when you run git push while on certain branches.
+* which remote branches on the server you don’t yet have
+* which remote branches you have that have been removed from the server, and multiple local branches that are able to merge automatically with their remote-tracking branch when you run git pull.
+
+### Renomeando um remote
+
+`git remote rename pb paul`
+
+It’s worth mentioning that this changes all your remote-tracking branch names, too. What used to be referenced at pb/master is now at paul/master.
+
+### Removendo um remote
+
+`git remote remove paul`
+
+Once you delete the reference to a remote this way, all remote-tracking branches and configuration settings associated with that remote are also deleted.
+
 ### Fetching from Your Remotes
 
 `git fetch remote`
@@ -261,22 +283,92 @@ Para baixar um branch específico, use `git pull nome-servidor-remoto nome-branc
 It’s important to note that the git fetch command only downloads the data to your local repository — it doesn’t automatically merge it with any of your work or
 modify what you’re currently working on. You have to merge it manually into your work when you’re ready. Git pull command will automatically fetch and then merge that remote branch into your current branch.
 
-### Inspecionar um remote
-
-Para obter mais informações sobre um remote, vc usa o comando `git remote show nome_do_remote`. Ex.:  git remote show origin
-
-Esse comando mostra:
-
-* which branch is automatically pushed to when you run git push while on certain branches.
-* which remote branches on the server you don’t yet have
-* which remote branches you have that have been removed from the server, and multiple local branches that are able to merge automatically with their remote-tracking branch when you run git pull.
+### Pushing to Your Remotes
 
 para subir um branch criado localmente para servidor remoto
 
-git push --set-upstream origin nome-branch
+`git push --set-upstream origin nome-branch`
+
+This command works only if you cloned from a server to which you have write access and if nobody has pushed in the meantime. If you and someone else clone at the same time and they push upstream and then you push upstream, your push will rightly be rejected. You’ll have to fetch their work first and incorporate it into yours before you’ll be allowed to push. See Git Branching for more detailed information on how to push to remote servers.
 
 [top](#git-table-of-contents)
 
+## Tagging
+
+Typically, people use this functionality to mark release points (v1.0, v2.0 and so on).
+
+### Listing Your Tags
+
+`git tag`
+`git tag -l "v1.8.5*"` -> para listar apenas as tags da série 1.8.5 (-l ou --list)
+
+### Creating annotated Tags
+
+Annotated tags, however, are stored as full objects in the Git database. They’re checksummed; contain the tagger name, email, and date; have a tagging message; and can be signed and verified with GNU Privacy Guard (GPG). It’s generally recommended that you create annotated tags so you can have all this information;
+
+`git tag -a v1.4 -m "my version 1.4"`
+
+### Creating lightweight Tags
+
+A lightweight tag is very much like a branch that doesn’t change — it’s just a pointer to a specific commit. To create a lightweight tag, don’t supply any of the -a, -s, or
+-m options, just provide a tag name
+
+`git tag v1.4-lw`
+
+### Tagging Later
+
+Você também pode adicionar tag em commit que já não é o último commit feito. Para isso, comece com o `git log --pretty=oneline` para listar os commits já realizados.
+
+Depois crie a tag adicionando o checksum ou parte dele ao final do commando `git tag -a v1.2 9fceb02`
+
+### Show tag data
+
+You can see the tag data along with the commit that was tagged by using the git show command.
+
+`git show v1.4`
+
+### Levando uma tag para o remote
+
+By default, the git push command doesn’t transfer tags to remote servers. You will have to explicitly push tags to a shared server after you have created them.
+
+`git push origin v1.5`
+
+If you have a lot of tags that you want to push up at once, you can also use the --tags option to the git push command.
+
+`git push origin --tags`
+
+### Deletando tags
+
+Deletando a tag localmente: `git tag -d v1.4-lw`
+Depois, para deletar do remoto: `git push origin --delete v1.4-lw`
+
+### Vendo o conteúdo de uma tag
+
+`git checkout 2.0.0`
+
+### Criando um novo branch a partir de uma tag
+
+Se você precisa fazer mudanças, como corrigir um bug em uma versão antiga, por exemplo — você provavelmente irá querer criar um branch:
+
+`git checkout -b version2 v2.0.0`
+
+Se você fizer um commit, seu branch version2 será um pouco diferente de sua tag v2.0.0, pois avançará com suas novas alterações, então tome cuidado.
+
+## Aliases (atalhos)
+
+[top](#git-table-of-contents)
+
+Você pode configurar atalhos no git usando o comando de configuração `git config --global alias`
+
+| Configuração | Comando |
+| ------- | ------- |
+| git config --global alias.co checkout | git co |
+| git config --global alias.br branch | git br |
+| git config --global alias.ci commit | git ci |
+| git config --global alias.st status | git st |
+| git config --global alias.unstage 'reset HEAD --' | git unstage fileA |
+| git config --global alias.last 'log -1 HEAD' | git last |
+
 ## Principais comandos
 
-[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes)
+[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes) | [tag](#tagging) | [show](#show-tag-data)
