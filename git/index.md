@@ -2,6 +2,7 @@
 
 Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas também pode ter outros apontamentos de fontes variadas.
 
+1. [Principais comandos](#principais-comandos)
 1. [Help](#help)
 1. [Ciclo de vida do status de seus arquivos](#ciclo-de-vida-do-status-de-seus-arquivos)
 1. [Getting a git repository](#getting-a-git-repository)
@@ -9,7 +10,13 @@ Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas
 1. [Viewing the Commit History](#viewing-the-commit-history)
 1. [Desfazendo as coisas](#desfazendo-as-coisas)
 1. [Working with Remotes](#working-with-remotes)
-1. [Principais comandos](#principais-comandos)
+1. [Tagging](#tagging)
+1. [Aliases (atalhos)](#aliases-atalhos)
+1. [Gerando uma nova chave SSH e adicionando-a ao agente SSH](#gerando-uma-nova-chave-ssh-e-adicionando-a-ao-agente-ssh)
+
+## Principais comandos
+
+[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes) | [tag](#tagging) | [show](#show-tag-data)
 
 ## Help
 
@@ -366,9 +373,26 @@ Você pode configurar atalhos no git usando o comando de configuração `git con
 | git config --global alias.br branch | git br |
 | git config --global alias.ci commit | git ci |
 | git config --global alias.st status | git st |
+| git config --global alias.pl pull | git pl |
+| git config --global alias.ph push | git ph |
 | git config --global alias.unstage 'reset HEAD --' | git unstage fileA |
 | git config --global alias.last 'log -1 HEAD' | git last |
 
-## Principais comandos
+## Gerando uma nova chave SSH e adicionando-a ao agente SSH
 
-[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes) | [tag](#tagging) | [show](#show-tag-data)
+Página oficial para os 3 maiores versionadores que eu utilizo
+
+| Versionador | URL da documentação |
+| ------ | ------ |
+| Github | [doc](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) |
+
+## Passo a passo para o Linux
+
+1. Abra Terminal e entre com os comandos abaixo
+1. ssh-keygen -t ed25519 -C "<your_email@example.com>"
+1. Enter a file in which to save the key (/home/YOU/.ssh/ALGORITHM):[Press enter]
+1. Vai pedir uma senha. No prompt, digite uma frase secreta segura.
+1. eval "$(ssh-agent -s)"
+1. ssh-add ~/.ssh/id_ed25519
+1. Adicionar a chave gerado ao seu versionador
+    1. [github](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
