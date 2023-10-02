@@ -386,9 +386,11 @@ Página oficial para os 3 maiores versionadores que eu utilizo
 
 | Versionador | URL da documentação |
 | ------ | ------ |
-| Github | [doc](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) |
+| Github | [url](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) |
+| Gitlab | [url](https://docs.gitlab.com/ee/user/ssh.html#generate-an-ssh-key-pair) |
+| Bitbucket | [url](https://www.atlassian.com/br/git/tutorials/git-ssh) |
 
-## Passo a passo para o Linux
+### Passo a passo para o Linux
 
 1. Abra Terminal e entre com os comandos abaixo
 1. ssh-keygen -t ed25519 -C "<your_email@example.com>"
