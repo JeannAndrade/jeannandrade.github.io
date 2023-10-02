@@ -20,6 +20,10 @@ MVC significa Model-View-Controller, que é um padrão de projeto que descreve a
 
 O framework MVC continua sendo uma parte importante do ASP.NET Core, mas a maneira como é usado tem mudado com o avanço do single-page applications (SPAs). Em SPA, o navegador faz uma única requisição HTTP e recebe um documento HTML que entrega uma interface rica para o cliente, tipicamente escrita em JavaScript como Angular ou React. Essa mudança para SPAs significa que as separações claras que MVC Framework original se baseou não são tão importante e seguir religiosamente o padrão já não é tão essencial. O MVC Framework permanece util, sendo principalmente usado como suporte para SPAs através de Web Services.
 
+![MVC versus SPA](img/MVCxSPA.png)
+
+Na imagem acima podemos ver essa diferença. Nas SPAs a responsabilidade da View fica do lado do cliente, que recebe o dado da controle e se responsabiliza pelas administração do DOM para que a página seja atualizada. No MVC essa responsabilidade é atribuída ao servidor, que devolve ao cliente um documento HTML já previamente construído.
+
 ### Razor Pages
 
 O Razor Pages adota o espírito de desenvolvimento das Web Pages e o implementa usando os recursos da plataforma originalmente desenvolvidos para o MVC Framework. Código e conteúdo são misturados para formar páginas independentes; isso recria a velocidade de desenvolvimento de Web Pages sem alguns dos problemas técnicos subjacentes. Razor Pages pode ser usado junto com o MVC Framework.
