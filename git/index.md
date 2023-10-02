@@ -369,14 +369,14 @@ Você pode configurar atalhos no git usando o comando de configuração `git con
 
 | Configuração | Comando |
 | ------- | ------- |
-| git config --global alias.co checkout | git co |
-| git config --global alias.br branch | git br |
-| git config --global alias.ci commit | git ci |
-| git config --global alias.st status | git st |
-| git config --global alias.pl pull | git pl |
-| git config --global alias.ph push | git ph |
-| git config --global alias.unstage 'reset HEAD --' | git unstage fileA |
-| git config --global alias.last 'log -1 HEAD' | git last |
+| `git config --global alias.co checkout` | `git co` |
+| `git config --global alias.br branch` | `git br` |
+| `git config --global alias.ci commit` | `git ci` |
+| `git config --global alias.st status` | `git st` |
+| `git config --global alias.pl pull` | `git pl` |
+| `git config --global alias.ph push` | `git ph` |
+| `git config --global alias.unstage 'reset HEAD --'` | `git unstage fileA` |
+| `git config --global alias.last 'log -1 HEAD'` | `git last` |
 
 [top](#git-table-of-contents)
 
