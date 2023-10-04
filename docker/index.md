@@ -39,10 +39,15 @@ Multipass é uma ferramenta gratuita para criar VMs Linux no estilo nuvem em sua
 
 ### Docker no Linux
 
-Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS
+Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS. Segue o roteiro de instalação no Linux 23.04 e foi também, tudo certo.
 
 ### Play with Docker
 
 [Play with Docker](https://labs.play-with-docker.com/) (PWD) é um playground Docker totalmente funcional baseado na Internet que dura até 4 horas. Você pode adicionar vários nós e até mesmo agrupá-los em um swarm.
 
 [top](#table-of-contents)
+
+## Comandos de verificação
+
+`docker --version`
+`docker info`
