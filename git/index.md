@@ -393,11 +393,11 @@ Página oficial para os 3 maiores versionadores que eu utilizo
 ### Passo a passo para o Linux
 
 1. Abra Terminal e entre com os comandos abaixo
-1. ssh-keygen -t ed25519 -C "<your_email@example.com>"
+1. `ssh-keygen -t ed25519 -C "<your_email@example.com>"`
 1. Enter a file in which to save the key (/home/YOU/.ssh/ALGORITHM):[Press enter]
 1. Vai pedir uma senha. No prompt, digite uma frase secreta segura.
-1. eval "$(ssh-agent -s)"
-1. ssh-add ~/.ssh/id_ed25519
+1. `eval "$(ssh-agent -s)"`
+1. `ssh-add ~/.ssh/id_ed25519`
 1. Adicionar a chave gerado ao seu versionador
     1. [github](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
