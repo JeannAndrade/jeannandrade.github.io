@@ -35,6 +35,23 @@ Também é importante dizer que cada imagem recebe seu próprio ID exclusivo. Ao
 
 ### Containers
 
+### dockerfile
+
+O Dockerfile é um arquivo de texto que diz ao docker com construir uma imagem docker para um determinado app e suas dependências.
+
+```docker
+FROM alpine
+LABEL maintainer="<nigelpoulton@hotmail.com>"
+RUN apk add --update nodejs nodejs-npm
+COPY . /src
+WORKDIR /src
+RUN  npm install
+EXPOSE 8080
+ENTRYPOINT ["node", "./app.js"]
+```
+
+Para criar uma imagem a partir do dockerfile, use docker build
+
 [top](#table-of-contents)
 
 ## Como instalar o Docker
@@ -59,11 +76,21 @@ Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS.
 
 ## Comandos de verificação
 
-| Comando | Descrição | Exemplo |
-| ----- | ----- | ------ |
-| `docker version` | Obtém informações sobre as versões e testa se o client e o Deamon (server) estão executando e falando um com o outro | |
-| `docker info` | Obtém informações mais detalhadas do client e do server sobre os recursos que o Docker está gerenciando, como containers, imagens, volumes... | |
-| `docker pull` | É o comando para se obter uma imagem | `docker pull ubuntu:latest` |
-| `docker run` | Executa um container usando uma imagem como base | `docker run -it ubuntu:latest /bin/bash` |
-| `Press Ctrl-PQ` | para sair do container sem finalizá-lo. O terminal sairá do terminal do container para o terminal do host | |
-| `docker ps` | Lista os container em execução | `docker ps` |
+| Comando | Descrição
+| ----- | ----- |
+| `docker version` | Obtém informações sobre as versões e testa se o client e o Deamon (server) estão executando e falando um com o outro |
+| `docker info` | Obtém informações mais detalhadas do client e do server sobre os recursos que o Docker está gerenciando, como containers, imagens, volumes... |
+
+## Comandos de recursos
+
+| Recurso | Comando | Descrição | Exemplo |
+| ---- | ----- | ----- | ------ |
+| image | `docker pull` | obtém uma imagem da sua lista de fontes de imagem (default é dockerhub) | `docker pull ubuntu:latest` |
+| image | `docker images` | Lista as imagens já baixadas | `docker images` |
+| image | `docker build` | constrói uma imagem a partir de um dockerfile | `docker build -t test:latest .` |
+| container | `docker run` | Executa um container usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest` |
+| container | `docker ps` | Lista os container em execução. Use -a para listar inclusive os containers parados | `docker ps` |
+| container | `Press Ctrl-PQ` | para sair do container sem finalizá-lo. O terminal sairá do terminal do container para o terminal do host | |
+| container | `docker exec` | anexa seu shell ao terminal de um contêiner em execução | `docker exec -it vigilant_borg bash` |
+| container | `docker stop` | Para a execução do container | `docker stop id_container` |
+| container | `docker rm` | Elimina o container |`docker rm id_container` |
