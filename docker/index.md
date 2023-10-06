@@ -2,6 +2,9 @@
 
 1. [Conceitos](#conceitos)
 1. [Como instalar o Docker](#como-instalar-o-docker)
+1. [Comandos de verificação](#comandos-de-verificação)
+1. [Comandos associados a recursos](#comandos-associados-a-recursos)
+1. [Como containerizar um app a partir de um fonte do github](#como-containerizar-um-app-a-partir-de-um-fonte-do-github)
 
 ## Conceitos
 
@@ -34,6 +37,8 @@ Se você baixar a imagem de um contêiner de aplicativo, como nginx:latest, obte
 Também é importante dizer que cada imagem recebe seu próprio ID exclusivo. Ao fazer referência a imagens, você pode consultá-las usando IDs ou nomes. Se você estiver trabalhando com IDs de imagens, geralmente basta digitar os primeiros caracteres do ID - desde que seja único, o Docker saberá a qual imagem você se refere.
 
 ### Containers
+
+O conceito de container é similar ao conceito de Objeto. Se a imagem é uma classe, o container será um objeto criado a partir de uma imagem. Basicamente um container é uma imagem em execução.
 
 ### dockerfile
 
@@ -81,7 +86,7 @@ Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS.
 | `docker version` | Obtém informações sobre as versões e testa se o client e o Deamon (server) estão executando e falando um com o outro |
 | `docker info` | Obtém informações mais detalhadas do client e do server sobre os recursos que o Docker está gerenciando, como containers, imagens, volumes... |
 
-## Comandos de recursos
+## Comandos associados a recursos
 
 | Recurso | Comando | Descrição | Exemplo |
 | ---- | ----- | ----- | ------ |
@@ -94,3 +99,12 @@ Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS.
 | container | `docker exec` | anexa seu shell ao terminal de um contêiner em execução | `docker exec -it vigilant_borg bash` |
 | container | `docker stop` | Para a execução do container | `docker stop id_container` |
 | container | `docker rm` | Elimina o container |`docker rm id_container` |
+
+## Como containerizar um app a partir de um fonte do github
+
+1. Clonar o projeto: `git clone <https://github.com/nigelpoulton/psweb.git>`
+1. Entrar na pasta: `cd psweb`
+1. Verificar se existe um dockerfile: `ls -l`
+1. Construir a imagem: `docker build -t test:latest .`
+1. Verificar se a imagem foi criada: `docker images`
+1. Executar um container a partir da imagem: `docker run -d --name web1 --publish 8080:8080 test:latest`
