@@ -36,6 +36,8 @@ Se você baixar a imagem de um contêiner de aplicativo, como nginx:latest, obte
 
 Também é importante dizer que cada imagem recebe seu próprio ID exclusivo. Ao fazer referência a imagens, você pode consultá-las usando IDs ou nomes. Se você estiver trabalhando com IDs de imagens, geralmente basta digitar os primeiros caracteres do ID - desde que seja único, o Docker saberá a qual imagem você se refere.
 
+O repositório local de imagens num host Linux é /var/lib/docker/<storage-driver>. Se vc está usando Docker em seu Mac ou PC com Docker Desktop, tudo estará rodando dentro de uma VM.
+
 ### Containers
 
 O conceito de container é similar ao conceito de Objeto. Se a imagem é uma classe, o container será um objeto criado a partir de uma imagem. Basicamente um container é uma imagem em execução.
@@ -90,7 +92,7 @@ Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS.
 
 | Recurso | Comando | Descrição | Exemplo |
 | ---- | ----- | ----- | ------ |
-| image | `docker pull` | obtém uma imagem da sua lista de fontes de imagem (default é dockerhub) | `docker pull ubuntu:latest` |
+| image | `docker pull` | obtém uma imagem da sua lista de fontes de imagem (default é dockerhub) | `docker pull ubuntu:latest` ou `docker pull nigelpoulton/tu-demo:v2` ou `docker pull gcr.io/google-containers/git-sync:v3.1.5` |
 | image | `docker images` | Lista as imagens já baixadas | `docker images` |
 | image | `docker build` | constrói uma imagem a partir de um dockerfile | `docker build -t test:latest .` |
 | container | `docker run` | Executa um container usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest` |
