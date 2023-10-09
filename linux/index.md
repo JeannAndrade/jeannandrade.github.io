@@ -41,7 +41,7 @@ Foram usados como fonte:
 | free-h & free-m | verifica o uso da memório da máquina |
 | top | é como se fosse o monitor do sistema, só que mais simplificado |
 | htop | mesmo que o top, só que mais formatado para humanos |
-| ps | listas os processos rodando no terminal |
+| ps | listas os processos rodando no terminal. Ex.: ps -elf  |
 | ps aux | lista os processos do sistema, geralmente ẽ usado com o filtro grep. ps aux \| grep gnome-terminal |
 | pgrep | já é a combinação do ps com o grep. Ex. pgrep gnome-terminal |
 | kill | serve para gerenciar processos. Matar o processo |

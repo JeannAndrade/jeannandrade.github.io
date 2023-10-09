@@ -95,12 +95,50 @@ Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS.
 | image | `docker pull` | obtém uma imagem da sua lista de fontes de imagem (default é dockerhub) | `docker pull ubuntu:latest` ou `docker pull nigelpoulton/tu-demo:v2` ou `docker pull gcr.io/google-containers/git-sync:v3.1.5` |
 | image | `docker images` | Lista as imagens já baixadas | `docker images` |
 | image | `docker build` | constrói uma imagem a partir de um dockerfile | `docker build -t test:latest .` |
-| container | `docker run` | Executa um container usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest` |
+| image | `docker rmi` | remover uma imagem que não é mais usada. Não é possível apagar uma imagem que está em uso por um container. Será preciso parar o container e apagá-lo antes de apagar a imagem. | `docker rmi 44dd6f223004` |
+| image | `docker rmi $(docker images -q) -f` | remover todas as imagens de uma só vez. | `docker rmi $(docker images -q) -f` |
+
+| container | `docker run <image> <app>` | Executa um container usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest` |
 | container | `docker ps` | Lista os container em execução. Use -a para listar inclusive os containers parados | `docker ps` |
 | container | `Press Ctrl-PQ` | para sair do container sem finalizá-lo. O terminal sairá do terminal do container para o terminal do host | |
 | container | `docker exec` | anexa seu shell ao terminal de um contêiner em execução | `docker exec -it vigilant_borg bash` |
 | container | `docker stop` | Para a execução do container | `docker stop id_container` |
+| container | `docker start` | Reinicializa um container parado com o comando stop | `docker start id_container` |
 | container | `docker rm` | Elimina o container |`docker rm id_container` |
+
+### Mais sobre imagens
+
+Para filtrar o resultado do comando `docker images` vc pode usar o parâmetro --filter
+
+| Filtro | Descrição | Exemplo |
+| ----- | ----- | ----- |
+| dangling | Filtra as imagens sem tag, isso geralmente acontece quando uma imagem é atualizada mantendo sua tag original | `docker images --filter dangling=true` |
+| before | Requer o nome de uma imagem ou o seu ID e retorna todas as imagens criadas antes dela | `docker images --filter before=98523` |
+| since | Requer o nome de uma imagem ou o seu ID e retorna todas as imagens criadas depois dela | `docker images --filter since=98523` |
+| label | Filtra as imagens com base na presença de um rótulo ou rótulo e valor. O comando Docker Images não exibe rótulos em sua saída. | `docker images --filter label=<key> or label=<key>=<value>` |
+| reference | | `docker images --filter=reference="*:latest"` |
+
+Para deletar imagens sem tag use `docker image prune`. Adicione o parâmetro -a para deletar também todas as imagens que não estão sendo usado por nenhum container.
+
+Para buscar no docker hub através do CLI, use o comando `docker search string_busca`. A busca será feita no campo Nome da imagem. Use --filter "is-official=true" para filtrar somente por repositórios oficiais.
+
+`docker search alpine --filter "is-official=true"`
+
+### Mais sobre containers
+
+O parâmetro -it conecta a janela do terminal corrente ao shell do container.
+
+O parâmetro -d executa o container em segundo plano. Os parâmetros -d e -it não podem ser usados ao mesmo tempo.
+
+Os contêineres são executados até que o aplicativo principal saia. Esse exemplo: `docker run -it alpine:latest sleep 10` - executa o commando sleep por 10 segundo e depois encerra a execução do container.
+
+O comando run também tem uma opção para reiniciar um container automaticamente em caso de falha. As opções de reinício são:
+
+|Opção| Descrição | Exemplo |
+| ----- | ----- | ----- |
+| always | Container será reiniciado logo após o app principal ser finalizado (e por consequência o container ser encerrado) | `docker run --name neversaydie -it --restart always alpine sh` |
+| unless-stopped | O container será reiniciado a menos que seja parado com o comando stop | `docker run -d --name unless-stopped --restart unless-stopped alpine sleep 1d` |
+| on-failure | reiniciará um contêiner se ele sair com um código de saída diferente de zero. Ele também reiniciará os contêineres quando o Docker Daemon reiniciar, mesmo aqueles que estavam no estado parado. | `docker run --name neversaydie -it --restart on-failure alpine sh` |
 
 ## Como containerizar um app a partir de um fonte do github
 
