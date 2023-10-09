@@ -1,4 +1,6 @@
-# Table of contents
+# Docker (Table of contents)
+
+Este é um resumo do livro Docker Deep Dive, do Nigel Poulton, mas também pode ter outros apontamentos de fontes variadas.
 
 1. [Conceitos](#conceitos)
 1. [Como instalar o Docker](#como-instalar-o-docker)
@@ -59,7 +61,7 @@ ENTRYPOINT ["node", "./app.js"]
 
 Para criar uma imagem a partir do dockerfile, use docker build
 
-[top](#table-of-contents)
+[top](#docker-table-of-contents)
 
 ## Como instalar o Docker
 
@@ -79,7 +81,7 @@ Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS.
 
 [Play with Docker](https://labs.play-with-docker.com/) (PWD) é um playground Docker totalmente funcional baseado na Internet que dura até 4 horas. Você pode adicionar vários nós e até mesmo agrupá-los em um swarm.
 
-[top](#table-of-contents)
+[top](#docker-table-of-contents)
 
 ## Comandos de verificação
 
@@ -105,6 +107,20 @@ Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS.
 | container | `docker stop` | Para a execução do container | `docker stop id_container` |
 | container | `docker start` | Reinicializa um container parado com o comando stop | `docker start id_container` |
 | container | `docker rm` | Elimina o container |`docker rm id_container` |
+
+## Comandos associados ao Docker Hub
+
+| Comando | Descrição | Exemplo |
+| ----- | ----- | ------ |
+| `docker login` | Fazer login no site para depois subir uma imagem para o registro | `docker login` |
+| `docker tag` | Esse comando serve para adicionar uma nova tag a imagem, sem sobrescrever a original. Para subir para o Docker Hub é preciso que a tag seja precedida do seu "id de usuário" | `docker tag ddd-book:ch8.1 nigelpoulton/ddd-book:ch8.1` |
+| `docker push` | Comando para subir a imagem para o Docker Hub | `docker push nigelpoulton/ddd-book:ch8.1` |
+
+Para entender as partes envolvidas, considere docker.io/nigelpoulton/ddd-book:ch8.1
+
+* o registro é: docker.io
+* o repositório é: nigelpoulton/ddd-book
+* a tag é: ch8.1
 
 ### Mais sobre imagens
 
@@ -142,8 +158,22 @@ O comando run também tem uma opção para reiniciar um container automaticament
 
 ## Como containerizar um app a partir de um fonte do github
 
+Contêineres têm tudo a ver com simplificar os processos construir, empacotar e executar um aplicativo. O processo de ponta a ponta se parece com o seguinte:
+
+1. Comece com o código e as dependências do seu aplicativo
+1. Crie um DockerFile que descreva seu aplicativo, dependências e como executá -lo
+1. Crie uma imagem desse pacote passando o Dockerfile para o comando do Docker Build
+1. Submeta a nova imagem para um registro (opcional)
+1. Execute um container dessa imagem
+
+A imagem abaixo ilustra o processo:
+
+![Fluxo para conteinerizar um app](img/fluxo_containerizar_app.png)
+
+### Containerize a single-container app
+
 1. Clonar o projeto: `git clone <https://github.com/nigelpoulton/psweb.git>`
-1. Entrar na pasta: `cd psweb`
+1. Entrar na pasta onde está o dockerfile (chamada também de build context): `cd psweb`
 1. Verificar se existe um dockerfile: `ls -l`
 1. Construir a imagem: `docker build -t test:latest .`
 1. Verificar se a imagem foi criada: `docker images`
