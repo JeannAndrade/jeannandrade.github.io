@@ -159,13 +159,13 @@ Para criar uma imagem a partir do *Dockerfile*, use docker build
 
 [top](#docker-table-of-contents)
 
-## Como containerizar um app a partir de um fonte do github
+## Como containerizar um app a partir de um código fonte
 
 Contêineres têm tudo a ver com simplificar os processos construir, empacotar e executar um aplicativo. O processo de ponta a ponta se parece com o seguinte:
 
-1. Comece com o código e as dependências do seu aplicativo
-1. Crie um DockerFile que descreva seu aplicativo, dependências e como executá -lo
-1. Crie uma imagem desse pacote passando o Dockerfile para o comando do Docker Build
+1. Comece com o código fonte e as dependências do seu aplicativo
+1. Crie um *DockerFile* que descreva seu aplicativo, dependências e como executá -lo
+1. Crie uma imagem desse pacote passando o *Dockerfile* para o comando do Docker Build
 1. Submeta a nova imagem para um registro (opcional)
 1. Execute um container dessa imagem
 
@@ -173,14 +173,40 @@ A imagem abaixo ilustra o processo:
 
 ![Fluxo para conteinerizar um app](img/fluxo_containerizar_app.png)
 
-### Containerize a single-container app
+### Um exemplo a partir de um código fonte do github
 
 1. Clonar o projeto: `git clone <https://github.com/nigelpoulton/psweb.git>`
-1. Entrar na pasta onde está o dockerfile (chamada também de build context): `cd psweb`
-1. Verificar se existe um dockerfile: `ls -l`
+1. Entrar na pasta onde está o *Dockerfile* (chamada também de build context): `cd psweb`
+1. Verificar se existe um *Dockerfile*: `ls -l`
 1. Construir a imagem: `docker build -t test:latest .`
 1. Verificar se a imagem foi criada: `docker images`
 1. Executar um container a partir da imagem: `docker run -d --name web1 --publish 8080:8080 test:latest`
+
+### Multi-stage builds and build targets
+
+É possível criar mais de uma imagem a partir de um único *Dockerfile*
+
+```docker
+FROM golang:1.20-alpine AS base
+WORKDIR /src
+COPY go.mod go.sum .
+RUN go mod download
+COPY . .
+
+FROM base AS build-client
+RUN go build -o /bin/client ./cmd/client
+
+FROM base AS build-server
+RUN go build -o /bin/server ./cmd/server
+
+FROM scratch AS prod-client
+COPY --from=build-client /bin/client /bin/
+ENTRYPOINT [ "/bin/client" ]
+
+FROM scratch AS prod-server
+COPY --from=build-server /bin/server /bin/
+ENTRYPOINT [ "/bin/server" ]
+```
 
 [top](#docker-table-of-contents)
 
