@@ -6,7 +6,7 @@ Este é um resumo do livro Docker Deep Dive, do Nigel Poulton, mas também pode 
 1. [Conceitos](#conceitos)
 1. [Imagem](#imagem)
 1. [Container](#containers)
-1. [Como containerizar um app a partir de um fonte do github](#como-containerizar-um-app-a-partir-de-um-fonte-do-github)
+1. [Como containerizar um app a partir de um código fonte](#como-containerizar-um-app-a-partir-de-um-código-fonte)
 1. [DockerFile](#dockerfile)
 1. [Como instalar o Docker](#como-instalar-o-docker)
 
@@ -184,29 +184,44 @@ A imagem abaixo ilustra o processo:
 
 ### Multi-stage builds and build targets
 
-É possível criar mais de uma imagem a partir de um único *Dockerfile*
+Compilação de múltiplos estágios usa várias instruções FROM em um único *Dockerfile* e cada instrução FROM é um novo estágio de build.
+
+O que é importante saber sobre múltiplos estágios:
+
+* Cada estágio tem como saída uma nova imagem que pode ser usada pelos estágios subsequentes;
+* Cada estágio intermediário é eliminado quando o último estágio se completa;
+* Você pode, em estágios iniciais, compilar seu aplicativo em uma imagem grande com todos os compiladores e outras ferramentas de build necessárias;
+* Num estágio subsequente copiar o aplicativo gerado em uma pequena imagem usada para produção;
+* Você também pode executar etapas de compilação em paralelo para compilações mais rápidas.
 
 ```docker
+# Estágio 1 - Baixou a imagem do compilador; copiou o arquivo que configura as dependências;  fez o download das dependências; copiou o código fonte
 FROM golang:1.20-alpine AS base
 WORKDIR /src
 COPY go.mod go.sum .
 RUN go mod download
 COPY . .
 
+# Estágio 2 - Compilou o projeto cliente, roda em paralelo com 3
 FROM base AS build-client
 RUN go build -o /bin/client ./cmd/client
 
+# Estágio 3 - Compilou o projeto server, roda em paralelo com 2
 FROM base AS build-server
 RUN go build -o /bin/server ./cmd/server
 
+# Estágio 4 - o executável criado no estágio 2 foi copiado para a pasta /bin/client
 FROM scratch AS prod-client
 COPY --from=build-client /bin/client /bin/
 ENTRYPOINT [ "/bin/client" ]
 
+# Estágio 5 - o executável criado no estágio 3 foi copiado para a pasta /bin/server
 FROM scratch AS prod-server
 COPY --from=build-server /bin/server /bin/
 ENTRYPOINT [ "/bin/server" ]
 ```
+
+P.S. *scratch* é uma imagem mínima, usada como base somente para receber os binários criados
 
 [top](#docker-table-of-contents)
 

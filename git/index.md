@@ -16,7 +16,7 @@ Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas
 
 ## Principais comandos
 
-[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes) | [tag](#tagging) | [show](#show-tag-data)
+[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes) | [tag](#tagging) | [show](#show-tag-data) | [branch](#criando-um-novo-branch) | [checkout](#alternando-entre-branches) | [merge](#mergeando-branches)
 
 ## Help
 
@@ -213,6 +213,10 @@ Outra opção importante é o --pretty que pode ser oneline, short, full, fuller
 You can specify more than one instance of both the --author and --grep search criteria, which will limit the commit output to commits that match any of the
 --author patterns and any of the --grep patterns; however, adding the --all-match option further limits the output to just those commits that match all --grep patterns.
 
+`git log --oneline --decorate` O decorate mostra para onde os ponteiros dos branches estão apontando.
+
+`git log --all` irá exibir todos os branches, mesmo aqueles que estão a frente do HEAD no momento.
+
 A parte de log tem outras opções muito interessantes sobre filtros, na página 44 até 46.
 
 [top](#git-table-of-contents)
@@ -362,6 +366,44 @@ Se você precisa fazer mudanças, como corrigir um bug em uma versão antiga, po
 Se você fizer um commit, seu branch version2 será um pouco diferente de sua tag v2.0.0, pois avançará com suas novas alterações, então tome cuidado.
 
 [top](#git-table-of-contents)
+
+## Branching
+
+### Criando um novo branch
+
+`git branch testing`
+
+Tecnicamente o comando cria um novo ponteiro para o mesmo commit em que você trabalhando atualmente.
+Como o git sabe em qual commit você está trabalhando agora? Ele manter um ponteiro especial chamado HEAD, que aponta para o branch local corrente.
+
+![git branch](img/git_branch_01.png)
+
+### Deletando um branch
+
+`git branch -d hotfix`
+
+### Alternando entre branches
+
+`git checkout testing`
+
+Esse comando move o ponteiro HEAD para o branch 'testing'
+
+`git checkout -b iss53`
+
+Esse comando cria o branch iss53 e alterna o HEAD para ele.
+
+É importante notar que quando você troca de branch no Git, os arquivos em seu diretório de trabalho serão alterados. Se você mudar para um branch mais antigo, seu diretório de trabalho será revertido para a aparência da última vez que você fez commit naquele branch. Se o Git não puder fazer isso de forma limpa, ele não permitirá que você alterne.
+
+![git checkout](img/git_checkout_01.png)
+
+### Mergeando branches
+
+```git
+git checkout master
+git merge hotfix
+```
+
+No merge você junta as alterações de um outro branch no branch apontado pelo HEAD.
 
 ## Aliases (atalhos)
 
