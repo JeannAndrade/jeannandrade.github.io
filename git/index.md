@@ -4,6 +4,7 @@ Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas
 
 1. [Principais comandos](#principais-comandos)
 1. [Help](#help)
+1. [Configurando o Git](#configurando-o-git)
 1. [Ciclo de vida do status de seus arquivos](#ciclo-de-vida-do-status-de-seus-arquivos)
 1. [Getting a git repository](#getting-a-git-repository)
 1. [Recording Changes to the Repository](#recording-changes-to-the-repository)
@@ -11,6 +12,9 @@ Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas
 1. [Desfazendo as coisas](#desfazendo-as-coisas)
 1. [Working with Remotes](#working-with-remotes)
 1. [Tagging](#tagging)
+1. [Branching](#branching)
+1. [Merging](#merging)
+1. [Estratégias de trabalho com o git](#estratégias-de-trabalho-com-o-git-chamados-de-branching-workflows)
 1. [Aliases (atalhos)](#aliases-atalhos)
 1. [Gerando uma nova chave SSH e adicionando-a ao agente SSH](#gerando-uma-nova-chave-ssh-e-adicionando-a-ao-agente-ssh)
 
@@ -35,6 +39,34 @@ man git-<verb>
 ![Ciclo de vida do status de um arquivo git](img/ciclo_vida_status_git_file.png "Ciclo de vida - git status file")
 
  [top](#git-table-of-contents)
+
+## Configurando o Git
+
+O Git vem com uma ferramenta chamada git config que permite obter e definir variáveis de configuração que controlam todos os aspectos da aparência e operação do Git. Essas variáveis podem ser armazenadas em três locais diferentes:
+
+1. Arquivo /etc/gitconfig: Contém valores aplicados a cada usuário no sistema e todos os seus repositórios. Se você passar a opção --system para git config, ele lê e grava especificamente neste arquivo. (Como este é um arquivo de configuração do sistema, você precisaria de informações administrativas ou privilégio de superusuário para fazer alterações nele.)
+2. Arquivo ~/.gitconfig ou ~/.config/git/config: Valores específicos pessoalmente para você, o usuário. Você pode fazer o Git ler e gravar neste arquivo especificamente passando a opção --global, e isso afeta todos os repositórios com os quais você trabalha em seu sistema.
+3. arquivo de configuração no diretório Git (ou seja, .git/config) de qualquer repositório que você esteja usando atualmente: Específico para esse único repositório. Você pode forçar o Git a ler e gravar neste arquivo com a opção --local, mas esse é na verdade o padrão.
+
+Para ver todas as configurações e onde elas estão configuradas, entre com o comando:
+
+`git config --list --show-origin`
+
+Para configurar a sua identidade:
+
+`git config --global user.name "John Doe"`
+`git config --global user.email <johndoe@example.com>`
+
+Para configurar o editor padrão:
+
+`git config --global core.editor emacs`
+
+Caso opte pelo notepad++ `git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"`
+
+Para configurar a ferramenta de merge preferida (opendiff kdiff3 tkdiff xxdiff meld tortoisemerge gvimdiff diffuse diffmerge ecmerge
+p4merge araxis bc3 codecompare vimdiff emerge):
+
+`git config merge.tool kdiff3`
 
 ## Getting a git repository
 
@@ -369,6 +401,20 @@ Se você fizer um commit, seu branch version2 será um pouco diferente de sua ta
 
 ## Branching
 
+### Listando branches
+
+`git branch`
+
+Para ver o último commit em cada branch:
+
+`git branch -v`
+
+As opções úteis --merged e --no-merged podem filtrar esta lista para ramificações que você já mergiou ou ainda não com o branch em que está atualmente. Para ver quais branches já estão mergiados no branch em que você está, você pode executar `git branch --merged`.
+
+Você também pode passar o branch a ser usado como referência:
+
+`git branch --no-merged master`
+
 ### Criando um novo branch
 
 `git branch testing`
@@ -396,14 +442,44 @@ Esse comando cria o branch iss53 e alterna o HEAD para ele.
 
 ![git checkout](img/git_checkout_01.png)
 
+### Branches remotos
+
+`git ls-remote <remote>` ou `git remote show <remote>`
+
+## Merging
+
 ### Mergeando branches
+
+No merge você junta as alterações de um outro branch no branch apontado pelo HEAD.
 
 ```git
 git checkout master
 git merge hotfix
 ```
 
-No merge você junta as alterações de um outro branch no branch apontado pelo HEAD.
+### "Fast-forward" merge
+
+![Merge do tipo fast-forward](img/git_merge_02.png)
+
+Note “fast-forward” no merge. Como o commit apontado pelo hotfix do branch no qual você fez o merge estava diretamente à frente do commit em que você está, o Git simplesmente move o ponteiro para frente. Em outras palavras, quando você tenta mesclar um commit com um commit que pode ser alcançado seguindo o histórico do primeiro commit, o Git simplifica as coisas movendo o ponteiro para frente porque não há trabalho divergente para mesclar - isso é chamado de “fast-forward”
+
+### "Merge commit" merge
+
+![Merge do tipo novo commit](img/git_merge_03.png)
+
+Neste caso o novo merge não foi do tipo “fast-forward”. O git criou um novo snapshot que resulta da junção dos branches, esse snapshot também sofreu um commit automático. Esse tipo de merge é chamado de "merge commit" e é especial porque resulta em um commit com mais de um pai.
+
+### Merge conflits
+
+`git mergetool`
+
+## Estratégias de trabalho com o git (chamados de Branching workflows)
+
+Alguns sites com referência para o assunto:
+
+[Comparing Git Workflows: What You Should Know](https://www.atlassian.com/git/tutorials/comparing-workflows)
+[5 Types of Git WorkFlow & Explanation of each Flow](https://razorops.com/blog/5-types-of-git-workflow-&-explanation-of-each-flow)
+[5 Different Git Workflows](https://medium.com/javarevisited/5-different-git-workflows-50f75d8783a7)
 
 ## Aliases (atalhos)
 
