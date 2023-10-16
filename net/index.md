@@ -3,8 +3,6 @@
 ## Table of contents
 
 1. [History of .Net](#history)
-1. [ASP.NET Core](aspnet/index.md)
-1. [.Net cli](cli/index.md)
 
 ## History
 
