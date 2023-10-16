@@ -14,13 +14,14 @@ Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas
 1. [Tagging](#tagging)
 1. [Branching](#branching)
 1. [Merging](#merging)
+1. [Rebase](#rebase)
 1. [Estratégias de trabalho com o git](#estratégias-de-trabalho-com-o-git-chamados-de-branching-workflows)
 1. [Aliases (atalhos)](#aliases-atalhos)
 1. [Gerando uma nova chave SSH e adicionando-a ao agente SSH](#gerando-uma-nova-chave-ssh-e-adicionando-a-ao-agente-ssh)
 
 ## Principais comandos
 
-[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes) | [tag](#tagging) | [show](#show-tag-data) | [branch](#criando-um-novo-branch) | [checkout](#alternando-entre-branches) | [merge](#mergeando-branches)
+[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes) | [tag](#tagging) | [show](#show-tag-data) | [branch](#criando-um-novo-branch) | [checkout](#alternando-entre-branches) | [merge](#mergeando-branches) | [rebase](#rebase)
 
 ## Help
 
@@ -473,13 +474,37 @@ Neste caso o novo merge não foi do tipo “fast-forward”. O git criou um novo
 
 `git mergetool`
 
+## Rebase
+
+Com o comando rebase pode pegar todas as mudanças que foram commitadas em um branch e reaplica-las em um branch diferente.
+
+```git
+git checkout experiment
+git rebase master
+```
+
+Feito isso, agora é possível fazer um commit do tipo "fast-forward" nesse branch:
+
+```git
+git checkout master
+git merge experiment
+```
+
+Ilustrando o processo:
+
+![rebase basico](img/git_rebase_01.png)
+
+Frequentemente, você fará isso para garantir que seus commits sejam aplicados corretamente em um branch remoto — talvez em um projeto para o qual você está tentando contribuir, mas que não mantém. Nesse caso, você faria seu trabalho em um branch e então faria um rebase do seu trabalho com Origin/master quando estivesse pronto para enviar seus patches para o projeto principal. Dessa forma, o mantenedor não precisa fazer nenhum trabalho de integração — apenas um fast-forward ou uma aplicação limpa.
+
+Observação: Não faça rebase de commits que existem fora do seu repositório e nos quais as pessoas possam ter baseado seu trabalho. Em geral, a maneira de obter o melhor dos dois mundos (Merge vs. Rebase) é usar o rebase nas alterações locais que você fez, mas ainda não compartilhou, antes de dar um push, para limpar sua história, mas nunca usar rebase em algo que você já fez push em algum lugar.
+
 ## Estratégias de trabalho com o git (chamados de Branching workflows)
 
 Alguns sites com referência para o assunto:
 
-[Comparing Git Workflows: What You Should Know](https://www.atlassian.com/git/tutorials/comparing-workflows)
-[5 Types of Git WorkFlow & Explanation of each Flow](https://razorops.com/blog/5-types-of-git-workflow-&-explanation-of-each-flow)
-[5 Different Git Workflows](https://medium.com/javarevisited/5-different-git-workflows-50f75d8783a7)
+* [Comparing Git Workflows: What You Should Know](https://www.atlassian.com/git/tutorials/comparing-workflows)
+* [5 Types of Git WorkFlow & Explanation of each Flow](https://razorops.com/blog/5-types-of-git-workflow-&-explanation-of-each-flow)
+* [5 Different Git Workflows](https://medium.com/javarevisited/5-different-git-workflows-50f75d8783a7)
 
 ## Aliases (atalhos)
 
