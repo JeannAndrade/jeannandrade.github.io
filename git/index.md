@@ -1,6 +1,11 @@
 # Git (Table of Contents)
 
-Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas também pode ter outros apontamentos de fontes variadas.
+Fontes:
+
+* Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon
+* [Merge vs Rebase](https://www.simplilearn.com/git-rebase-vs-merge-article#:~:text=The%20main%20difference%20between%20git,one%20branch%20onto%20another%20branch.)
+
+Índice:
 
 1. [Principais comandos](#principais-comandos)
 1. [Help](#help)
@@ -15,6 +20,7 @@ Este é um resumo dos capítulos 2, 3 e 4 do livro Pro Git, do Scott Chacon, mas
 1. [Branching](#branching)
 1. [Merging](#merging)
 1. [Rebase](#rebase)
+1. [Merge vs. Rebase](#merge-vs-rebase)
 1. [Estratégias de trabalho com o git](#estratégias-de-trabalho-com-o-git-chamados-de-branching-workflows)
 1. [Aliases (atalhos)](#aliases-atalhos)
 1. [Gerando uma nova chave SSH e adicionando-a ao agente SSH](#gerando-uma-nova-chave-ssh-e-adicionando-a-ao-agente-ssh)
@@ -476,7 +482,7 @@ Neste caso o novo merge não foi do tipo “fast-forward”. O git criou um novo
 
 ## Rebase
 
-Com o comando rebase pode pegar todas as mudanças que foram commitadas em um branch e reaplica-las em um branch diferente.
+Com o comando rebase vocÊ pode pegar todas as mudanças que foram commitadas em um branch e reaplicá-las em um branch diferente.
 
 ```git
 git checkout experiment
@@ -497,6 +503,22 @@ Ilustrando o processo:
 Frequentemente, você fará isso para garantir que seus commits sejam aplicados corretamente em um branch remoto — talvez em um projeto para o qual você está tentando contribuir, mas que não mantém. Nesse caso, você faria seu trabalho em um branch e então faria um rebase do seu trabalho com Origin/master quando estivesse pronto para enviar seus patches para o projeto principal. Dessa forma, o mantenedor não precisa fazer nenhum trabalho de integração — apenas um fast-forward ou uma aplicação limpa.
 
 Observação: Não faça rebase de commits que existem fora do seu repositório e nos quais as pessoas possam ter baseado seu trabalho. Em geral, a maneira de obter o melhor dos dois mundos (Merge vs. Rebase) é usar o rebase nas alterações locais que você fez, mas ainda não compartilhou, antes de dar um push, para limpar sua história, mas nunca usar rebase em algo que você já fez push em algum lugar.
+
+## Merge vs. Rebase
+
+A principal diferença entre git merge e git rebase é que git merge é uma maneira de combinar alterações de um branch (branch de origem) em outro branch (branch de destino), enquanto git rebase é uma maneira de mover as alterações de uma branch para outra branch.
+
+Uma tabela ilustra melhor esse diferença:
+
+| Merge | Rebase |
+| ----- | ----- |
+| Git Merge lets you merge different Git branches. | Git Rebase allows you to integrate the changes from one branch into another. |
+| Git Merge logs show you the complete history of commit merging. | Git Rebase logs are linear. As the commits are rebased, the history is altered to reflect this. |
+| All the commits on a feature branch are combined into a single commit on the master branch. | All commits are rebased, and the same number of commits are added to the master branch. |
+| Merge is best used when the target branch is supposed to be shared. | Rebase is best used when the target branch is private. |
+| Merge preserves history. | Rebase rewrites history. |
+
+[Mais em ...](https://www.simplilearn.com/git-rebase-vs-merge-article#:~:text=The%20main%20difference%20between%20git,one%20branch%20onto%20another%20branch.)
 
 ## Estratégias de trabalho com o git (chamados de Branching workflows)
 
