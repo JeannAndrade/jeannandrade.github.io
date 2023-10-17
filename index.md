@@ -13,6 +13,8 @@ Minhas notas e observações de estudo sobre diversos temas de tecnologia. Esta 
     * [.Net cli](net/cli/index.md)
 1. Java
     * Micronaut
+1. Shell
+    * PowerShell
 1. Linux
     * [Vim](vim/index.md)
     * [Terminal Linux](linux/index.md)

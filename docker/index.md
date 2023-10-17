@@ -190,8 +190,7 @@ O que é importante saber sobre múltiplos estágios:
 
 * Cada estágio tem como saída uma nova imagem que pode ser usada pelos estágios subsequentes;
 * Cada estágio intermediário é eliminado quando o último estágio se completa;
-* Você pode, em estágios iniciais, compilar seu aplicativo em uma imagem grande com todos os compiladores e outras ferramentas de build necessárias;
-* Num estágio subsequente copiar o aplicativo gerado em uma pequena imagem usada para produção;
+* Você pode, em estágios iniciais, compilar seu aplicativo em uma imagem grande com todos os compiladores e outras ferramentas de build necessárias e, num estágio subsequente, copiar o aplicativo gerado em uma pequena imagem usada para produção;
 * Você também pode executar etapas de compilação em paralelo para compilações mais rápidas.
 
 ```docker
@@ -244,3 +243,164 @@ Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS.
 [Play with Docker](https://labs.play-with-docker.com/) (PWD) é um playground Docker totalmente funcional baseado na Internet que dura até 4 horas. Você pode adicionar vários nós e até mesmo agrupá-los em um swarm.
 
 [top](#docker-table-of-contents)
+
+Organizar, estava no Google Drive
+
+Compilando a aplicação para usar no Docker
+dotnet publish --framework netcoreapp1.1 --configuration Release --output dist
+Docker imagens
+Criar uma imagem
+docker image build --help
+docker image build . -t apress/exampleapp -f Dockerfile
+O arquivo Dockerfile deve estar no mesmo nível da solution
+Listar as imagens
+docker image --help
+docker image ls -q (para listar somente os IDs)
+Baixar uma imagem
+docker image pull --help
+Para publicar uma imagem
+docker image push --help  (é preciso estar autenticado com docker login)
+Associar uma tag a imagem
+docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+Remover uma imagem
+docker image rm
+ Comandos disponíveis no arquivo Dockerfile
+FROM - especifica a imagem base
+WORKDIR - muda a pasta para os comandos subsequentes no dockerfile
+COPY - adiciona arquivos que farão parte do sistema de arquivos do container criado a partir desta imagem
+RUN - Executa um comando a medida que o arquivo Dockerfile é executado
+EXPOSE - expõe uma porta para que o container criado a partir desta imagem possa receber requisições.
+ENV - define variáveis de ambiente usados para configurar o container
+VOLUME - sinaliza que um volume Docker deve ser usado para prover o conteúdo de uma pasta específica.
+ENTRYPOINT - especifica a aplicação que irá rodar em container criados desta imagem.
+Exemplo de um Dockerfile
+
+# <https://hub.docker.com/_/microsoft-dotnet>
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /source
+
+# copy csproj and restore as distinct layers
+
+COPY *.sln .
+COPY MelStore/*.csproj ./MelStore/
+COPY MelStore.Core/*.csproj ./MelStore.Core/
+COPY MelStore.Tests/*.csproj ./MelStore.Tests/
+RUN dotnet restore
+
+# copy everything else and build app
+
+COPY MelStore/. ./MelStore/
+COPY MelStore.Core/. ./MelStore.Core/
+COPY MelStore.Tests/. ./MelStore.Tests/
+WORKDIR /source/MelStore
+RUN dotnet publish -c release -o /app
+
+# final stage/image
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /app
+COPY --from=build /app ./
+ENTRYPOINT ["dotnet", "MelStore.dll"]
+Docker Containers
+Criar um container
+docker container create --help
+docker container create -p 3000:80 --name exampleApp3000 apress/exampleapp
+Iniciar um container já criado
+docker container start exampleApp3000
+Criar e iniciar um container em um só comando
+docker container run -p 3000:80 --name exampleApp4000 apress/exampleapp
+Argumentos para o comando run
+-e, --env - configura uma variável de ambiente
+--name - associa um nome ao container
+--network - conecta o container a uma rede definida por software
+-d - executa o container em backgroud e print o container ID
+-p, --publish - cria um mapeamento entre portas, externa e interna ao container
+--rm - remove o container quando ele para.
+-v, --volume - configura um volume que irá prover um conteúdo para uma pasta no sistema de arquivos do container.
+Parar um container
+docker container stop
+Remover um container
+docker container rm
+Listar os container
+docker container ls (-a inclui container parados, -q exibe somente os IDs)
+Visualizar o log do container
+docker container logs
+Executar um comando em um container ou iniciar uma sessão interativa
+docker container exec
+Visualizar a configuração de um container
+docker container inspect [container_name]
+Docker Volumes
+Conceito - Os volumes permitem que dados importantes existam fora do contêiner, o que significa que você pode substituir um contêiner sem perder os dados que ele criou.
+Criar um novo volume
+docker volume create [OPTIONS] [VOLUME]
+docker volume create hello
+docker container run -d -v hello:/world busybox ls /world
+docker volume create --name productdata
+docker container run --name mysql -v productdata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysecret -e
+bind-address=0.0.0.0 mysql:8.0.0
+Para listar os volumes
+docker volume ls
+Para remover um ou mais volumes
+docker volume rm
+Docker Networks
+Definição - Redes definidas por software são usadas para conectar container, usando redes que são criadas e geridas pelo Docker.
+Para criar uma rede
+docker network create backend
+docker run -d --name mysql -v productdata:/var/lib/mysql --network=backend -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0
+Para conectar um container a uma rede
+docker network connect frontend productapp1
+Para listar as redes
+docker network ls
+Para remover uma rede
+docker network rm
+Docker Compose
+Definição - é usado para descrever aplicações complexas que requerem múltiplos containers, volumes e redes. A descrição da aplicação é escrita em um “compose file”, usando o formato YAML.
+Exemplo:
+version: "3"
+volumes:
+    productdata:
+networks:
+    frontend:
+    backend:
+services:
+    mysql:
+        image: "mysql:8.0.0"
+        volumes:
+            - productdata:/var/lib/mysql
+        networks:
+            - backend
+        environment:
+            - MYSQL_ROOT_PASSWORD=mysecret
+            - bind-address=0.0.0.0
+    dbinit:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        networks:
+            - backend
+…
+Palavras chaves essenciais usadas no arquivo de compose
+Version - especifica a versão do esquema do arquivo compose.
+volume - lista os volumes que serão usados pelos containers definidos no arquivo compose.
+networks - lista as redes que serão usadas pelos containers definidos no arquivo compose.
+services - denota a seção do arquivo compose que descreve containers.
+image - especifica a imagem que deve ser usada para criar o container.
+build - denota a seção que especifica como a imagem para um container será criada.
+context - especifica a “pasta contexto” que será usada enquanto o docker estiver construindo a imagem para um container.
+dockerfile - especifica o Dockerfile que será usado para construir a imagem para um container.
+environment - define uma variável de ambiente que será aplicada a um container.
+depends_on - usada para definir dependências entre serviços.
+O arquivo de composição é processado com o seguinte comando
+docker compose -f docker-compose.yml build
+Os containers, redes e volumes em um arquivo de composição são criados e iniciados
+docker compose up
+Principais comandos do docker compose
+docker compose build - processa o conteúdo do arquivo compose e cria as imagens para os container que ele contém.
+docker compose up - cria os container, redes e volumes definidos no arquivo compose e inicia os containers.
+docker compose stop - para os containers. Containers, redes e volumes são mantidos para serem iniciados novamente.
+docker compose down - para os serviços e remove Containers, redes e volumes
+docker compose ls - lista os containers que foram criados para os serviços definidos no arquivo compose.
+Docker Swarms
+Conceito - é um cluster de servidores que executam containers. Existem nós de trabalho que executam os contêineres e nós gerenciadores que determinam quais contêineres são executados em nós individuais e garantem que o número certo de contêineres esteja em execução para cada serviço. Swarms tentam se recuperar automaticamente quando os contêineres ou os nós falham.
+Desenvolvimento containerizado
