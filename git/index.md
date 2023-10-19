@@ -555,14 +555,28 @@ Página oficial para os 3 maiores versionadores que eu utilizo
 | Gitlab | [url](https://docs.gitlab.com/ee/user/ssh.html#generate-an-ssh-key-pair) |
 | Bitbucket | [url](https://www.atlassian.com/br/git/tutorials/git-ssh) |
 
-### Passo a passo para o Linux
+### Gerando a chamado
 
 1. Abra Terminal e entre com os comandos abaixo
 1. `ssh-keygen -t ed25519 -C "<your_email@example.com>"`
 1. Enter a file in which to save the key (/home/YOU/.ssh/ALGORITHM):[Press enter]
 1. Vai pedir uma senha. No prompt, digite uma frase secreta segura.
+
+### Guardando a chave no Ubuntu
+
+1. `eval "$(ssh-agent -s)"`
+1. `ssh-add -k ~/.ssh/id_ed25519`
+
+### Guardando a chave no Mac
+
+1. `eval "$(ssh-agent -s)"`
+1. `ssh-add --apple-use-keychain ~/.ssh/id_ed25519`
+
+### Guardando a chave no Windows
+
 1. `eval "$(ssh-agent -s)"`
 1. `ssh-add ~/.ssh/id_ed25519`
+
 1. Adicionar a chave gerado ao seu versionador
     1. [github](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
