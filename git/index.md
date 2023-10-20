@@ -234,15 +234,15 @@ Para ver o histórico de alterações do repositório, o comando é o `git log`
 
 De forma padrão, o git log irá exibir a lista de commits na ordem reversa cronologicamente, as mais recentes irão aparece primeiro.
 
-A opção -p ou --patch mostra a diferença adicionada em cada commit e vc ainda pode adicionar um limite na quantidade de commits a serem exibidos.
+A opção `-p` ou `--patch` mostra a diferença adicionada em cada commit e vc ainda pode adicionar um limite na quantidade de commits a serem exibidos.
 
 `git log -p -2`
 
-Outra opção importante é o --pretty que pode ser oneline, short, full, fuller, format
+Outra opção importante é o `--pretty` que pode ser oneline, short, full, fuller, format
 
 `git log --stat`
 
-A opção --stat imprime abaixo de cada entrada de commit uma lista de arquivos modificados, quantos arquivos foram alterados e quantas linhas nesses arquivos foram adicionadas e removidas. Também coloca um resumo das informações no final.
+A opção `--stat` imprime abaixo de cada entrada de commit uma lista de arquivos modificados, quantos arquivos foram alterados e quantas linhas nesses arquivos foram adicionadas e removidas. Também coloca um resumo das informações no final.
 
 `git log --pretty=format:"%h - %an, %ar : %s"`
 
@@ -275,8 +275,8 @@ O Author é a pessoa que escreveu originalmente o trabalho, enquanto o Committer
 | --author | commits por autor | --author='Junio C Hamano' |
 | --grep | filtra por palavra na mensagem | --grep="layout" |
 
-You can specify more than one instance of both the --author and --grep search criteria, which will limit the commit output to commits that match any of the
---author patterns and any of the --grep patterns; however, adding the --all-match option further limits the output to just those commits that match all --grep patterns.
+You can specify more than one instance of both the `--author` and `--grep` search criteria, which will limit the commit output to commits that match any of the
+`--author` patterns and any of the `--grep` patterns; however, adding the `--all-match` option further limits the output to just those commits that match all `--grep` patterns.
 
 `git log --oneline --decorate` O decorate mostra para onde os ponteiros dos branches estão apontando.
 
@@ -292,7 +292,7 @@ A parte de log tem outras opções muito interessantes sobre filtros, na página
 
 `git reset HEAD file_name`
 
-O arquivo foi colocado na area de stage com o comando `add`, mas agora vc precisa retira-lo dessa area.
+O arquivo foi colocado na area de stage com o comando `add`, mas agora vc precisa retirá-lo dessa area.
 
 ### Desfazendo alterações em arquivo no diretório de trabalho
 
