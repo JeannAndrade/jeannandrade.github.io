@@ -262,7 +262,7 @@ A opção `--stat` imprime abaixo de cada entrada de commit uma lista de arquivo
 | %ce | Committer email |
 | %cd | Committer date |
 | %cr | Committer date, relative |
-| %s Subject |
+| %s | Subject |
 
 O Author é a pessoa que escreveu originalmente o trabalho, enquanto o Committer é a pessoa que aplicou o trabalho (realizou o merge) pela última vez. Portanto, se você enviar um patch para um projeto e um dos membros principais mergear o patch, ambos receberão crédito — você como autor e o membro principal como committer.
 
