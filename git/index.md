@@ -240,6 +240,32 @@ A opção -p ou --patch mostra a diferença adicionada em cada commit e vc ainda
 
 Outra opção importante é o --pretty que pode ser oneline, short, full, fuller, format
 
+`git log --stat`
+
+A opção --stat imprime abaixo de cada entrada de commit uma lista de arquivos modificados, quantos arquivos foram alterados e quantas linhas nesses arquivos foram adicionadas e removidas. Também coloca um resumo das informações no final.
+
+`git log --pretty=format:"%h - %an, %ar : %s"`
+
+| Option | Description of Output |
+| ----- | ----- |
+| %H | Commit hash |
+| %h | Abbreviated commit hash |
+| %T | Tree hash |
+| %t | Abbreviated tree hash |
+| %P | Parent hashes |
+| %p | Abbreviated parent hashes |
+| %an | Author name |
+| %ae | Author email |
+| %ad | Author date (format respects the --date=option) |
+| %ar | Author date, relative |
+| %cn | Committer name |
+| %ce | Committer email |
+| %cd | Committer date |
+| %cr | Committer date, relative |
+| %s Subject |
+
+O Author é a pessoa que escreveu originalmente o trabalho, enquanto o Committer é a pessoa que aplicou o trabalho (realizou o merge) pela última vez. Portanto, se você enviar um patch para um projeto e um dos membros principais mergear o patch, ambos receberão crédito — você como autor e o membro principal como committer.
+
 `git log --pretty=oneline -2`
 
 | Opção | Efeito | Exemplo |
