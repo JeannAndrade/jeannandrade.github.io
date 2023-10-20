@@ -573,13 +573,11 @@ Você pode configurar atalhos no git usando o comando de configuração `git con
 
 ## Gerando uma nova chave SSH e adicionando-a ao agente SSH
 
-Página oficial para os 3 maiores versionadores que eu utilizo
+Página oficial para os 3 maiores versionadores que eu utilizo:
 
-| Versionador | URL da documentação |
-| ------ | ------ |
-| Github | [url](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) |
-| Gitlab | [url](https://docs.gitlab.com/ee/user/ssh.html#generate-an-ssh-key-pair) |
-| Bitbucket | [url](https://www.atlassian.com/br/git/tutorials/git-ssh) |
+* <a href="https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" target="_blank">Github</a>
+* <a href="https://docs.gitlab.com/ee/user/ssh.html#generate-an-ssh-key-pair" target="_blank">Gitlab</a>
+* <a href="https://www.atlassian.com/br/git/tutorials/git-ssh" target="_blank">Bitbucket</a>
 
 ### Gerando a chamado
 
