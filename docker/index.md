@@ -2,6 +2,8 @@
 
 Este é um resumo do livro Docker Deep Dive, do Nigel Poulton, mas também pode ter outros apontamentos de fontes variadas.
 
+Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.git>
+
 1. [Comandos do CLI](#comandos-do-cli)
 1. [Conceitos](#conceitos)
 1. [Imagem](#imagem)
@@ -132,16 +134,10 @@ O comando run também tem uma opção para reiniciar um container automaticament
 
 O *Dockerfile* é um arquivo de texto que diz ao docker com construir uma imagem docker para um determinado app e suas dependências. O arquivo deve ter esse nome, sem qualquer extensão.
 
-```docker
-FROM alpine
-LABEL maintainer="<nigelpoulton@hotmail.com>"
-RUN apk add --update nodejs nodejs-npm
-COPY . /src
-WORKDIR /src
-RUN  npm install
-EXPOSE 8080
-ENTRYPOINT ["node", "./app.js"]
-```
+Aqui é preciso criar um catálogo de exemplos com as principais opções que uso:
+
+1. [ASP.Net Core 6, sem banco](dockerfiles/aspnet6_no_db.md)
+1. [Node.js, sem banco](dockerfiles/node_no_db.md)
 
 Para criar uma imagem a partir do *Dockerfile*, use docker build
 
@@ -151,11 +147,16 @@ Para criar uma imagem a partir do *Dockerfile*, use docker build
 | ----- | ----- | ----- |
 | FROM | Indica a imagem base. Comece com a imagem tal. | FROM alpine |
 | LABEL | Usado para inserir metadados | LABEL maintainer="<nigelpoulton@hotmail.com>" |
-| RUN | Execute algum comando | RUN apk add --update nodejs npm |
-| COPY | Copei o conteúdo que está no 'contexto de construção' (pasta onde se encontra o Dockerfile) para algum lugar | COPY . /src |
-| WORKDIR | Indica uma nova pasta de trabalho. Seria o equivalente ao `cd` | WORKDIR /src |
-| EXPOSE | Exponha o app a alguma porta, para que possa ser acessado de fora | EXPOSE 8080 |
-| ENTRYPOINT | Diga qual é o app default a ser executado | ENTRYPOINT ["node", "./app.js"] |
+| RUN | Executa um comando a medida que o arquivo Dockerfile é executado | RUN apk add --update nodejs npm |
+| COPY | adiciona arquivos que farão parte do sistema de arquivos do container criado a partir desta imagem | COPY . /src |
+| WORKDIR | Muda a pasta para os comandos subsequentes no dockerfile | WORKDIR /src |
+| EXPOSE | Expõe uma porta para que o container criado a partir desta imagem possa receber requisições | EXPOSE 8080 |
+| ENTRYPOINT | Especifica a aplicação que irá rodar em container criados desta imagem | ENTRYPOINT ["node", "./app.js"] |
+| ENV | Define variáveis de ambiente usados para configurar o container | |
+| VOLUME | Sinaliza que um volume Docker deve ser usado para prover o conteúdo de uma pasta específica | |
+| ONBUILD | | |
+| HEALTHCHECK | | |
+| CMD | | |
 
 [top](#docker-table-of-contents)
 
@@ -182,7 +183,7 @@ A imagem abaixo ilustra o processo:
 1. Verificar se a imagem foi criada: `docker images`
 1. Executar um container a partir da imagem: `docker run -d --name web1 --publish 8080:8080 test:latest`
 
-### Multi-stage builds and build targets
+### Multi-stage builds
 
 Compilação de múltiplos estágios usa várias instruções FROM em um único *Dockerfile* e cada instrução FROM é um novo estágio de build.
 
@@ -194,6 +195,35 @@ O que é importante saber sobre múltiplos estágios:
 * Você também pode executar etapas de compilação em paralelo para compilações mais rápidas.
 
 ```docker
+# Estágio 1 - Baixou a imagem do compilador; copiou o arquivo que configura as dependências; fez o download das dependências; copiou o código fonte
+FROM golang:1.20-alpine AS base
+WORKDIR /src
+COPY go.mod go.sum .
+RUN go mod download
+COPY . .
+
+# Estágio 2 - Compilou o projeto cliente, roda em paralelo com 3, criando a imagem build-client
+FROM base AS build-client
+RUN go build -o /bin/client ./cmd/client
+
+# Estágio 3 - Compilou o projeto server, roda em paralelo com 2, criando a imagem build-server
+FROM base AS build-server
+RUN go build -o /bin/server ./cmd/server
+
+# Estágio 4 - cria a imagem prod copiando os binários gerados dentro das duas imagens anteriores
+FROM scratch AS prod
+COPY --from=build-client /bin/client /bin/
+COPY --from=build-server /bin/server /bin/
+ENTRYPOINT [ "/bin/server" ]
+```
+
+P.S. *scratch* é uma imagem mínima, usada como base somente para receber os binários criados
+
+### Build multi-targets
+
+Também é possível que um único *Dockerfile* gere mais de uma imagem
+
+```docker
 # Estágio 1 - Baixou a imagem do compilador; copiou o arquivo que configura as dependências;  fez o download das dependências; copiou o código fonte
 FROM golang:1.20-alpine AS base
 WORKDIR /src
@@ -201,26 +231,52 @@ COPY go.mod go.sum .
 RUN go mod download
 COPY . .
 
-# Estágio 2 - Compilou o projeto cliente, roda em paralelo com 3
+# Estágio 2 - Compilou o projeto cliente, roda em paralelo com 3, criando a imagem build-client
 FROM base AS build-client
 RUN go build -o /bin/client ./cmd/client
 
-# Estágio 3 - Compilou o projeto server, roda em paralelo com 2
+# Estágio 3 - Compilou o projeto server, roda em paralelo com 2, criando a imagem build-server
 FROM base AS build-server
 RUN go build -o /bin/server ./cmd/server
 
-# Estágio 4 - o executável criado no estágio 2 foi copiado para a pasta /bin/client
+# Estágio 4 - Cria uma nova imagem prod-client copiando o binário gerado pelo imagem build-client
 FROM scratch AS prod-client
 COPY --from=build-client /bin/client /bin/
 ENTRYPOINT [ "/bin/client" ]
 
-# Estágio 5 - o executável criado no estágio 3 foi copiado para a pasta /bin/server
+# Estágio 5 - Cria uma nova imagem prod-server copiando o binário gerado pelo imagem build-server
 FROM scratch AS prod-server
 COPY --from=build-server /bin/server /bin/
 ENTRYPOINT [ "/bin/server" ]
 ```
 
-P.S. *scratch* é uma imagem mínima, usada como base somente para receber os binários criados
+docker build -t multi:client --target prod-client -f Dockerfile-final .
+docker build -t multi:server --target prod-server -f Dockerfile-final .
+
+### Multi-platform builds
+
+| Dispositivo | Plataforma do processador |
+| ----- | ----- |
+| M1 Mac | ARM |
+| PC | AMD (x64) |
+
+Para criar imagens específicas para uma plataforma é preciso usar o comando `docker buildx`
+
+Para verificar se o comando está instalado:
+
+`docker buildx version`
+
+Primeiro é preciso criar o builder, que terá o nome *container* e que usurá o endpoint *docker-container*:
+
+`docker buildx create --driver=docker-container --name=container`
+
+Depois vc pode criar as imagens específicas já enviado-as (push) para a sua conta do *Docker Hub* com o comando abaixo:
+
+```docker
+docker buildx build --builder=container \
+  --platform=linux/amd64,linux/arm64,linux/arm/v7 \
+  -t nigelpoulton/ddd-book:ch8.1 --push .
+```
 
 [top](#docker-table-of-contents)
 
@@ -264,44 +320,7 @@ Associar uma tag a imagem
 docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 Remover uma imagem
 docker image rm
- Comandos disponíveis no arquivo Dockerfile
-FROM - especifica a imagem base
-WORKDIR - muda a pasta para os comandos subsequentes no dockerfile
-COPY - adiciona arquivos que farão parte do sistema de arquivos do container criado a partir desta imagem
-RUN - Executa um comando a medida que o arquivo Dockerfile é executado
-EXPOSE - expõe uma porta para que o container criado a partir desta imagem possa receber requisições.
-ENV - define variáveis de ambiente usados para configurar o container
-VOLUME - sinaliza que um volume Docker deve ser usado para prover o conteúdo de uma pasta específica.
-ENTRYPOINT - especifica a aplicação que irá rodar em container criados desta imagem.
-Exemplo de um Dockerfile
 
-# <https://hub.docker.com/_/microsoft-dotnet>
-
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /source
-
-# copy csproj and restore as distinct layers
-
-COPY *.sln .
-COPY MelStore/*.csproj ./MelStore/
-COPY MelStore.Core/*.csproj ./MelStore.Core/
-COPY MelStore.Tests/*.csproj ./MelStore.Tests/
-RUN dotnet restore
-
-# copy everything else and build app
-
-COPY MelStore/. ./MelStore/
-COPY MelStore.Core/. ./MelStore.Core/
-COPY MelStore.Tests/. ./MelStore.Tests/
-WORKDIR /source/MelStore
-RUN dotnet publish -c release -o /app
-
-# final stage/image
-
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
-WORKDIR /app
-COPY --from=build /app ./
-ENTRYPOINT ["dotnet", "MelStore.dll"]
 Docker Containers
 Criar um container
 docker container create --help

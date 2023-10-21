@@ -244,7 +244,7 @@ Outra opção importante é o `--pretty` que pode ser oneline, short, full, full
 
 A opção `--stat` imprime abaixo de cada entrada de commit uma lista de arquivos modificados, quantos arquivos foram alterados e quantas linhas nesses arquivos foram adicionadas e removidas. Também coloca um resumo das informações no final.
 
-`git log --pretty=format:"%h - %an, %ar : %s"`
+`git log --pretty=format:"%h - %an, %ar : %s" -10`
 
 | Option | Description of Output |
 | ----- | ----- |
@@ -270,10 +270,10 @@ O Author é a pessoa que escreveu originalmente o trabalho, enquanto o Committer
 
 | Opção | Efeito | Exemplo |
 | ----- | -----| ----- |
-| --since | commits desde | --since=2.weeks --since="2008-01-15" --since="2 years 1 day 3 minutes ago" |
-| --until | commits até | --since="2008-01-15" --until="2008-02-15" |
-| --author | commits por autor | --author='Junio C Hamano' |
-| --grep | filtra por palavra na mensagem | --grep="layout" |
+| `--since` | commits desde | `--since=2.weeks` `--since="2008-01-15"` `--since="2 years 1 day 3 minutes ago"` |
+| `--until` | commits até | `--since="2008-01-15"` `--until="2008-02-15"` |
+| `--author` | commits por autor | `--author='Junio C Hamano'` |
+| `--grep` | filtra por palavra na mensagem | `--grep="layout"` |
 
 You can specify more than one instance of both the `--author` and `--grep` search criteria, which will limit the commit output to commits that match any of the
 `--author` patterns and any of the `--grep` patterns; however, adding the `--all-match` option further limits the output to just those commits that match all `--grep` patterns.
@@ -597,6 +597,8 @@ Página oficial para os 3 maiores versionadores que eu utilizo:
 1. `ssh-add --apple-use-keychain ~/.ssh/id_ed25519`
 
 ### Guardando a chave no Windows
+
+Abra o Git Bash, que provavelmente foi instalado pelo instalador do Git.
 
 1. `eval "$(ssh-agent -s)"`
 1. `ssh-add ~/.ssh/id_ed25519`
