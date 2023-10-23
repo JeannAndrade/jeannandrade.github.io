@@ -10,7 +10,7 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 1. [Container](#containers)
 1. [Como containerizar um app a partir de um código fonte](#como-containerizar-um-app-a-partir-de-um-código-fonte)
 1. [DockerFile](#dockerfile)
-1. [Como instalar o Docker](#como-instalar-o-docker)
+1. [Como instalar o Docker](como_instalar/index.md)
 
 ## Comandos do CLI
 
@@ -23,28 +23,34 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 
 ### Comandos associados a recursos
 
-| Recurso | Comando | Descrição | Exemplo |
-| ---- | ----- | ----- | ------ |
-| image | `docker pull` | obtém uma imagem da sua lista de fontes de imagem (default é dockerhub) | `docker pull ubuntu:latest` ou `docker pull nigelpoulton/tu-demo:v2` ou `docker pull gcr.io/google-containers/git-sync:v3.1.5` |
-| image | `docker images` | Lista as imagens já baixadas | `docker images` |
-| image | `docker build` | constrói uma imagem a partir de um dockerfile | `docker build -t test:latest .` |
-| image | `docker rmi` | remover uma imagem que não é mais usada. Não é possível apagar uma imagem que está em uso por um container. Será preciso parar o container e apagá-lo antes de apagar a imagem. | `docker rmi 44dd6f223004` |
-| image | `docker rmi $(docker images -q) -f` | remover todas as imagens de uma só vez. | `docker rmi $(docker images -q) -f` |
-| container | `docker run <image> <app>` | Executa um container usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest` |
-| container | `docker ps` | Lista os container em execução. Use -a para listar inclusive os containers parados | `docker ps` |
-| container | `Press Ctrl-PQ` | para sair do container sem finalizá-lo. O terminal sairá do terminal do container para o terminal do host | |
-| container | `docker exec` | anexa seu shell ao terminal de um contêiner em execução | `docker exec -it vigilant_borg bash` |
-| container | `docker stop` | Para a execução do container | `docker stop id_container` |
-| container | `docker start` | Reinicializa um container parado com o comando stop | `docker start id_container` |
-| container | `docker rm` | Elimina o container |`docker rm id_container` |
+Imagens
+
+| Comando | Descrição | Exemplo |
+| ----- | ----- | ------ |
+| `docker build` | constrói uma imagem a partir de um dockerfile | `docker build -t test:latest .` |
+| `docker images` | Lista as imagens já baixadas | `docker images` |
+| `docker pull` | obtém uma imagem da sua lista de fontes de imagem (default é dockerhub) | `docker pull ubuntu:latest` ou `docker pull nigelpoulton/tu-demo:v2` ou `docker pull gcr.io/google-containers/git-sync:v3.1.5` |
+| `docker push` | Comando para subir a imagem para o Docker Hub | `docker push nigelpoulton/ddd-book:ch8.1` |
+| `docker tag` | Esse comando serve para adicionar uma nova tag a imagem, sem sobrescrever a original. Para subir para o Docker Hub é preciso que a tag seja precedida do seu "id de usuário" | `docker tag ddd-book:ch8.1 nigelpoulton/ddd-book:ch8.1` |
+| `docker rmi` | remover uma imagem que não é mais usada. Não é possível apagar uma imagem que está em uso por um container. Será preciso parar o container e apagá-lo antes de apagar a imagem. | `docker rmi 44dd6f223004` |
+| `docker rmi $(docker images -q) -f` | remover todas as imagens de uma só vez. | `docker rmi $(docker images -q) -f` |
+
+Containers
+| Comando | Descrição | Exemplo |
+| ----- | ----- | ------ |
+| `docker run <image> <app>` | Executa um container usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest` |
+| `docker ps` | Lista os container em execução. Use -a para listar inclusive os containers parados | `docker ps` |
+| `Press Ctrl-PQ` | para sair do container sem finalizá-lo. O terminal sairá do terminal do container para o terminal do host | |
+| `docker exec` | anexa seu shell ao terminal de um contêiner em execução | `docker exec -it vigilant_borg bash` |
+| `docker stop` | Para a execução do container | `docker stop id_container` |
+| `docker start` | Reinicializa um container parado com o comando stop | `docker start id_container` |
+| `docker rm` | Elimina o container |`docker rm id_container` |
 
 ### Comandos associados ao Docker Hub
 
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
 | `docker login` | Fazer login no site para depois subir uma imagem para o registro | `docker login` |
-| `docker tag` | Esse comando serve para adicionar uma nova tag a imagem, sem sobrescrever a original. Para subir para o Docker Hub é preciso que a tag seja precedida do seu "id de usuário" | `docker tag ddd-book:ch8.1 nigelpoulton/ddd-book:ch8.1` |
-| `docker push` | Comando para subir a imagem para o Docker Hub | `docker push nigelpoulton/ddd-book:ch8.1` |
 
 Para entender as partes envolvidas, considere docker.io/nigelpoulton/ddd-book:ch8.1
 
@@ -105,6 +111,8 @@ Para deletar imagens sem tag use `docker image prune`. Adicione o parâmetro -a 
 Para buscar no docker hub através do CLI, use o comando `docker search string_busca`. A busca será feita no campo Nome da imagem. Use --filter "is-official=true" para filtrar somente por repositórios oficiais.
 
 `docker search alpine --filter "is-official=true"`
+
+* [Principais imagens usadas em projetos ASP.Net Core](imagens_aspnetcore/index.md)
 
 [top](#docker-table-of-contents)
 
@@ -277,26 +285,6 @@ docker buildx build --builder=container \
   --platform=linux/amd64,linux/arm64,linux/arm/v7 \
   -t nigelpoulton/ddd-book:ch8.1 --push .
 ```
-
-[top](#docker-table-of-contents)
-
-## Como instalar o Docker
-
-### Docker Desktop
-
-Baixe o software [aqui](https://hub.docker.com/) e, depois de instalado, você terá um ambiente Docker totalmente funcional, ótimo para desenvolvimento, teste e aprendizado. Inclui Docker Compose e você pode até habilitar um cluster Kubernetes de nó único se precisar aprender Kubernetes. No mesmo site vc encontra o software para Windows ou Mac. No Windows o Docker vai rodar no WSL 2. No Mac o Docker é instalado em um Linux rodando dentro de uma VM.
-
-### Através do Multipass
-
-Multipass é uma ferramenta gratuita para criar VMs Linux no estilo nuvem em sua máquina Linux, Mac ou Windows.
-
-### Docker no Linux
-
-Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS. Segue o roteiro de instalação no Linux 23.04 e foi também, tudo certo.
-
-### Play with Docker
-
-[Play with Docker](https://labs.play-with-docker.com/) (PWD) é um playground Docker totalmente funcional baseado na Internet que dura até 4 horas. Você pode adicionar vários nós e até mesmo agrupá-los em um swarm.
 
 [top](#docker-table-of-contents)
 
