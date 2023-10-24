@@ -36,6 +36,7 @@ Imagens
 | `docker rmi $(docker images -q) -f` | remover todas as imagens de uma só vez. | `docker rmi $(docker images -q) -f` |
 
 Containers
+
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
 | `docker run <image> <app>` | Executa um container usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest` |
@@ -45,6 +46,14 @@ Containers
 | `docker stop` | Para a execução do container | `docker stop id_container` |
 | `docker start` | Reinicializa um container parado com o comando stop | `docker start id_container` |
 | `docker rm` | Elimina o container |`docker rm id_container` |
+
+Volumes
+
+| Comando | Descrição | Exemplo |
+| ----- | ----- | ------ |
+| docker volume create | cria um volume | ------ |
+| docker volume ls | Lista os volumes. -q lista os ids, que podem ser usado por outros comandos que operam em múltiplos volumes | ------ |
+| docker volume rm | Remove um volume | ------ |
 
 ### Comandos associados ao Docker Hub
 
@@ -161,7 +170,7 @@ Para criar uma imagem a partir do *Dockerfile*, use docker build
 | EXPOSE | Expõe uma porta para que o container criado a partir desta imagem possa receber requisições | EXPOSE 8080 |
 | ENTRYPOINT | Especifica a aplicação que irá rodar em container criados desta imagem | ENTRYPOINT ["node", "./app.js"] |
 | ENV | Define variáveis de ambiente usados para configurar o container | |
-| VOLUME | Sinaliza que um volume Docker deve ser usado para prover o conteúdo de uma pasta específica | |
+| VOLUME | Sinaliza que um volume Docker deve ser usado para prover o conteúdo de uma pasta específica | VOLUME /var/lib/mysql |
 | ONBUILD | | |
 | HEALTHCHECK | | |
 | CMD | | |
@@ -288,6 +297,62 @@ docker buildx build --builder=container \
 
 [top](#docker-table-of-contents)
 
+## Volumes
+
+Os volumes permitem que dados importantes existam fora do contêiner, o que significa que você pode substituir um contêiner sem perder os dados que ele criou.
+
+### Criar um novo volume
+
+docker volume create [OPTIONS] [VOLUME]
+
+Exemplo 1:
+
+`docker volume create --name productdata`
+
+O argumento `--name` é usado para especificar o nome do volume, o qual é usado então no argumento -v no comando run:
+
+docker container run --name mysql -v productdata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0
+
+Exemplo 2:
+
+docker volume create hello
+
+docker container run -d -v hello:/world busybox ls /world
+
+### Para listar os volumes
+
+docker volume ls
+
+### Para remover um ou mais volumes
+
+docker volume rm
+
+[top](#docker-table-of-contents)
+
+## Network
+
+Redes definidas por software são usadas para conectar container, usando redes que são criadas e geridas pelo Docker.
+
+### Para criar uma rede
+
+docker network create backend
+
+docker run -d --name mysql -v productdata:/var/lib/mysql --network=backend -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0
+
+### Para conectar um container a uma rede
+
+docker network connect frontend productapp1
+
+### Para listar as redes
+
+docker network ls
+
+### Para remover uma rede
+
+docker network rm
+
+[top](#docker-table-of-contents)
+
 Organizar, estava no Google Drive
 
 Compilando a aplicação para usar no Docker
@@ -337,30 +402,7 @@ Executar um comando em um container ou iniciar uma sessão interativa
 docker container exec
 Visualizar a configuração de um container
 docker container inspect [container_name]
-Docker Volumes
-Conceito - Os volumes permitem que dados importantes existam fora do contêiner, o que significa que você pode substituir um contêiner sem perder os dados que ele criou.
-Criar um novo volume
-docker volume create [OPTIONS] [VOLUME]
-docker volume create hello
-docker container run -d -v hello:/world busybox ls /world
-docker volume create --name productdata
-docker container run --name mysql -v productdata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysecret -e
-bind-address=0.0.0.0 mysql:8.0.0
-Para listar os volumes
-docker volume ls
-Para remover um ou mais volumes
-docker volume rm
-Docker Networks
-Definição - Redes definidas por software são usadas para conectar container, usando redes que são criadas e geridas pelo Docker.
-Para criar uma rede
-docker network create backend
-docker run -d --name mysql -v productdata:/var/lib/mysql --network=backend -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0
-Para conectar um container a uma rede
-docker network connect frontend productapp1
-Para listar as redes
-docker network ls
-Para remover uma rede
-docker network rm
+
 Docker Compose
 Definição - é usado para descrever aplicações complexas que requerem múltiplos containers, volumes e redes. A descrição da aplicação é escrita em um “compose file”, usando o formato YAML.
 Exemplo:
