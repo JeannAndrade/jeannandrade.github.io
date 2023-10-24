@@ -66,9 +66,11 @@ Use o seguinte comando para gerar um pacote Release para uma subpasta chamada pu
 
 `dotnet publish -c Release -o ./publish`
 
-Uma pasta publish será criada com a estrutura do projeto
+A forma mais extensa dos comandos é:
 
-PS D:\dev\cs\todo-list-api> dotnet publish .\WebApi\ -c Release -o .\Publish\
+`dotnet publish --framework net7.0 --configuration Release --output dist`
+
+Uma pasta publish será criada com a estrutura do projeto
 
 [top](#table-of-contents)
 

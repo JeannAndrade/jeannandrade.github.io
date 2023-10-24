@@ -8,8 +8,11 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 1. [Conceitos](#conceitos)
 1. [Imagem](#imagem)
 1. [Container](#containers)
-1. [Como containerizar um app a partir de um código fonte](#como-containerizar-um-app-a-partir-de-um-código-fonte)
+1. [Volume](#volumes)
+1. [Network](#network)
 1. [DockerFile](#dockerfile)
+1. [Como containerizar um app a partir de um código fonte](#como-containerizar-um-app-a-partir-de-um-código-fonte)
+1. [Exemplo prático do processo]
 1. [Como instalar o Docker](como_instalar/index.md)
 
 ## Comandos do CLI
@@ -144,6 +147,62 @@ O comando run também tem uma opção para reiniciar um container automaticament
 | always | Container será reiniciado logo após o app principal ser finalizado (e por consequência o container ser encerrado) | `docker run --name neversaydie -it --restart always alpine sh` |
 | unless-stopped | O container será reiniciado a menos que seja parado com o comando stop | `docker run -d --name unless-stopped --restart unless-stopped alpine sleep 1d` |
 | on-failure | reiniciará um contêiner se ele sair com um código de saída diferente de zero. Ele também reiniciará os contêineres quando o Docker Daemon reiniciar, mesmo aqueles que estavam no estado parado. | `docker run --name neversaydie -it --restart on-failure alpine sh` |
+
+[top](#docker-table-of-contents)
+
+## Volumes
+
+Os volumes permitem que dados importantes existam fora do contêiner, o que significa que você pode substituir um contêiner sem perder os dados que ele criou.
+
+### Criar um novo volume
+
+docker volume create [OPTIONS] [VOLUME]
+
+Exemplo 1:
+
+`docker volume create --name productdata`
+
+O argumento `--name` é usado para especificar o nome do volume, o qual é usado então no argumento -v no comando run:
+
+docker container run --name mysql -v productdata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0
+
+Exemplo 2:
+
+docker volume create hello
+
+docker container run -d -v hello:/world busybox ls /world
+
+### Para listar os volumes
+
+docker volume ls
+
+### Para remover um ou mais volumes
+
+docker volume rm
+
+[top](#docker-table-of-contents)
+
+## Network
+
+Redes definidas por software são usadas para conectar container, usando redes que são criadas e geridas pelo Docker.
+
+### Para criar uma rede
+
+docker network create backend
+
+docker run -d --name mysql -v productdata:/var/lib/mysql --network=backend -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0
+
+### Para conectar um container a uma rede
+
+docker network connect frontend productapp1
+
+### Para listar as redes
+
+docker network ls
+
+### Para remover uma rede
+
+docker network rm
 
 [top](#docker-table-of-contents)
 
@@ -297,91 +356,24 @@ docker buildx build --builder=container \
 
 [top](#docker-table-of-contents)
 
-## Volumes
+## Exemplo prático do processo
 
-Os volumes permitem que dados importantes existam fora do contêiner, o que significa que você pode substituir um contêiner sem perder os dados que ele criou.
+dotnet publish --framework net7.0 --configuration Release --output dist
 
-### Criar um novo volume
+docker build . -t jeannandrade01/exampleapp -f Dockerfile
 
-docker volume create [OPTIONS] [VOLUME]
+docker login
 
-Exemplo 1:
+docker images
 
-`docker volume create --name productdata`
+docker push jeannandrade01/exampleapp:latest
 
-O argumento `--name` é usado para especificar o nome do volume, o qual é usado então no argumento -v no comando run:
+No PLay With Docker, inicie uma nova sessão e entre com o comando:
 
-docker container run --name mysql -v productdata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0
-
-Exemplo 2:
-
-docker volume create hello
-
-docker container run -d -v hello:/world busybox ls /world
-
-### Para listar os volumes
-
-docker volume ls
-
-### Para remover um ou mais volumes
-
-docker volume rm
-
-[top](#docker-table-of-contents)
-
-## Network
-
-Redes definidas por software são usadas para conectar container, usando redes que são criadas e geridas pelo Docker.
-
-### Para criar uma rede
-
-docker network create backend
-
-docker run -d --name mysql -v productdata:/var/lib/mysql --network=backend -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0
-
-### Para conectar um container a uma rede
-
-docker network connect frontend productapp1
-
-### Para listar as redes
-
-docker network ls
-
-### Para remover uma rede
-
-docker network rm
-
-[top](#docker-table-of-contents)
+docker run -d --name web1 -p 8080:80 jeannandrade01/exampleapp:latest
 
 Organizar, estava no Google Drive
 
-Compilando a aplicação para usar no Docker
-dotnet publish --framework netcoreapp1.1 --configuration Release --output dist
-Docker imagens
-Criar uma imagem
-docker image build --help
-docker image build . -t apress/exampleapp -f Dockerfile
-O arquivo Dockerfile deve estar no mesmo nível da solution
-Listar as imagens
-docker image --help
-docker image ls -q (para listar somente os IDs)
-Baixar uma imagem
-docker image pull --help
-Para publicar uma imagem
-docker image push --help  (é preciso estar autenticado com docker login)
-Associar uma tag a imagem
-docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
-Remover uma imagem
-docker image rm
-
-Docker Containers
-Criar um container
-docker container create --help
-docker container create -p 3000:80 --name exampleApp3000 apress/exampleapp
-Iniciar um container já criado
-docker container start exampleApp3000
-Criar e iniciar um container em um só comando
-docker container run -p 3000:80 --name exampleApp4000 apress/exampleapp
 Argumentos para o comando run
 -e, --env - configura uma variável de ambiente
 --name - associa um nome ao container
