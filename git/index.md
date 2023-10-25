@@ -62,6 +62,7 @@ Para ver todas as configurações e onde elas estão configuradas, entre com o c
 Para configurar a sua identidade:
 
 `git config --global user.name "John Doe"`
+
 `git config --global user.email <johndoe@example.com>`
 
 Para configurar o editor padrão:
@@ -585,7 +586,7 @@ Página oficial para os 3 maiores versionadores que eu utilizo:
 * <a href="https://docs.gitlab.com/ee/user/ssh.html#generate-an-ssh-key-pair" target="_blank">Gitlab</a>
 * <a href="https://www.atlassian.com/br/git/tutorials/git-ssh" target="_blank">Bitbucket</a>
 
-### Gerando a chamado
+### Gerando a chave
 
 1. Abra Terminal e entre com os comandos abaixo
 1. `ssh-keygen -t ed25519 -C "<your_email@example.com>"`
@@ -611,5 +612,11 @@ Abra o Git Bash, que provavelmente foi instalado pelo instalador do Git.
 
 1. Adicionar a chave gerado ao seu versionador
     1. [github](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+
+### Testando a comunicação com o servidor através do ssh
+
+`ssh -T git@github.com`
+
+Também vai funcionar para `git@gitlab.com` e `git@bitbucket.com`
 
 [top](#git-table-of-contents)
