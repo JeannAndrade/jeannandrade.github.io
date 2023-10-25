@@ -464,6 +464,7 @@ Como o git sabe em qual commit você está trabalhando agora? Ele manter um pont
 ### Deletando um branch
 
 local: `git branch -d nome_branch`
+
 Remoto: `git push -d nome_branch`
 
 ### Alternando entre branches
