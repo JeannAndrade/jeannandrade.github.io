@@ -438,6 +438,10 @@ Se você fizer um commit, seu branch version2 será um pouco diferente de sua ta
 
 `git branch`
 
+Para ver inclusive os branches que existem no remoto
+
+`git branch -a`
+
 Para ver o último commit em cada branch:
 
 `git branch -v`
@@ -459,7 +463,8 @@ Como o git sabe em qual commit você está trabalhando agora? Ele manter um pont
 
 ### Deletando um branch
 
-`git branch -d hotfix`
+local: `git branch -d nome_branch`
+Remoto: `git push -d nome_branch`
 
 ### Alternando entre branches
 
