@@ -46,9 +46,10 @@ Containers
 | `docker ps` | Lista os container em execução. Use -a para listar inclusive os containers parados | `docker ps` |
 | `Press Ctrl-PQ` | para sair do container sem finalizá-lo. O terminal sairá do terminal do container para o terminal do host | |
 | `docker exec` | anexa seu shell ao terminal de um contêiner em execução | `docker exec -it vigilant_borg bash` |
-| `docker stop` | Para a execução do container | `docker stop id_container` |
-| `docker start` | Reinicializa um container parado com o comando stop | `docker start id_container` |
+| `docker stop` | Para a execução do container | `docker stop id_container` ou `docker stop $(docker ps -q)` para parar todos |
+| `docker start` | Reinicializa um container parado com o comando stop | `docker start id_container` ou `docker start $(docker ps -aq)` para iniciar todos |
 | `docker rm` | Elimina o container |`docker rm id_container` |
+| `docker logs` | Exibe os logs gerados pelo container | `docker logs nome_container` e para exibir o log de forma contínua `docker logs -f nome_container` |
 
 Volumes
 
@@ -62,7 +63,7 @@ Volumes
 
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
-| `docker login` | Fazer login no site para depois subir uma imagem para o registro | `docker login` |
+| `docker login` | Fazer login no site para depois subir uma imagem para o registro | `docker login` ou `docker login -u <yourUsername> -p <yourPassword>` |
 
 Para entender as partes envolvidas, considere docker.io/nigelpoulton/ddd-book:ch8.1
 
@@ -358,19 +359,17 @@ docker buildx build --builder=container \
 
 ## Exemplo prático do processo
 
-dotnet publish --framework net7.0 --configuration Release --output dist
+Exemplo 01. Nesse exemplo a imagem não tem o SDK para poder buildar o app. Então o app está sendo buildado previamente numa pasta *dist* e o *Dockerfile* tem as instruções para copiar os binários para dentro da imagem.
 
-docker build . -t jeannandrade01/exampleapp -f Dockerfile
-
-docker login
-
-docker images
-
-docker push jeannandrade01/exampleapp:latest
+1. `dotnet publish --framework net7.0 --configuration Release --output dist` --> build the app
+1. `docker build . -t jeannandrade01/exampleapp -f Dockerfile` --> create the image
+1. `docker images` --> verify image created
+1. `docker login` --> logon on docker hub
+1. `docker push jeannandrade01/exampleapp:latest` --> push the image
 
 No PLay With Docker, inicie uma nova sessão e entre com o comando:
 
-docker run -d --name web1 -p 8080:80 jeannandrade01/exampleapp:latest
+`docker run -d --name web1 -p 8080:80 jeannandrade01/exampleapp:latest`
 
 Organizar, estava no Google Drive
 
