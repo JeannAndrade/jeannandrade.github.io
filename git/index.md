@@ -51,9 +51,9 @@ man git-<verb>
 
 O Git vem com uma ferramenta chamada git config que permite obter e definir variáveis de configuração que controlam todos os aspectos da aparência e operação do Git. Essas variáveis podem ser armazenadas em três locais diferentes:
 
-1. Arquivo /etc/gitconfig: Contém valores aplicados a cada usuário no sistema e todos os seus repositórios. Se você passar a opção --system para git config, ele lê e grava especificamente neste arquivo. (Como este é um arquivo de configuração do sistema, você precisaria de informações administrativas ou privilégio de superusuário para fazer alterações nele.)
-2. Arquivo ~/.gitconfig ou ~/.config/git/config: Valores específicos pessoalmente para você, o usuário. Você pode fazer o Git ler e gravar neste arquivo especificamente passando a opção --global, e isso afeta todos os repositórios com os quais você trabalha em seu sistema.
-3. arquivo de configuração no diretório Git (ou seja, .git/config) de qualquer repositório que você esteja usando atualmente: Específico para esse único repositório. Você pode forçar o Git a ler e gravar neste arquivo com a opção --local, mas esse é na verdade o padrão.
+1. Arquivo /etc/gitconfig: Contém valores aplicados a cada usuário no sistema e todos os seus repositórios. Se você passar a opção `--system` para git config, ele lê e grava especificamente neste arquivo. (Como este é um arquivo de configuração do sistema, você precisaria de informações administrativas ou privilégio de superusuário para fazer alterações nele.)
+2. Arquivo ~/.gitconfig ou ~/.config/git/config: Valores específicos pessoalmente para você, o usuário. Você pode fazer o Git ler e gravar neste arquivo especificamente passando a opção `--global`, e isso afeta todos os repositórios com os quais você trabalha em seu sistema.
+3. arquivo de configuração no diretório Git (ou seja, .git/config) de qualquer repositório que você esteja usando atualmente: Específico para esse único repositório. Você pode forçar o Git a ler e gravar neste arquivo com a opção `--local`, mas esse é na verdade o padrão.
 
 Para ver todas as configurações e onde elas estão configuradas, entre com o comando:
 
@@ -96,7 +96,7 @@ Para clonar um servidor e atribuir o nome da pasta que ele terá na sua máquina
 
 `git clone <url> <nome-pasta>`
 
-url pode ser o endereço de um servidor git criado com o git init --bare ou um endereço web válido
+url pode ser o endereço de um servidor git criado com o `git init --bare` ou um endereço web válido
 
 Exemplos:
 
@@ -122,7 +122,7 @@ Os seguintes protocolos são suportados pelo git:
 
 The main tool you use to determine which files are in which state is the `git status` command.
 
-Se quiser uma saída mais simplificada para o comando este comando, use o parâmetro -s ou --short
+Se quiser uma saída mais simplificada para o comando este comando, use o parâmetro `-s` ou `--short`
 
 | Símbolo | Descrição |
 | ----------- | ----------- |
@@ -194,8 +194,7 @@ Para commitar tudo que está em staged o comando é:
 
 `git commit`
 
-Remember that anything that is still unstaged — any files you have created or modified that you haven’t run git add on since you edited them — won’t go into this commit. They will stay as modified files on
-your disk.
+Remember that anything that is still unstaged — any files you have created or modified that you haven’t run git add on since you edited them — won’t go into this commit. They will stay as modified files on your disk.
 
 A variante `git commit -v` abrirá o editor da sua preferência com o resultado do 'diff' para que seja possível ver exatamente o que está sendo comitado.
 
@@ -207,7 +206,7 @@ Quando vc precisa corrigir um commit, ou porque esquecer de acrescentar um arqui
 
 ### Skipping the Staging Area
 
-Adicionando a opção -a ao command `git commit` fará que qualquer arquivo monitorado pelo git, mas ainda não incluído na area de stage, seja adicionado automaticamente. Arquivos não monitorados pelo git ficarão de fora do commit.
+Adicionando a opção `-a` ao command `git commit` fará que qualquer arquivo monitorado pelo git, mas ainda não incluído na area de stage, seja adicionado automaticamente. Arquivos não monitorados pelo git ficarão de fora do commit.
 
 ### Removing Files
 
@@ -215,7 +214,7 @@ Para remover um arquivo do Git, você tem que removê-lo dos arquivos monitorado
 
 `git rm file_name`
 
-Se você já modificou o arquivo ou já o adicionou a area de stage, você deve forçar a remoção com o opção -f.
+Se você já modificou o arquivo ou já o adicionou a area de stage, você deve forçar a remoção com o opção `-f`.
 
 Se quiser remover o arquivo da area de stage, mas ainda sim quer mantê-lo no disco, use a opção `--cached`. Isso é útil quando você acidentalmente adiciona a area de stage algum arquivo importante, que é necessário para o projeto, mas vc não precisa mantê-lo no Git.
 
@@ -223,7 +222,7 @@ Se quiser remover o arquivo da area de stage, mas ainda sim quer mantê-lo no di
 
 Assim como ocorre com o Linux, renomear um arquivo é feito através do comando `mv`.
 
-git mv file_from file_to
+`git mv file_from file_to`
 
 O próprio Git considera essa operação com um renomeio.
 
@@ -233,7 +232,7 @@ O próprio Git considera essa operação com um renomeio.
 
 Para ver o histórico de alterações do repositório, o comando é o `git log`
 
-De forma padrão, o git log irá exibir a lista de commits na ordem reversa cronologicamente, as mais recentes irão aparece primeiro.
+De forma padrão, o `git log` irá exibir a lista de commits na ordem reversa cronologicamente, as mais recentes irão aparece primeiro.
 
 A opção `-p` ou `--patch` mostra a diferença adicionada em cada commit e vc ainda pode adicionar um limite na quantidade de commits a serem exibidos.
 
@@ -257,7 +256,7 @@ A opção `--stat` imprime abaixo de cada entrada de commit uma lista de arquivo
 | %p | Abbreviated parent hashes |
 | %an | Author name |
 | %ae | Author email |
-| %ad | Author date (format respects the --date=option) |
+| %ad | Author date (format respects the `--date=option`) |
 | %ar | Author date, relative |
 | %cn | Committer name |
 | %ce | Committer email |
@@ -299,7 +298,7 @@ O arquivo foi colocado na area de stage com o comando `add`, mas agora vc precis
 
 `git checkout -- file_name`
 
-Aqui o arquivo foi alterado, mas ainda não foi dado o add. Dessa forma ele está alterado, mas não está na area de stage. Ex. git checkout -- CONTRIBUTING.md
+Aqui o arquivo foi alterado, mas ainda não foi dado o add. Dessa forma ele está alterado, mas não está na area de stage. Ex. `git checkout -- CONTRIBUTING.md`
 
 [top](#git-table-of-contents)
 
@@ -321,7 +320,7 @@ git remote add pb <https://github.com/paulboone/ticgit>
 
 ### Inspecionar um remote
 
-Para obter mais informações sobre um remote, vc usa o comando `git remote show nome_do_remote`. Ex.:  git remote show origin
+Para obter mais informações sobre um remote, vc usa o comando `git remote show nome_do_remote`. Ex.:  `git remote show origin`
 
 Esse comando mostra:
 
@@ -377,7 +376,7 @@ Typically, people use this functionality to mark release points (v1.0, v2.0 and 
 ### Listing Your Tags
 
 `git tag`
-`git tag -l "v1.8.5*"` -> para listar apenas as tags da série 1.8.5 (-l ou --list)
+`git tag -l "v1.8.5*"` -> para listar apenas as tags da série 1.8.5 (`-l` ou `--list`)
 
 ### Creating annotated Tags
 
@@ -387,8 +386,7 @@ Annotated tags, however, are stored as full objects in the Git database. They’
 
 ### Creating lightweight Tags
 
-A lightweight tag is very much like a branch that doesn’t change — it’s just a pointer to a specific commit. To create a lightweight tag, don’t supply any of the -a, -s, or
--m options, just provide a tag name
+A lightweight tag is very much like a branch that doesn’t change — it’s just a pointer to a specific commit. To create a lightweight tag, don’t supply any of the `-a`, `-s`, or `-m` options, just provide a tag name
 
 `git tag v1.4-lw`
 
@@ -410,7 +408,7 @@ By default, the git push command doesn’t transfer tags to remote servers. You 
 
 `git push origin v1.5`
 
-If you have a lot of tags that you want to push up at once, you can also use the --tags option to the git push command.
+If you have a lot of tags that you want to push up at once, you can also use the `--tags` option to the git push command.
 
 `git push origin --tags`
 
@@ -447,7 +445,7 @@ Para ver o último commit em cada branch:
 
 `git branch -v`
 
-As opções úteis --merged e --no-merged podem filtrar esta lista para ramificações que você já mergiou ou ainda não com o branch em que está atualmente. Para ver quais branches já estão mergiados no branch em que você está, você pode executar `git branch --merged`.
+As opções úteis `--merged` e `--no-merged` podem filtrar esta lista para ramificações que você já mergiou ou ainda não com o branch em que está atualmente. Para ver quais branches já estão mergiados no branch em que você está, você pode executar `git branch --merged`.
 
 Você também pode passar o branch a ser usado como referência:
 
