@@ -97,7 +97,7 @@ O que faz? faz a sugestão de comandos com base no que já foi digitado
 
 ### Instalando o plugin [k](https://github.com/supercrabtree/k)
 
-O que faz? Exibe detalhes como a data de criação, o tamanho e as permissões de uso de arquivos e pastas.
+O que faz? Exibe detalhes como a data de criação, o tamanho e as permissões de uso de arquivos e pastas. Digite 'k' em qualquer pasta para ver o resultado.
 
 `git clone https://github.com/supercrabtree/k $ZSH_CUSTOM/plugins/k`
 
