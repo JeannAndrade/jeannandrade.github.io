@@ -12,7 +12,7 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 1. [Network](#network)
 1. [DockerFile](#dockerfile)
 1. [Como containerizar um app a partir de um código fonte](#como-containerizar-um-app-a-partir-de-um-código-fonte)
-1. [Exemplo prático do processo]
+1. [Hands-On Docker](hands_on/index.md)
 1. [Como instalar o Docker](como_instalar/index.md)
 
 ## Comandos do CLI
@@ -356,20 +356,6 @@ docker buildx build --builder=container \
 ```
 
 [top](#docker-table-of-contents)
-
-## Exemplo prático do processo
-
-Exemplo 01. Nesse exemplo a imagem não tem o SDK para poder buildar o app. Então o app está sendo buildado previamente numa pasta *dist* e o *Dockerfile* tem as instruções para copiar os binários para dentro da imagem.
-
-1. `dotnet publish --framework net7.0 --configuration Release --output dist` --> build the app
-1. `docker build . -t jeannandrade01/exampleapp -f Dockerfile` --> create the image
-1. `docker images` --> verify image created
-1. `docker login` --> logon on docker hub
-1. `docker push jeannandrade01/exampleapp:latest` --> push the image
-
-No PLay With Docker, inicie uma nova sessão e entre com o comando:
-
-`docker run -d --name web1 -p 8080:80 jeannandrade01/exampleapp:latest`
 
 Organizar, estava no Google Drive
 
