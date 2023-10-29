@@ -586,30 +586,33 @@ Página oficial para os 3 maiores versionadores que eu utilizo:
 
 ### Gerando a chave
 
-1. Abra Terminal e entre com os comandos abaixo
-1. `ssh-keygen -t ed25519 -C "<your_email@example.com>"`
-1. Enter a file in which to save the key (/home/YOU/.ssh/ALGORITHM):[Press enter]
-1. Vai pedir uma senha. No prompt, digite uma frase secreta segura.
+* Inicie verificando se há chaves ssh registradas no seu Linux: `ls -al /home/jeann/.ssh`
+  * troquei "jeann" pelo seu usuário.
+* No Terminal entre com o comando: `ssh-keygen -t ed25519 -C "<your_email@example.com>"`
+  * Irá aparecer a pergunta: "Enter a file in which to save the key (/home/YOU/.ssh/ALGORITHM):[Press enter]". Aqui vc vai precisar alterar o nome do arquivo caso já existam chaves cadastradas com o nome padrão, senão vai dar erro.
+* Vai pedir uma senha. No prompt, digite uma frase secreta segura.
 
 ### Guardando a chave no Ubuntu
 
 1. `eval "$(ssh-agent -s)"`
-1. `ssh-add -k ~/.ssh/id_ed25519`
+1. `ssh-add -k ~/.ssh/id_ed25519` (cuidado, verificar antes o nome do arquivo da chave, que pode ser diferente)
 
 ### Guardando a chave no Mac
 
 1. `eval "$(ssh-agent -s)"`
-1. `ssh-add --apple-use-keychain ~/.ssh/id_ed25519`
+1. `ssh-add --apple-use-keychain ~/.ssh/id_ed25519`  (cuidado, verificar antes o nome do arquivo da chave, que pode ser diferente)
 
 ### Guardando a chave no Windows
 
 Abra o Git Bash, que provavelmente foi instalado pelo instalador do Git.
 
 1. `eval "$(ssh-agent -s)"`
-1. `ssh-add ~/.ssh/id_ed25519`
+1. `ssh-add ~/.ssh/id_ed25519`   (cuidado, verificar antes o nome do arquivo da chave, que pode ser diferente)
 
-1. Adicionar a chave gerado ao seu versionador
-    1. [github](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+### Adicionar a chave gerado ao seu versionador
+
+* [github](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+* [gitlab](https://docs.gitlab.com/ee/user/ssh.html#add-an-ssh-key-to-your-gitlab-account)
 
 ### Testando a comunicação com o servidor através do ssh
 

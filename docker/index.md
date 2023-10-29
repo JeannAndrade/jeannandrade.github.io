@@ -155,6 +155,30 @@ O comando run também tem uma opção para reiniciar um container automaticament
 
 Os volumes permitem que dados importantes existam fora do contêiner, o que significa que você pode substituir um contêiner sem perder os dados que ele criou.
 
+Para entender volumes você pode imaginar o seguinte cenário:
+
+Você comprou uma máquina capaz de produzir 3 produtos distintos e a máquina é capaz de colocar os produtos produzidos nas suas respectivas caixas. Dessa forma o manual de instalação prevê que o proprietário providenciará estas caixas e as colocará nas respectivas posições indicadas no manual.
+
+O manual da máquina aqui atua como o *Dockerfile*, onde deverá existir 3 instruções VOLUME, indicando que a imagem fará uso de volumes:
+
+```docker
+VOLUME /caixa1
+VOLUME /caixa2
+VOLUME /caixa3```
+
+O proprietário da máquina então providencia 3 caixas para armazenar os produtos: uma verde, uma amarela e outra azul.
+
+No Docker estas caixas reais serão criadas no host pelos comandos:
+
+```docker
+docker volume create --name caixa_verde
+docker volume create --name caixa_amarela
+docker volume create --name caixa_azul```
+
+Por fim, no momento de criar o container, é preciso ligar essas duas entidades (o volume indicado na imagem com o volume criado no host)
+
+`docker run --name vtest -v caixa_verde:/caixa1 -v caixa_amarela:/caixa2 -v caixa_azul:/caixa3 apress/vtest`
+
 ### Criar um novo volume
 
 docker volume create [OPTIONS] [VOLUME]

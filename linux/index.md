@@ -15,7 +15,7 @@ Foram usados como fonte:
 
 | Símbolo | Descrição |
 | ----------- | ----------- |
-| ls | comando de listagem para ver conteúdo de uma pasta |
+| ls | comando de listagem para ver conteúdo de uma pasta (ls -al para formato longo)|
 | man | dá acesso ao manual do comando. Ex man ls |
 | clear | limpar o terminal (pode ser o control + L) |
 | mkdir | Criar uma pasta. Se quiser criar várias pastas, separar com espaço os nomes delas |

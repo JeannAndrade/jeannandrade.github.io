@@ -16,4 +16,10 @@ Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS.
 
 [Play with Docker](https://labs.play-with-docker.com/) (PWD) é um playground Docker totalmente funcional baseado na Internet que dura até 4 horas. Você pode adicionar vários nós e até mesmo agrupá-los em um swarm.
 
+## Problemas comuns na instalação
+
+### O docker reclama de falta de permissão para o usuário non-root quando alguns commandos são executados
+
+Esse [link](https://phoenixnap.com/kb/docker-permission-denied) mostra como resolver
+
 [top](/docker/index.md#docker-table-of-contents)
