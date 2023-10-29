@@ -1,8 +1,8 @@
 # Hands-On Docker
 
-[1. Exercício 1 - ASP.NET - Demonstração prática do ciclo de build, login, push e run](#exercício-1)
-[1. Exercício 2 - Dockerfile - demonstrando o problema de não ter um volume](#exercício-2)
-[1. Exercício 3 - Dockerfile - demonstrando o uso do volume](#exercício-3)
+1. [Exercício 1 - ASP.NET - Demonstração prática do ciclo de build, login, push e run](#exercício-1)
+1. [Exercício 2 - Dockerfile - demonstrando o problema de não ter um volume](#exercício-2)
+1. [Exercício 3 - Dockerfile - demonstrando o uso do volume](#exercício-3)
 
 ## Exercício 1
 
@@ -10,14 +10,14 @@ Código Fonte [aqui](https://gitlab.com/jeann-andrade/dockerexamples/-/tree/main
 
 Nesse exercício a imagem não tem o SDK para poder buildar o app. Então o app está sendo buildado previamente numa pasta *dist* e o *Dockerfile* tem as instruções para copiar os binários para dentro da imagem.
 
-- [x] uso de dockerfile
-- [x] criação de imagem
-- [ ] criação de volume
-- [ ] criação de rede (network)
-- [ ] uso de compose
-- [ ] uso de swarm
-- [x] publicação em docker hub
-- [x] rodando container em play with docker
+[x] uso de dockerfile
+[x] criação de imagem
+[ ] criação de volume
+[ ] criação de rede (network)
+[ ] uso de compose
+[ ] uso de swarm
+[x] publicação em docker hub
+[x] rodando container em play with docker
 
 Passo 1 - criar localmente o pacote de binários da aplicação:
 
