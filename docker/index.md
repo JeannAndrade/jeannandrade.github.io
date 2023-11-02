@@ -37,6 +37,7 @@ Imagens
 | `docker tag` | Esse comando serve para adicionar uma nova tag a imagem, sem sobrescrever a original. Para subir para o Docker Hub é preciso que a tag seja precedida do seu "id de usuário" | `docker tag ddd-book:ch8.1 nigelpoulton/ddd-book:ch8.1` |
 | `docker rmi` | remover uma imagem que não é mais usada. Não é possível apagar uma imagem que está em uso por um container. Será preciso parar o container e apagá-lo antes de apagar a imagem. | `docker rmi 44dd6f223004` |
 | `docker rmi $(docker images -q) -f` | remover todas as imagens de uma só vez. | `docker rmi $(docker images -q) -f` |
+| `docker inspect vtest` | inspeciona uma imagem. É especialmente útil na hora de descobrir se uma imagem usa volume | |
 
 Containers
 
@@ -164,7 +165,8 @@ O manual da máquina aqui atua como o *Dockerfile*, onde deverá existir 3 instr
 ```docker
 VOLUME /caixa1
 VOLUME /caixa2
-VOLUME /caixa3```
+VOLUME /caixa3
+```
 
 O proprietário da máquina então providencia 3 caixas para armazenar os produtos: uma verde, uma amarela e outra azul.
 
@@ -173,11 +175,12 @@ No Docker estas caixas reais serão criadas no host pelos comandos:
 ```docker
 docker volume create --name caixa_verde
 docker volume create --name caixa_amarela
-docker volume create --name caixa_azul```
+docker volume create --name caixa_azul
+```
 
 Por fim, no momento de criar o container, é preciso ligar essas duas entidades (o volume indicado na imagem com o volume criado no host)
 
-`docker run --name vtest -v caixa_verde:/caixa1 -v caixa_amarela:/caixa2 -v caixa_azul:/caixa3 apress/vtest`
+`docker run --name vtest -v caixa_verde:/caixa1 -v caixa_amarela:/caixa2 -v caixa_azul:/caixa3 vtest`
 
 ### Criar um novo volume
 
@@ -189,21 +192,21 @@ Exemplo 1:
 
 O argumento `--name` é usado para especificar o nome do volume, o qual é usado então no argumento -v no comando run:
 
-docker container run --name mysql -v productdata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0
+`docker container run --name mysql -v productdata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0`
 
 Exemplo 2:
 
-docker volume create hello
+`docker volume create hello`
 
-docker container run -d -v hello:/world busybox ls /world
+`docker container run -d -v hello:/world busybox ls /world`
 
 ### Para listar os volumes
 
-docker volume ls
+`docker volume ls`
 
 ### Para remover um ou mais volumes
 
-docker volume rm
+`docker volume rm`
 
 [top](#docker-table-of-contents)
 
@@ -213,21 +216,21 @@ Redes definidas por software são usadas para conectar container, usando redes q
 
 ### Para criar uma rede
 
-docker network create backend
+`docker network create backend`
 
-docker run -d --name mysql -v productdata:/var/lib/mysql --network=backend -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0
+`docker run -d --name mysql -v productdata:/var/lib/mysql --network=backend -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0`
 
 ### Para conectar um container a uma rede
 
-docker network connect frontend productapp1
+`docker network connect frontend productapp1`
 
 ### Para listar as redes
 
-docker network ls
+`docker network ls`
 
 ### Para remover uma rede
 
-docker network rm
+`docker network rm`
 
 [top](#docker-table-of-contents)
 

@@ -3,6 +3,7 @@
 1. [Exercício 1 - ASP.NET - Demonstração prática do ciclo de build, login, push e run](#exercício-1)
 1. [Exercício 2 - Dockerfile - demonstrando o problema de não ter um volume](#exercício-2)
 1. [Exercício 3 - Dockerfile - demonstrando o uso do volume](#exercício-3)
+1. [Exercício 4 - ASP.NET - Aplicação acessando o banco sem compose](#exercício-4)
 
 ## Exercício 1
 
@@ -102,6 +103,45 @@ Passo 1 - Clonar o projeto no Play With Docker e criar a imagem a partir do arqu
 Passo 2 - Criar o volume no host
 
 `docker volume create --name testdata`
+
+Passo 3 - Rodar um container associando o volume do Host com o volume esperado no *Dockerfile*
+
+`docker run --name vtest2 -v testdata:/data vtest`
+
+Passo 4 - Remover o container, apagando seu conteúdo
+
+`docker rm -f vtest2`
+
+Passo 5 - Criar um novo container para ver que o arquivo continua lá, não foi perdido com a exclusão do container
+
+`docker run --name vtest vtest`
+
+## Exercício 4
+
+Código Fonte [aqui](https://gitlab.com/jeann-andrade/dockerexamples/-/tree/main/ExampleApp04?ref_type=heads)
+
+Nesse exercício dados estão sendo armazenados em volume. Uma aplicação ASP.NET vai rodar acessando um DB MariaDb rodando em outro container. No entanto, esse container do banco foi criado independente do container da aplicação e está disponível para qualquer app acessar.
+
+- [x] uso de dockerfile
+- [x] criação de imagem
+- [x] criação de volume
+- [ ] criação de rede (network)
+- [ ] uso de compose
+- [ ] uso de swarm
+- [ ] publicação em docker hub
+- [x] rodando container em play with docker
+
+Passo 1 - Clonar o projeto no Play With Docker e criar a imagem a partir do arquivo Dockerfile disponível na pasta raiz do projeto
+
+`docker build . -t Exercicio04 -f Dockerfile.volumes`
+
+Passo 2 - Criar o volume no host
+
+`docker volume create --name productdata`
+
+Criar o container do banco MariaDb
+
+`docker run -d --name mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_DATABASE=products --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:11.1.2`
 
 Passo 3 - Rodar um container associando o volume do Host com o volume esperado no *Dockerfile*
 
