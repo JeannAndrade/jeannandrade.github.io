@@ -133,24 +133,24 @@ Nesse exercício dados estão sendo armazenados em volume. Uma aplicação ASP.N
 
 Passo 1 - Clonar o projeto no Play With Docker e criar a imagem a partir do arquivo Dockerfile disponível na pasta raiz do projeto
 
-`docker build . -t Exercicio04 -f Dockerfile.volumes`
+`docker build . -t aspnet_ex04 -f Dockerfile`
 
 Passo 2 - Criar o volume no host
 
 `docker volume create --name productdata`
 
-Criar o container do banco MariaDb
+Passo 3 - Criar o container do banco MariaDb
 
 `docker run -d --name mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_DATABASE=products --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:11.1.2`
 
-Passo 3 - Rodar um container associando o volume do Host com o volume esperado no *Dockerfile*
+Passo 4 - Inspecionar o container do banco para ver qual ip o docker atribuiu a ele
 
-`docker run --name vtest2 -v testdata:/data vtest`
+`docker network inspect bridge`
 
-Passo 4 - Remover o container, apagando seu conteúdo
+Passo 5 - Rodar um segundo container com a aplicação ASP.NET a partir da imagem criada alterando o IP do DBHost
 
-`docker rm -f vtest2`
+`docker run -d --name productapp -p 3000:80 -e DBHOST=172.17.0.2 aspnet_ex04:latest`
 
-Passo 5 - Criar um novo container para ver que o arquivo continua lá, não foi perdido com a exclusão do container
+Passo 6 - Remover o container, apagando seu conteúdo
 
-`docker run --name vtest vtest`
+`docker logs -f productapp`
