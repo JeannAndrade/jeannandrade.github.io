@@ -141,7 +141,7 @@ Passo 2 - Criar o volume no host
 
 Passo 3 - Criar o container do banco MariaDb
 
-`docker run -d --name mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_DATABASE=products --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:11.1.2`
+`docker run -d --name mariadb -v productdata:/var/lib/mysql --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_DATABASE=products --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:11.1.2`
 
 Passo 4 - Inspecionar o container do banco para ver qual ip o docker atribuiu a ele
 
@@ -151,6 +151,6 @@ Passo 5 - Rodar um segundo container com a aplicação ASP.NET a partir da image
 
 `docker run -d --name productapp -p 3000:80 -e DBHOST=172.17.0.2 aspnet_ex04:latest`
 
-Passo 6 - Remover o container, apagando seu conteúdo
+Passo 6 - Examinar o log do container para ver os comandos sendo executados
 
 `docker logs -f productapp`
