@@ -120,7 +120,7 @@ Passo 5 - Criar um novo container para ver que o arquivo continua lá, não foi 
 
 Código Fonte [aqui](https://gitlab.com/jeann-andrade/dockerexamples/-/tree/main/ExampleApp04?ref_type=heads)
 
-Nesse exercício dados estão sendo armazenados em volume. Uma aplicação ASP.NET vai rodar acessando um DB MariaDb rodando em outro container. No entanto, esse container do banco foi criado independente do container da aplicação e está disponível para qualquer app acessar.
+Nesse exercício dados estão sendo armazenados em volume. Uma aplicação ASP.NET vai rodar acessando um DB MariaDb rodando em outro container. A comunicação entre os containers é feita através da rede bridge padrão (Default Bridge Network) que tem duas limitações principais: é preciso executar o comando `docker network inspect bridge` para saber o IP atribuído ao container e, todos os containers da solução estarão na mesma rede, o que não é uma boa prática quando se trabalha com docker.
 
 - [x] uso de dockerfile
 - [x] criação de imagem
@@ -154,3 +154,9 @@ Passo 5 - Rodar um segundo container com a aplicação ASP.NET a partir da image
 Passo 6 - Examinar o log do container para ver os comandos sendo executados
 
 `docker logs -f productapp`
+
+Veja a composição de rede criada pelo docker para este exercício. O uso da rede Bridge para conectar os dois containers.
+
+![Composição da conexão de rede do exercício](../img/composicao_rede_exec04.png)
+
+O navegador envia sua requisição HTTP para a porta 3000 no sistema operacional host que o Docker mapeia para a porta 80 no contêiner do aplicativo MVC. O aplicativo MVC solicita que o Entity Framework Core forneça dados, o que ele faz usando a rede bridge padrão para se comunicar com o aplicativo MariaDb em execução em um contêiner separado.

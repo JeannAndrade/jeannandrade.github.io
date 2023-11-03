@@ -1,17 +1,21 @@
 # Docker (Table of contents)
 
-Este é um resumo do livro Docker Deep Dive, do Nigel Poulton, mas também pode ter outros apontamentos de fontes variadas.
+Este é um resumo de dois livros:
+
+* Docker Deep Dive: Zero to Docker in a Single Book, Nigel Poulton.
+* Essential Docker for ASP.NET Core MVC, Adam Freeman.
 
 Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.git>
 
 1. [Comandos do CLI](#comandos-do-cli)
 1. [Conceitos](#conceitos)
 1. [Imagem](#imagem)
-1. [Container](#containers)
+1. [contêiner](#contêiners)
 1. [Volume](#volumes)
-1. [Network](#network)
+1. [Network](#network-software-defined-network-sdn)
 1. [DockerFile](#dockerfile)
-1. [Como containerizar um app a partir de um código fonte](#como-containerizar-um-app-a-partir-de-um-código-fonte)
+1. [Como conteinerizar um app a partir de um código fonte](#como-contêinerizar-um-app-a-partir-de-um-código-fonte)
+1. [Compose](#compose)
 1. [Hands-On Docker](hands_on/index.md)
 1. [Como instalar o Docker](como_instalar/index.md)
 
@@ -22,7 +26,7 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 | Comando | Descrição
 | ----- | ----- |
 | `docker version` | Obtém informações sobre as versões e testa se o client e o Deamon (server) estão executando e falando um com o outro |
-| `docker info` | Obtém informações mais detalhadas do client e do server sobre os recursos que o Docker está gerenciando, como containers, imagens, volumes... |
+| `docker info` | Obtém informações mais detalhadas do client e do server sobre os recursos que o Docker está gerenciando, como contêiners, imagens, volumes... |
 
 ### Comandos associados a recursos
 
@@ -35,30 +39,49 @@ Imagens
 | `docker pull` | obtém uma imagem da sua lista de fontes de imagem (default é dockerhub) | `docker pull ubuntu:latest` ou `docker pull nigelpoulton/tu-demo:v2` ou `docker pull gcr.io/google-containers/git-sync:v3.1.5` |
 | `docker push` | Comando para subir a imagem para o Docker Hub | `docker push nigelpoulton/ddd-book:ch8.1` |
 | `docker tag` | Esse comando serve para adicionar uma nova tag a imagem, sem sobrescrever a original. Para subir para o Docker Hub é preciso que a tag seja precedida do seu "id de usuário" | `docker tag ddd-book:ch8.1 nigelpoulton/ddd-book:ch8.1` |
-| `docker rmi` | remover uma imagem que não é mais usada. Não é possível apagar uma imagem que está em uso por um container. Será preciso parar o container e apagá-lo antes de apagar a imagem. | `docker rmi 44dd6f223004` |
+| `docker rmi` | remover uma imagem que não é mais usada. Não é possível apagar uma imagem que está em uso por um contêiner. Será preciso parar o contêiner e apagá-lo antes de apagar a imagem. | `docker rmi 44dd6f223004` |
 | `docker rmi $(docker images -q) -f` | remover todas as imagens de uma só vez. | `docker rmi $(docker images -q) -f` |
 | `docker inspect vtest` | inspeciona uma imagem. É especialmente útil na hora de descobrir se uma imagem usa volume | |
 
-Containers
+contêiners
 
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
-| `docker run <image> <app>` | Executa um container usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest` |
-| `docker ps` | Lista os container em execução. Use -a para listar inclusive os containers parados | `docker ps` |
-| `Press Ctrl-PQ` | para sair do container sem finalizá-lo. O terminal sairá do terminal do container para o terminal do host | |
+| `docker run <image> <app>` | Executa um contêiner usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest` |
+| `docker ps` | Lista os contêiner em execução. Use -a para listar inclusive os contêiners parados | `docker ps` |
+| `Press Ctrl-PQ` | para sair do contêiner sem finalizá-lo. O terminal sairá do terminal do contêiner para o terminal do host | |
 | `docker exec` | anexa seu shell ao terminal de um contêiner em execução | `docker exec -it vigilant_borg bash` |
-| `docker stop` | Para a execução do container | `docker stop id_container` ou `docker stop $(docker ps -q)` para parar todos |
-| `docker start` | Reinicializa um container parado com o comando stop | `docker start id_container` ou `docker start $(docker ps -aq)` para iniciar todos |
-| `docker rm` | Elimina o container |`docker rm id_container` |
-| `docker logs` | Exibe os logs gerados pelo container | `docker logs nome_container` e para exibir o log de forma contínua `docker logs -f nome_container` |
+| `docker stop` | Para a execução do contêiner | `docker stop id_contêiner` ou `docker stop $(docker ps -q)` para parar todos |
+| `docker start` | Reinicializa um container parado com o comando stop | `docker start id_contêiner` ou `docker start $(docker ps -aq)` para iniciar todos |
+| `docker rm` | Elimina o contêiner |`docker rm id_container` |
+| `docker rm $(docker ps -aq)` | Elimina todos os contêiners de uma vez |`docker rm -f $(docker ps -aq)` vai forçar a parada do contêiner e depois eliminá-lo |
+| `docker logs` | Exibe os logs gerados pelo contêiner | `docker logs nome_container` e para exibir o log de forma contínua `docker logs -f nome_container` |
+
+Compose
+
+| Comando | Descrição | Exemplo |
+| ----- | ----- | ------ |
+| `docker compose version` | Para verificar a versão do docker-compose instalado | |
 
 Volumes
 
-| Comando | Descrição | Exemplo |
-| ----- | ----- | ------ |
-| docker volume create | cria um volume | ------ |
-| docker volume ls | Lista os volumes. -q lista os ids, que podem ser usado por outros comandos que operam em múltiplos volumes | ------ |
-| docker volume rm | Remove um volume | ------ |
+| Comando | Descrição |
+| ----- | ----- |
+| `docker volume create` | cria um volume |
+| `docker volume ls` | Lista os volumes. -q lista os ids, que podem ser usado por outros comandos que operam em múltiplos volumes |
+| `docker volume rm` | Remove um volume |
+| `docker volume rm $(docker volume ls -q)` | Remove todos os volumes de uma vez |
+
+Networks
+
+| Comando | Descrição |
+| ----- | ----- |
+| `docker network ls` | Lista as redes disponíveis. -q lista os ids, que podem ser usado por outros comandos que operam em múltiplos volumes |
+| `docker network create backend` | Cria uma rede para que possa ser atribuída a um contêiner com o comando run: `docker run -d --name mysql -v productdata:/var/lib/mysql --network=backend -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0` |
+| `docker network connect frontend productapp1` | Conecta uma contêiner a uma rede |
+| `docker network rm` | Para remover uma rede |
+| `docker network rm $(docker network ls -q)` | Para remover todas as redes |
+| `docker network inspect bridge` | Lista todos os contêiners que estão na rede bridge e exibe o IP atribuído a eles para que possa receber requisições |
 
 ### Comandos associados ao Docker Hub
 
@@ -88,7 +111,7 @@ Quando se fala em Docker como uma tecnologia, 3 partes fundamentais se destacam:
 
 O runtime opera no nível mais baixo e é responsável por iniciar e parar contêineres. Docker implementa uma arquitetura de runtime em camadas com runtimes de alto e baixo nível que funcionam juntos.
 
-O runtime de baixo nível é chamado *runc* e é a implementação de referência da especificação de runtime da Open Containers Initiative (OCI). Sua função é fazer interface com o sistema operacional subjacente e iniciar e parar contêineres. Cada contêiner em um nó Docker foi criado e iniciado por uma instância do *runc*.
+O runtime de baixo nível é chamado *runc* e é a implementação de referência da especificação de runtime da Open contêiners Initiative (OCI). Sua função é fazer interface com o sistema operacional subjacente e iniciar e parar contêineres. Cada contêiner em um nó Docker foi criado e iniciado por uma instância do *runc*.
 
 O runtime de nível superior é chamado *containerd*. Ele gerencia todo o ciclo de vida do contêiner, incluindo baixar imagens e gerenciar as instâncias *runc*. *containerd* é pronunciado “container-dee”. Uma instalação típica do Docker possui um único processo *containerd* de longa duração que instrui o *runc* a iniciar e parar contêineres.
 
@@ -120,7 +143,7 @@ Para filtrar o resultado do comando `docker images` vc pode usar o parâmetro --
 | label | Filtra as imagens com base na presença de um rótulo ou rótulo e valor. O comando Docker Images não exibe rótulos em sua saída. | `docker images --filter label=<key> or label=<key>=<value>` |
 | reference | | `docker images --filter=reference="*:latest"` |
 
-Para deletar imagens sem tag use `docker image prune`. Adicione o parâmetro -a para deletar também todas as imagens que não estão sendo usado por nenhum container.
+Para deletar imagens sem tag use `docker image prune`. Adicione o parâmetro -a para deletar também todas as imagens que não estão sendo usadas por nenhum contêiner.
 
 Para buscar no docker hub através do CLI, use o comando `docker search string_busca`. A busca será feita no campo Nome da imagem. Use --filter "is-official=true" para filtrar somente por repositórios oficiais.
 
@@ -130,24 +153,24 @@ Para buscar no docker hub através do CLI, use o comando `docker search string_b
 
 [top](#docker-table-of-contents)
 
-## Containers
+## contêiners
 
-O conceito de container é similar ao conceito de Objeto. Se a imagem é uma classe, o container será um objeto criado a partir de uma imagem. Basicamente um container é uma imagem em execução.
+O conceito de contêiner é similar ao conceito de Objeto. Se a imagem é uma classe, o contêiner será um objeto criado a partir de uma imagem. Basicamente um contêiner é uma imagem em execução.
 
-### Mais sobre containers
+### Mais sobre contêiners
 
-O parâmetro -it conecta a janela do terminal corrente ao shell do container.
+O parâmetro -it conecta a janela do terminal corrente ao shell do contêiner.
 
-O parâmetro -d executa o container em segundo plano. Os parâmetros -d e -it não podem ser usados ao mesmo tempo.
+O parâmetro -d executa o contêiner em segundo plano. Os parâmetros -d e -it não podem ser usados ao mesmo tempo.
 
-Os contêineres são executados até que o aplicativo principal saia. Esse exemplo: `docker run -it alpine:latest sleep 10` - executa o commando sleep por 10 segundo e depois encerra a execução do container.
+Os contêineres são executados até que o aplicativo principal saia. Esse exemplo: `docker run -it alpine:latest sleep 10` - executa o commando sleep por 10 segundo e depois encerra a execução do contêiner.
 
-O comando run também tem uma opção para reiniciar um container automaticamente em caso de falha. As opções de reinício são:
+O comando run também tem uma opção para reiniciar um contêiner automaticamente em caso de falha. As opções de reinício são:
 
 |Opção| Descrição | Exemplo |
 | ----- | ----- | ----- |
-| always | Container será reiniciado logo após o app principal ser finalizado (e por consequência o container ser encerrado) | `docker run --name neversaydie -it --restart always alpine sh` |
-| unless-stopped | O container será reiniciado a menos que seja parado com o comando stop | `docker run -d --name unless-stopped --restart unless-stopped alpine sleep 1d` |
+| always | contêiner será reiniciado logo após o app principal ser finalizado (e por consequência o contêiner ser encerrado) | `docker run --name neversaydie -it --restart always alpine sh` |
+| unless-stopped | O contêiner será reiniciado a menos que seja parado com o comando stop | `docker run -d --name unless-stopped --restart unless-stopped alpine sleep 1d` |
 | on-failure | reiniciará um contêiner se ele sair com um código de saída diferente de zero. Ele também reiniciará os contêineres quando o Docker Daemon reiniciar, mesmo aqueles que estavam no estado parado. | `docker run --name neversaydie -it --restart on-failure alpine sh` |
 
 [top](#docker-table-of-contents)
@@ -178,59 +201,21 @@ docker volume create --name caixa_amarela
 docker volume create --name caixa_azul
 ```
 
-Por fim, no momento de criar o container, é preciso ligar essas duas entidades (o volume indicado na imagem com o volume criado no host)
+Por fim, no momento de criar o contêiner, é preciso ligar essas duas entidades (o volume indicado na imagem com o volume criado no host)
 
 `docker run --name vtest -v caixa_verde:/caixa1 -v caixa_amarela:/caixa2 -v caixa_azul:/caixa3 vtest`
 
-### Criar um novo volume
-
-docker volume create [OPTIONS] [VOLUME]
-
-Exemplo 1:
-
-`docker volume create --name productdata`
-
-O argumento `--name` é usado para especificar o nome do volume, o qual é usado então no argumento -v no comando run:
-
-`docker container run --name mysql -v productdata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0`
-
-Exemplo 2:
-
-`docker volume create hello`
-
-`docker container run -d -v hello:/world busybox ls /world`
-
-### Para listar os volumes
-
-`docker volume ls`
-
-### Para remover um ou mais volumes
-
-`docker volume rm`
-
 [top](#docker-table-of-contents)
 
-## Network
+## Network (Software-Defined Network (SDN))
 
-Redes definidas por software são usadas para conectar container, usando redes que são criadas e geridas pelo Docker.
+Redes definidas por software são usadas para conectar contêiner. Estas redes são criadas e geridas pelo Docker.
 
-### Para criar uma rede
+Os principais redes do Docker de escopo local são:
 
-`docker network create backend`
-
-`docker run -d --name mysql -v productdata:/var/lib/mysql --network=backend -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0`
-
-### Para conectar um container a uma rede
-
-`docker network connect frontend productapp1`
-
-### Para listar as redes
-
-`docker network ls`
-
-### Para remover uma rede
-
-`docker network rm`
+* bridge - é o tipo de rede padrão, sendo que o comando run coloca os contêiners criados nesta rede.
+* host - é a rede do servidor host.
+* none - é uma rede que não possui conectividade e que pode ser usada para isolar completamente os contêineres.
 
 [top](#docker-table-of-contents)
 
@@ -252,11 +237,11 @@ Para criar uma imagem a partir do *Dockerfile*, use docker build
 | FROM | Indica a imagem base. Comece com a imagem tal. | FROM alpine |
 | LABEL | Usado para inserir metadados | LABEL maintainer="<nigelpoulton@hotmail.com>" |
 | RUN | Executa um comando a medida que o arquivo Dockerfile é executado | RUN apk add --update nodejs npm |
-| COPY | adiciona arquivos que farão parte do sistema de arquivos do container criado a partir desta imagem | COPY . /src |
+| COPY | adiciona arquivos que farão parte do sistema de arquivos do contêiner criado a partir desta imagem | COPY . /src |
 | WORKDIR | Muda a pasta para os comandos subsequentes no dockerfile | WORKDIR /src |
-| EXPOSE | Expõe uma porta para que o container criado a partir desta imagem possa receber requisições | EXPOSE 8080 |
-| ENTRYPOINT | Especifica a aplicação que irá rodar em container criados desta imagem | ENTRYPOINT ["node", "./app.js"] |
-| ENV | Define variáveis de ambiente usados para configurar o container | |
+| EXPOSE | Expõe uma porta para que o contêiner criado a partir desta imagem possa receber requisições | EXPOSE 8080 |
+| ENTRYPOINT | Especifica a aplicação que irá rodar em contêiner criados desta imagem | ENTRYPOINT ["node", "./app.js"] |
+| ENV | Define variáveis de ambiente usados para configurar o contêiner | |
 | VOLUME | Sinaliza que um volume Docker deve ser usado para prover o conteúdo de uma pasta específica | VOLUME /var/lib/mysql |
 | ONBUILD | | |
 | HEALTHCHECK | | |
@@ -264,7 +249,7 @@ Para criar uma imagem a partir do *Dockerfile*, use docker build
 
 [top](#docker-table-of-contents)
 
-## Como containerizar um app a partir de um código fonte
+## Como contêinerizar um app a partir de um código fonte
 
 Contêineres têm tudo a ver com simplificar os processos construir, empacotar e executar um aplicativo. O processo de ponta a ponta se parece com o seguinte:
 
@@ -272,7 +257,7 @@ Contêineres têm tudo a ver com simplificar os processos construir, empacotar e
 1. Crie um *DockerFile* que descreva seu aplicativo, dependências e como executá -lo
 1. Crie uma imagem desse pacote passando o *Dockerfile* para o comando do Docker Build
 1. Submeta a nova imagem para um registro (opcional)
-1. Execute um container dessa imagem
+1. Execute um contêiner dessa imagem
 
 A imagem abaixo ilustra o processo:
 
@@ -285,7 +270,7 @@ A imagem abaixo ilustra o processo:
 1. Verificar se existe um *Dockerfile*: `ls -l`
 1. Construir a imagem: `docker build -t test:latest .`
 1. Verificar se a imagem foi criada: `docker images`
-1. Executar um container a partir da imagem: `docker run -d --name web1 --publish 8080:8080 test:latest`
+1. Executar um contêiner a partir da imagem: `docker run -d --name web1 --publish 8080:8080 test:latest`
 
 ### Multi-stage builds
 
@@ -384,28 +369,48 @@ docker buildx build --builder=container \
 
 [top](#docker-table-of-contents)
 
+## Compose
+
+É uma ferramenta que facilita o gerenciamento de aplicações multi-containers. Compose usa um arquivo YAML para definir aplicações microservices. O nome padrão desse arquivo é *compose.yaml*, mas *compose.yml* também é aceito.
+
+Exemplo de um arquivo compose simples:
+
+```docker
+services:
+  web-fe:
+    build: .
+    command: python app.py
+    ports:
+      - target: 8080
+        published: 5001
+    networks:
+      - counter-net
+    volumes:
+      - type: volume
+        source: counter-vol
+        target: /app
+  redis:
+    image: "redis:alpine"
+    networks:
+      counter-net:
+
+networks:
+  counter-net:
+
+volumes:
+  counter-vol:
+```
+
 Organizar, estava no Google Drive
 
 Argumentos para o comando run
 -e, --env - configura uma variável de ambiente
---name - associa um nome ao container
---network - conecta o container a uma rede definida por software
--d - executa o container em backgroud e print o container ID
--p, --publish - cria um mapeamento entre portas, externa e interna ao container
---rm - remove o container quando ele para.
--v, --volume - configura um volume que irá prover um conteúdo para uma pasta no sistema de arquivos do container.
-Parar um container
-docker container stop
-Remover um container
-docker container rm
-Listar os container
-docker container ls (-a inclui container parados, -q exibe somente os IDs)
-Visualizar o log do container
-docker container logs
-Executar um comando em um container ou iniciar uma sessão interativa
-docker container exec
-Visualizar a configuração de um container
-docker container inspect [container_name]
+--name - associa um nome ao contêiner
+--network - conecta o contêiner a uma rede definida por software
+-d - executa o contêiner em backgroud e print o contêiner ID
+-p, --publish - cria um mapeamento entre portas, externa e interna ao contêiner
+--rm - remove o contêiner quando ele para.
+-v, --volume - configura um volume que irá prover um conteúdo para uma pasta no sistema de arquivos do contêiner.
 
 Docker Compose
 Definição - é usado para descrever aplicações complexas que requerem múltiplos containers, volumes e redes. A descrição da aplicação é escrita em um “compose file”, usando o formato YAML.
