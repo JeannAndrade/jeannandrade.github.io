@@ -1,3 +1,0 @@
-# Clean Architecture
-
-Em construção...
