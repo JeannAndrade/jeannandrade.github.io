@@ -1,28 +1,28 @@
-# Bem vindo à minha página de anotações
-
-Minhas notas e observações de estudo sobre diversos temas de tecnologia. Esta página está em contante evolução.
+---
+layout: default
+---
 
 ## Hard Skills
 
-1. [Git](git/index.md)
+1. [Git](./content/git/index.html)
 1. AWS Básico
-1. [Docker](docker/index.md)
+1. [Docker](./content/docker/index.html)
 1. Kubernetes
-1. [.Net](net/index.md)
-    * [ASP.NET Core](net/aspnet/index.md)
-    * [.Net cli](net/cli/index.md)
+1. [.Net](./content/net/index.html)
+    * [ASP.NET Core](./content/net/aspnet/index.html)
+    * [.Net cli](./content/net/cli/index.html)
 1. Java
     * Micronaut
 1. Shell
     * PowerShell
 1. Linux
-    * [Vim](vim/index.md)
-    * [Terminal Linux](linux/index.md)
+    * [Vim](./content/vim/index.html)
+    * [Terminal Linux](./content/linux/index.html)
 1. Bando de Dados
     * MongoDb
     * PostgreSQL
-1. [Clean Architecture](clean_architecture/index.md)
+1. [Clean Architecture](./content/clean_architecture/index.html)
 
 ## Soft Skills
 
-1. [Code Review](code_review/index.md)
+1. [Code Review](./content/code_review/index.html)
