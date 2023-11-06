@@ -375,14 +375,14 @@ docker buildx build --builder=container \
 
 ## Compose
 
-É uma ferramenta que facilita o gerenciamento de aplicações multi-containers. Compose usa um arquivo YAML para definir aplicações microservices. O nome padrão desse arquivo é *compose.yaml*, mas *compose.yml* também é aceito.
+É uma ferramenta que facilita o gerenciamento de aplicações multi-containers. Compose usa um arquivo YAML para definir aplicações microservices. O nome padrão desse arquivo é *compose.yaml*, mas *compose.yml* também é aceito. A ideia é substituir os comandos de criação de imagem e execução para cada container como foi feito até o momento por instruções em um único arquivo. Dessa forma o arquivo compose tem que tratar de cada aspecto do par imagem/container, como criar imagem e executar o run, associando portas, volumes e redes.
 
 Exemplo de um arquivo compose simples:
 
-```docker
+```yaml
 services:
-  web-fe:
-    build: .
+  web-fe: #service name
+    build: . # build a image using dockerfile in this path
     command: python app.py
     ports:
       - target: 8080
@@ -404,6 +404,8 @@ networks:
 volumes:
   counter-vol:
 ```
+
+Nota: Na verdade, não precisamos da opção command: python app.py no arquivo Compose, pois ela já está definida no Dockerfile. Mostramos aqui para que você saiba como funciona. Você também pode usar o Compose para substituir instruções definidas nos Dockerfiles.
 
 Organizar, estava no Google Drive
 

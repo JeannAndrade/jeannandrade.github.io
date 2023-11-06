@@ -1,3 +1,7 @@
+---
+layout: internal
+---
+
 # Como instalar o Docker
 
 ## Docker Desktop
