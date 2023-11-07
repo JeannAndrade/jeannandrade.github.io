@@ -20,8 +20,8 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 1. [DockerFile](#dockerfile)
 1. [Como conteinerizar um app a partir de um código fonte](#como-contêinerizar-um-app-a-partir-de-um-código-fonte)
 1. [Compose](#compose)
-1. [Hands-On Docker](hands_on/index.md)
-1. [Como instalar o Docker](como_instalar/index.md)
+1. [Hands-On Docker](./hands_on/index.html)
+1. [Como instalar o Docker](./como_instalar/index.html)
 
 ## Comandos do CLI
 
@@ -229,8 +229,8 @@ O *Dockerfile* é um arquivo de texto que diz ao docker com construir uma imagem
 
 Aqui é preciso criar um catálogo de exemplos com as principais opções que uso:
 
-1. [ASP.Net Core 6, sem banco](dockerfiles/aspnet6_no_db.md)
-1. [Node.js, sem banco](dockerfiles/node_no_db.md)
+1. [ASP.Net Core 6, sem banco](./dockerfiles/aspnet6_no_db.html)
+1. [Node.js, sem banco](./dockerfiles/node_no_db.html)
 
 Para criar uma imagem a partir do *Dockerfile*, use docker build
 
