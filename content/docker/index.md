@@ -64,6 +64,7 @@ ___
 | `docker logs` | Exibe os logs gerados pelo contêiner | `docker logs nome_container` e para exibir o log de forma contínua `docker logs -f nome_container` |
 
 Argumentos para o comando run:
+
 | Comando | Descrição |
 | ----- | ----- |
 | -e, --env | configura uma variável de ambiente |
