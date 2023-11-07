@@ -2,8 +2,8 @@
 
 source "https://rubygems.org"
 
+gem "jekyll-remote-theme"
 gem "kramdown-parser-gfm"
 gem "webrick"
-gem "jekyll-remote-theme"
 
 gemspec
