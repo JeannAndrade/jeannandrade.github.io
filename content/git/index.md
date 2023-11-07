@@ -615,8 +615,10 @@ Abra o Git Bash, que provavelmente foi instalado pelo instalador do Git.
 
 ### Adicionar a chave gerado ao seu versionador
 
-* [github](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
-* [gitlab](https://docs.gitlab.com/ee/user/ssh.html#add-an-ssh-key-to-your-gitlab-account)
+* github
+  * <https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account>
+* gitlab
+  * <https://docs.gitlab.com/ee/user/ssh.html#add-an-ssh-key-to-your-gitlab-account>
 
 ### Testando a comunicação com o servidor através do ssh
 
