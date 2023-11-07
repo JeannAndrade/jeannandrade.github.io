@@ -153,7 +153,7 @@ Para buscar no docker hub através do CLI, use o comando `docker search string_b
 
 `docker search alpine --filter "is-official=true"`
 
-* [Principais imagens usadas em projetos ASP.Net Core](imagens_aspnetcore/index.md)
+* [Principais imagens usadas em projetos ASP.Net Core](./imagens_aspnetcore/index.html)
 
 [top](#docker-table-of-contents)
 
