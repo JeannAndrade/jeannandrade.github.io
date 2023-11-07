@@ -34,7 +34,7 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 
 ### Comandos associados a recursos
 
-Imagens
+#### Imagens
 
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
@@ -47,7 +47,9 @@ Imagens
 | `docker rmi $(docker images -q) -f` | remover todas as imagens de uma só vez. | `docker rmi $(docker images -q) -f` |
 | `docker inspect vtest` | inspeciona uma imagem. É especialmente útil na hora de descobrir se uma imagem usa volume | |
 
-contêiners
+___
+
+#### Contêiners
 
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
@@ -61,7 +63,20 @@ contêiners
 | `docker rm $(docker ps -aq)` | Elimina todos os contêiners de uma vez |`docker rm -f $(docker ps -aq)` vai forçar a parada do contêiner e depois eliminá-lo |
 | `docker logs` | Exibe os logs gerados pelo contêiner | `docker logs nome_container` e para exibir o log de forma contínua `docker logs -f nome_container` |
 
-Compose
+Argumentos para o comando run:
+| Comando | Descrição |
+| ----- | ----- |
+| -e, --env | configura uma variável de ambiente |
+| --name | associa um nome ao contêiner |
+| --network | conecta o contêiner a uma rede definida por software |
+| -d | executa o contêiner em backgroud e print o contêiner ID |
+| -p, --publish | cria um mapeamento entre portas, externa e interna ao contêiner |
+| --rm | remove o contêiner quando ele para. |
+| -v, --volume | configura um volume que irá prover um conteúdo para uma pasta no sistema de arquivos do contêiner. |
+
+___
+
+#### Compose
 
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
@@ -73,7 +88,9 @@ Compose
 | `docker compose down` | para os serviços e remove Containers, redes e volumes | |
 | `docker compose ls` | lista os containers que foram criados para os serviços definidos no arquivo compose. | |
 
-Volumes
+___
+
+#### Volumes
 
 | Comando | Descrição |
 | ----- | ----- |
@@ -82,7 +99,9 @@ Volumes
 | `docker volume rm` | Remove um volume |
 | `docker volume rm $(docker volume ls -q)` | Remove todos os volumes de uma vez |
 
-Networks
+___
+
+#### Networks
 
 | Comando | Descrição |
 | ----- | ----- |
@@ -411,36 +430,9 @@ services:
       counter-net:
 ```
 
-Palavras chaves essenciais usadas no arquivo de compose:
+Exemplo 2:
 
-| Palavra | Descrição | Palavra | Descrição |
-| ----- | ----- | ----- | ----- |
-| Version |especifica a versão do esquema do arquivo compose | volume | lista os volumes que serão usados pelos containers definidos no arquivo compose. |
-| networks | lista as redes que serão usadas pelos containers definidos no arquivo compose | services | denota a seção do arquivo compose que descreve containers. |
-| image | especifica a imagem que deve ser usada para criar o container. | build | denota a seção que especifica como a imagem para um container será criada. |
-| context | especifica a “pasta contexto” que será usada enquanto o docker estiver construindo a imagem para um container. |dockerfile | especifica o Dockerfile que será usado para construir a imagem para um container. |
-| environment | define uma variável de ambiente que será aplicada a um container. | depends_on | usada para definir dependências entre serviços. |
-
-Nota: Na verdade, não precisamos da opção command: python app.py no arquivo Compose, pois ela já está definida no Dockerfile. Mostramos aqui para que você saiba como funciona. Você também pode usar o Compose para sobrescrever instruções definidas nos Dockerfiles.
-
-Normalmente o comando `docker compose up` será usado com a flag  `--detach` para abrir o aplicativo em segundo plano. No entanto, podemos trazê-lo em primeiro plano usando `docker compose up &` para nos devolver a janela do terminal. Isso força o Compose a enviar todas as mensagens para a janela do terminal que usaremos mais tarde.
-
-[top](#docker-table-of-contents)
-
-Organizar, estava no Google Drive
-
-Argumentos para o comando run
--e, --env - configura uma variável de ambiente
---name - associa um nome ao contêiner
---network - conecta o contêiner a uma rede definida por software
--d - executa o contêiner em backgroud e print o contêiner ID
--p, --publish - cria um mapeamento entre portas, externa e interna ao contêiner
---rm - remove o contêiner quando ele para.
--v, --volume - configura um volume que irá prover um conteúdo para uma pasta no sistema de arquivos do contêiner.
-
-Docker Compose
-Definição - é usado para descrever aplicações complexas que requerem múltiplos containers, volumes e redes. A descrição da aplicação é escrita em um “compose file”, usando o formato YAML.
-Exemplo:
+```yaml
 version: "3"
 volumes:
     productdata:
@@ -463,7 +455,25 @@ services:
             dockerfile: Dockerfile
         networks:
             - backend
-…
+```
+
+Palavras chaves essenciais usadas no arquivo de compose:
+
+| Palavra | Descrição | Palavra | Descrição |
+| ----- | ----- | ----- | ----- |
+| Version |especifica a versão do esquema do arquivo compose | volume | lista os volumes que serão usados pelos containers definidos no arquivo compose. |
+| networks | lista as redes que serão usadas pelos containers definidos no arquivo compose | services | denota a seção do arquivo compose que descreve containers. |
+| image | especifica a imagem que deve ser usada para criar o container. | build | denota a seção que especifica como a imagem para um container será criada. |
+| context | especifica a “pasta contexto” que será usada enquanto o docker estiver construindo a imagem para um container. |dockerfile | especifica o Dockerfile que será usado para construir a imagem para um container. |
+| environment | define uma variável de ambiente que será aplicada a um container. | depends_on | usada para definir dependências entre serviços. |
+
+Nota: Na verdade, não precisamos da opção command: python app.py no arquivo Compose, pois ela já está definida no Dockerfile. Mostramos aqui para que você saiba como funciona. Você também pode usar o Compose para sobrescrever instruções definidas nos Dockerfiles.
+
+Normalmente o comando `docker compose up` será usado com a flag  `--detach` para abrir o aplicativo em segundo plano. No entanto, podemos trazê-lo em primeiro plano usando `docker compose up &` para nos devolver a janela do terminal. Isso força o Compose a enviar todas as mensagens para a janela do terminal que usaremos mais tarde.
+
+[top](#docker-table-of-contents)
+
+Organizar, estava no Google Drive
 
 Docker Swarms
 Conceito - é um cluster de servidores que executam containers. Existem nós de trabalho que executam os contêineres e nós gerenciadores que determinam quais contêineres são executados em nós individuais e garantem que o número certo de contêineres esteja em execução para cada serviço. Swarms tentam se recuperar automaticamente quando os contêineres ou os nós falham.
