@@ -108,7 +108,7 @@ O que faz? Exibe detalhes como a data de criação, o tamanho e as permissões d
 ### Registrando os novos plugins no arquivo .zshrc
 
 - Abra o arquivo .zshrc com o comando `sudo nano ~/.zshrc`
-- Altere a linha ZSH_THEME="robbyrussell" para ZSH_THEME="eastwood"
+- Altere a linha ZSH_THEME="robbyrussell" para ZSH_THEME="crcandy"
 - Adicione o zsh-syntax-highlighting a lista de plugins `plugins=(git zsh-syntax-highlighting fzf zsh-autosuggestions k)`
 
 [top](#table-of-contents)

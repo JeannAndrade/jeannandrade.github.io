@@ -82,12 +82,15 @@ ___
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
 | `docker compose version` | Para verificar a versão do docker-compose instalado | |
-| `docker compose up` | Para levantar a aplicação | deve ser rodado na pasta onde está o compose.yaml |
+| `docker compose up` | Para levantar a aplicação | deve ser rodado na pasta onde está o compose.yaml. `--detach` para subir em background |
 | `docker compose up -f compose_file.yaml` | Para levantar a aplicação | caso o arquivo compose esteja com outro nome |
 | `docker compose -f docker-compose.yml build` | processa o conteúdo do arquivo compose e cria as imagens para os container que ele contém. | |
 | `docker compose stop` | para os containers. Containers, redes e volumes são mantidos para serem iniciados novamente. | |
-| `docker compose down` | para os serviços e remove Containers, redes e volumes | |
+| `docker compose down` | para os serviços e remove Containers e redes. Volumes são mantidos por serem persistentes | `--volumes` para remover os volumes também. `--rmi all` irá apagar as imagens criadas também |
 | `docker compose ls` | lista os containers que foram criados para os serviços definidos no arquivo compose. | |
+| `docker compose top` | lista os processos em execução em cada contêiner. | Os números PID retornados são os números PID vistos no host Docker (não nos contêineres). |
+| `docker compose rm` |  Apaga um app compose que já esteja parado | deleta somente os contêiners e as redes |
+| `docker compose restart` | reinicia um aplicação compose que estava parada | |
 
 ___
 
