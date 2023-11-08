@@ -14,7 +14,7 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 1. [Comandos do CLI](#comandos-do-cli)
 1. [Conceitos](#conceitos)
 1. [Imagem](#imagem)
-1. [contêiner](#contêiners)
+1. [Contêiner](#cont%C3%AAineres)
 1. [Volume](#volumes)
 1. [Network](#network-software-defined-network-sdn)
 1. [DockerFile](#dockerfile)
@@ -34,7 +34,7 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 
 ### Comandos associados a recursos
 
-#### Imagens
+#### Comandos sobre imagem
 
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
@@ -49,18 +49,18 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 
 ___
 
-#### Contêiners
+#### Comandos sobre contêiner
 
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
 | `docker run <image> <app>` | Executa um contêiner usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest` |
-| `docker ps` | Lista os contêiner em execução. Use -a para listar inclusive os contêiners parados | `docker ps` |
+| `docker ps` | Lista os contêiner em execução. Use -a para listar inclusive os contêineres parados | `docker ps` |
 | `Press Ctrl-PQ` | para sair do contêiner sem finalizá-lo. O terminal sairá do terminal do contêiner para o terminal do host | |
 | `docker exec` | anexa seu shell ao terminal de um contêiner em execução | `docker exec -it vigilant_borg bash` |
 | `docker stop` | Para a execução do contêiner | `docker stop id_contêiner` ou `docker stop $(docker ps -q)` para parar todos |
 | `docker start` | Reinicializa um container parado com o comando stop | `docker start id_contêiner` ou `docker start $(docker ps -aq)` para iniciar todos |
 | `docker rm` | Elimina o contêiner |`docker rm id_container` |
-| `docker rm $(docker ps -aq)` | Elimina todos os contêiners de uma vez |`docker rm -f $(docker ps -aq)` vai forçar a parada do contêiner e depois eliminá-lo |
+| `docker rm $(docker ps -aq)` | Elimina todos os contêineres de uma vez |`docker rm -f $(docker ps -aq)` vai forçar a parada do contêiner e depois eliminá-lo |
 | `docker logs` | Exibe os logs gerados pelo contêiner | `docker logs nome_container` e para exibir o log de forma contínua `docker logs -f nome_container` |
 
 Argumentos para o comando run:
@@ -77,7 +77,7 @@ Argumentos para o comando run:
 
 ___
 
-#### Compose
+#### Comandos sobre Compose
 
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
@@ -89,12 +89,12 @@ ___
 | `docker compose down` | para os serviços e remove Containers e redes. Volumes são mantidos por serem persistentes | `--volumes` para remover os volumes também. `--rmi all` irá apagar as imagens criadas também |
 | `docker compose ls` | lista os containers que foram criados para os serviços definidos no arquivo compose. | |
 | `docker compose top` | lista os processos em execução em cada contêiner. | Os números PID retornados são os números PID vistos no host Docker (não nos contêineres). |
-| `docker compose rm` |  Apaga um app compose que já esteja parado | deleta somente os contêiners e as redes |
+| `docker compose rm` |  Apaga um app compose que já esteja parado | deleta somente os contêineres e as redes |
 | `docker compose restart` | reinicia um aplicação compose que estava parada | |
 
 ___
 
-#### Volumes
+#### Comandos sobre Volume
 
 | Comando | Descrição |
 | ----- | ----- |
@@ -105,7 +105,7 @@ ___
 
 ___
 
-#### Networks
+#### Comandos sobre network
 
 | Comando | Descrição |
 | ----- | ----- |
@@ -114,9 +114,9 @@ ___
 | `docker network connect frontend productapp1` | Conecta uma contêiner a uma rede |
 | `docker network rm` | Para remover uma rede |
 | `docker network rm $(docker network ls -q)` | Para remover todas as redes |
-| `docker network inspect bridge` | Lista todos os contêiners que estão na rede bridge e exibe o IP atribuído a eles para que possa receber requisições |
+| `docker network inspect bridge` | Lista todos os contêineres que estão na rede bridge e exibe o IP atribuído a eles para que possa receber requisições |
 
-### Comandos associados ao Docker Hub
+### Comandos sobre Docker Hub
 
 | Comando | Descrição | Exemplo |
 | ----- | ----- | ------ |
@@ -144,7 +144,7 @@ Quando se fala em Docker como uma tecnologia, 3 partes fundamentais se destacam:
 
 O runtime opera no nível mais baixo e é responsável por iniciar e parar contêineres. Docker implementa uma arquitetura de runtime em camadas com runtimes de alto e baixo nível que funcionam juntos.
 
-O runtime de baixo nível é chamado *runc* e é a implementação de referência da especificação de runtime da Open contêiners Initiative (OCI). Sua função é fazer interface com o sistema operacional subjacente e iniciar e parar contêineres. Cada contêiner em um nó Docker foi criado e iniciado por uma instância do *runc*.
+O runtime de baixo nível é chamado *runc* e é a implementação de referência da especificação de runtime da Open contêineres Initiative (OCI). Sua função é fazer interface com o sistema operacional subjacente e iniciar e parar contêineres. Cada contêiner em um nó Docker foi criado e iniciado por uma instância do *runc*.
 
 O runtime de nível superior é chamado *containerd*. Ele gerencia todo o ciclo de vida do contêiner, incluindo baixar imagens e gerenciar as instâncias *runc*. *containerd* é pronunciado “container-dee”. Uma instalação típica do Docker possui um único processo *containerd* de longa duração que instrui o *runc* a iniciar e parar contêineres.
 
@@ -186,11 +186,11 @@ Para buscar no docker hub através do CLI, use o comando `docker search string_b
 
 [top](#docker-table-of-contents)
 
-## contêiners
+## contêineres
 
 O conceito de contêiner é similar ao conceito de Objeto. Se a imagem é uma classe, o contêiner será um objeto criado a partir de uma imagem. Basicamente um contêiner é uma imagem em execução.
 
-### Mais sobre contêiners
+### Mais sobre contêineres
 
 O parâmetro -it conecta a janela do terminal corrente ao shell do contêiner.
 
@@ -238,6 +238,16 @@ Por fim, no momento de criar o contêiner, é preciso ligar essas duas entidades
 
 `docker run --name vtest -v caixa_verde:/caixa1 -v caixa_amarela:/caixa2 -v caixa_azul:/caixa3 vtest`
 
+Para saber em qual local do host o volume foi criado, vc pode usar o comando `docker inspect` apontando para o volume. Ex:
+
+`docker inspect multi-container_counter-vol | grep Mount`
+
+Neste exemplo o *docker compose* chamado *multi-container* criou um volume chamado *counter-vol* e estamos inspecionado o volume, pedindo para filtrar o resultado listando somente as linhas que começam com "Mount"
+
+Resultado é algo parecido com:
+
+"Mountpoint": "/var/lib/docker/volumes/multi-container_counter-vol/_data",
+
 [top](#docker-table-of-contents)
 
 ## Network (Software-Defined Network (SDN))
@@ -246,7 +256,7 @@ Redes definidas por software são usadas para conectar contêiner. Estas redes s
 
 Os principais redes do Docker de escopo local são:
 
-* bridge - é o tipo de rede padrão, sendo que o comando run coloca os contêiners criados nesta rede.
+* bridge - é o tipo de rede padrão, sendo que o comando run coloca os contêineres criados nesta rede.
 * host - é a rede do servidor host.
 * none - é uma rede que não possui conectividade e que pode ser usada para isolar completamente os contêineres.
 
