@@ -430,8 +430,7 @@ services:
     build: . # build a image using dockerfile in this path
     command: python app.py
     ports:
-      - target: 8080
-        published: 5001
+      - "8080:5001"
     networks:
       - counter-net
     volumes:
@@ -447,28 +446,35 @@ services:
 Exemplo 2:
 
 ```yaml
-version: "3"
 volumes:
-    productdata:
+  exampleapp05-vol:
 networks:
-    frontend:
-    backend:
+  exampleapp05-net:
 services:
-    mysql:
-        image: "mysql:8.0.0"
-        volumes:
-            - productdata:/var/lib/mysql
-        networks:
-            - backend
-        environment:
-            - MYSQL_ROOT_PASSWORD=mysecret
-            - bind-address=0.0.0.0
-    dbinit:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        networks:
-            - backend
+  web-fe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - exampleapp05-net
+    environment:
+      - DBHOST=mariadb
+    depends_on:
+      - mariadb
+  mariadb:
+    image: mariadb:11.1.2
+    networks:
+      - exampleapp05-net
+    volumes:
+      - exampleapp05-vol:/var/lib/mysql
+    environment:
+      - MARIADB_USER=example-user
+      - MARIADB_PASSWORD=my_cool_secret
+      - MARIADB_DATABASE=products
+      - MARIADB_ROOT_PASSWORD=my-secret-pw
+
 ```
 
 Palavras chaves essenciais usadas no arquivo de compose:
