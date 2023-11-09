@@ -8,6 +8,7 @@ layout: internal
 1. [Exercício 2 - Dockerfile - demonstrando o problema de não ter um volume](#exercício-2)
 1. [Exercício 3 - Dockerfile - demonstrando o uso do volume](#exercício-3)
 1. [Exercício 4 - ASP.NET - Aplicação acessando o banco sem compose](#exercício-4)
+1. [Exercício 5 - ASP.NET - Aplicação acessando o banco com compose](#exercício-5)
 
 ## Exercício 1
 
