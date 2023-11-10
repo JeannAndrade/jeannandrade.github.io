@@ -12,14 +12,15 @@ Este é um resumo de dois livros:
 Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.git>
 
 1. [Comandos do CLI](#comandos-do-cli)
-1. [Conceitos](#conceitos)
+1. [A tecnologia Docker](#a-tecnologia-docker)
 1. [Imagem](#imagem)
 1. [Contêiner](#cont%C3%AAineres)
 1. [Volume](#volumes)
 1. [Network](#network-software-defined-network-sdn)
 1. [DockerFile](#dockerfile)
-1. [Como conteinerizar um app a partir de um código fonte](#como-contêinerizar-um-app-a-partir-de-um-código-fonte)
-1. [Compose](#compose)
+1. [Como por um app em contêiner a partir do código fonte](#como-contêinerizar-um-app-a-partir-de-um-código-fonte)
+1. [Docker Compose](#compose)
+1. [Docker Swarm](#docker-swarms)
 1. [Hands-On Docker](./hands_on/index.html)
 1. [Como instalar o Docker](./como_instalar/index.html)
 
@@ -130,9 +131,7 @@ Para entender as partes envolvidas, considere docker.io/nigelpoulton/ddd-book:ch
 
 [top](#docker-table-of-contents)
 
-## Conceitos
-
-### A tecnologia Docker
+## A tecnologia Docker
 
 Quando se fala em Docker como uma tecnologia, 3 partes fundamentais se destacam:
 
@@ -495,6 +494,17 @@ Normalmente o comando `docker compose up` será usado com a flag  `--detach` par
 
 Organizar, estava no Google Drive
 
-Docker Swarms
+## Docker Swarms
+
+Docker Swarm são duas coisas:
+
+1. Um cluster seguro de nível empresarial de hosts Docker
+1. Um orquestrador de microsserviços
+
+No que diz respeito ao clustering, o Swarm agrupa um ou mais nós Docker e permite gerenciá-los como um cluster. Pronto para uso, você obtém um armazenamento de cluster distribuído criptografado, redes criptografadas, TLS mútuo, tokens de junção de cluster seguros e uma PKI que facilita o gerenciamento e a rotação de certificados. Você pode até mesmo adicionar e remover nós sem interrupções.
+
+No que diz respeito à orquestração, o Swarm permite implantar e gerenciar aplicativos complexos de microsserviços com facilidade. Você pode definir seus aplicativos em arquivos declarativos e implantá-los no swarm com comandos nativos do Docker. Você pode até realizar atualizações contínuas, reversões e operações de escalonamento. Novamente, tudo com comandos simples.
+
+Docker Swarm é semelhante ao Kubernetes – ambos orquestram aplicativos em contêineres. O Kubernetes tem muito mais impulso e uma comunidade e ecossistema mais ativos. No entanto, o Swarm é muito mais fácil de usar e é uma escolha popular para muitas pequenas e médias empresas.
+
 Conceito - é um cluster de servidores que executam containers. Existem nós de trabalho que executam os contêineres e nós gerenciadores que determinam quais contêineres são executados em nós individuais e garantem que o número certo de contêineres esteja em execução para cada serviço. Swarms tentam se recuperar automaticamente quando os contêineres ou os nós falham.
-Desenvolvimento containerizado
