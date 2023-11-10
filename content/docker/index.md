@@ -12,6 +12,14 @@ Este é um resumo de dois livros:
 Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.git>
 
 1. [Comandos do CLI](#comandos-do-cli)
+    1. [Verificação](#comandos-de-verificação)
+    1. [Imagem](#comandos-sobre-imagem)
+    1. [Contêiner](#comandos-sobre-contêiner)
+    1. [Compose](#comandos-sobre-compose)
+    1. [Multipass](#comandos-sobre-multipass)
+    1. [Volume](#comandos-sobre-volume)
+    1. [Network](#comandos-sobre-network)
+    1. [Docker Hub](#comandos-sobre-docker-hub)
 1. [A tecnologia Docker](#a-tecnologia-docker)
 1. [Imagem](#imagem)
 1. [Contêiner](#cont%C3%AAineres)
@@ -31,7 +39,7 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 | Comando | Descrição
 | ----- | ----- |
 | `docker version` | Obtém informações sobre as versões e testa se o client e o Deamon (server) estão executando e falando um com o outro |
-| `docker info` | Obtém informações mais detalhadas do client e do server sobre os recursos que o Docker está gerenciando, como contêiners, imagens, volumes... |
+| `docker info` | Obtém informações mais detalhadas do client e do server sobre os recursos que o Docker está gerenciando, como contêineres, imagens, volumes... |
 
 ### Comandos associados a recursos
 
@@ -71,7 +79,7 @@ Argumentos para o comando run:
 | -e, --env | configura uma variável de ambiente |
 | --name | associa um nome ao contêiner |
 | --network | conecta o contêiner a uma rede definida por software |
-| -d | executa o contêiner em backgroud e print o contêiner ID |
+| -d | executa o contêiner em background e print o contêiner ID |
 | -p, --publish | cria um mapeamento entre portas, externa e interna ao contêiner |
 | --rm | remove o contêiner quando ele para. |
 | -v, --volume | configura um volume que irá prover um conteúdo para uma pasta no sistema de arquivos do contêiner. |
@@ -92,6 +100,25 @@ ___
 | `docker compose top` | lista os processos em execução em cada contêiner. | Os números PID retornados são os números PID vistos no host Docker (não nos contêineres). |
 | `docker compose rm` |  Apaga um app compose que já esteja parado | deleta somente os contêineres e as redes |
 | `docker compose restart` | reinicia um aplicação compose que estava parada | |
+
+___
+
+#### Comandos sobre Multipass
+
+| Comando | Descrição | Exemplo |
+| ----- | ----- | ------ |
+| `multipass launch --name foo` | Launch an instance (by default you get the current Ubuntu LTS) | `multipass launch docker --name node1` para rodar uma instância do linux baseada na imagem do docker |
+| `multipass shell node1` | Connect to the VM. You’re now logged on to the VM and can run regular Docker commands. Just type exit to log out of the VM.| |
+| `multipass exec foo -- lsb_release -a` | Run commands in that instance, try running bash (logout or ctrl-d to quit) | |
+| `multipass list` | See your instances | |
+| `multipass stop foo bar` | Stop instances | |
+| `multipass start foo` | Start instances | |
+| `multipass delete foo` | Clean up what you don’t need | |
+| `multipass purge` | Clean up what you don’t need | |
+| `multipass find` | Find alternate images to launch | |
+| `multipass launch -n bar --cloud-init cloud-config.yaml` | Pass a cloud-init metadata file to an instance on launch. See [using cloud-init with multipass](https://blog.ubuntu.com/2018/04/02/using-cloud-init-with-multipass) for more details | |
+| `multipass help` | Get help | |
+| `multipass help <command>` | Get help for a command | |
 
 ___
 
@@ -161,7 +188,7 @@ Se você baixar a imagem de um contêiner de aplicativo, como nginx:latest, obte
 
 Também é importante dizer que cada imagem recebe seu próprio ID exclusivo. Ao fazer referência a imagens, você pode consultá-las usando IDs ou nomes. Se você estiver trabalhando com IDs de imagens, geralmente basta digitar os primeiros caracteres do ID - desde que seja único, o Docker saberá a qual imagem você se refere.
 
-O repositório local de imagens num host Linux é /var/lib/docker/<storage-driver>. Se vc está usando Docker em seu Mac ou PC com Docker Desktop, tudo estará rodando dentro de uma VM.
+O repositório local de imagens num host Linux é /var/lib/docker/\<storage-driver\>. Se vc está usando Docker em seu Mac ou PC com Docker Desktop, tudo estará rodando dentro de uma VM.
 
 ### Mais sobre imagens
 
@@ -303,7 +330,7 @@ Contêineres têm tudo a ver com simplificar os processos construir, empacotar e
 
 A imagem abaixo ilustra o processo:
 
-![Fluxo para conteinerizar um app](img/fluxo_containerizar_app.png)
+![Fluxo para contêinerizar um app](img/fluxo_containerizar_app.png)
 
 ### Um exemplo a partir de um código fonte do github
 

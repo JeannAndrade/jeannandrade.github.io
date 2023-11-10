@@ -24,6 +24,35 @@
 			"titleBar.inactiveBackground": "#6dcbf899",
 			"titleBar.inactiveForeground": "#15202b99"
 		},
-		"peacock.color": "#6dcbf8"
+		"peacock.color": "#6dcbf8",
+		"cSpell.words": [
+			"buildx",
+			"containerd",
+			"contêinerizar",
+			"DBHOST",
+			"Deamon",
+			"Dockerfiles",
+			"dockerhub",
+			"exampleapp",
+			"HEALTHCHECK",
+			"linux",
+			"mariadb",
+			"Mountpoint",
+			"multipass",
+			"Multipass",
+			"mysecret",
+			"neversaydie",
+			"nginx",
+			"nigelpoulton",
+			"ONBUILD",
+			"Poulton",
+			"productapp",
+			"productdata",
+			"psweb",
+			"runc",
+			"runtimes",
+			"vtest",
+			"WORKDIR"
+		]
 	}
 }
