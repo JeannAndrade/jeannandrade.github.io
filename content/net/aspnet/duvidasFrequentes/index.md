@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Dúvidas frequentes em projetos ASP.NET Core
 
 ## @model e @Model na view
