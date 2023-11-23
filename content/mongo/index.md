@@ -31,6 +31,16 @@ export MONGODB_VERSION=6.0-ubi8
 docker run --name mongodb -d -p 27017:27017 -v mongodb-vol:/data/db -e MONGO_INITDB_ROOT_USERNAME=user -e MONGO_INITDB_ROOT_PASSWORD=pass mongodb/mongodb-community-server:$MONGODB_VERSION
 ```
 
+## Instalando o Compass
+
+Primeiro baixe o pacote do compass [veja aqui a última versão](https://www.mongodb.com/docs/compass/current/install/)
+
+`wget <https://downloads.mongodb.com/compass/mongodb-compass_1.40.4_amd64.deb>`
+
+Em seguida instale o pacote baixado
+
+`sudo dpkg -i mongodb-compass_1.40.4_amd64.deb`
+
 ## Conceitos
 
 No mongoDb não existe o conceito de tabela, o que se guarda são collections
