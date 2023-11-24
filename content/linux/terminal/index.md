@@ -75,7 +75,7 @@ Foram usados como fonte:
 
 `chsh -s $(which zsh)`
 
-Depois de aplicado o comando, reinicie o terminal
+Depois de aplicado o comando, reinicie a Máquina. Reiniciar o terminal não deu certo para mim.
 
 ### instalando o Oh My Zsh
 

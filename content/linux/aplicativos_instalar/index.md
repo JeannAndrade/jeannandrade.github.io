@@ -42,8 +42,28 @@ Siga o [passo a passo](https://jeannandrade.github.io/content/linux/index.html#i
 
 ## Calibre
 
+Segundo o [site do Calibre](https://calibre-ebook.com/download_linux), a instalação deve ser feita através do binário fornecido pela URL listada abaixo. Não deve ser instalado da Loja.
+
+Primeiro foi preciso instalar uam lib chamada libxcb-cursor0:
+
+`sudo apt-get -y install libxcb-cursor0`
+
+Em seguida:
+
+`sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin`
+
 ## Dot.Net SDK
+
+Seguir as instruções da [página oficial](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu-2310)
+
+`sudo apt-get update && sudo apt-get install -y dotnet-sdk-8.0`
 
 ## Docker
 
+O [roteiro](https://jeannandrade.github.io/content/docker/como_instalar/index.html) presente na sessão do Docker deu certo. Seguir também a instrução que comenta um erro comum de instalação.
+
 ## Multipass
+
+Para instalar o Multipass, seguir os passos do [site](https://multipass.run/install)
+
+`sudo snap install multipass`
