@@ -17,8 +17,9 @@ layout: default
     * Micronaut
 1. Kubernetes
 1. Linux
+    * [Lista básica de aplicativos para instalar](./content/linux/aplicativos_instalar/index.md)
     * [Vim](./content/vim/index.html)
-    * [Terminal Linux](./content/linux/index.html)
+    * [Terminal Linux](./content/linux/terminal/index.html)
 1. [Microservice](./content/microservice/index.html)
 1. [.Net](./content/net/index.html)
     * [ASP.NET Core](./content/net/aspnet/index.html)
