@@ -17,7 +17,7 @@ layout: default
     * Micronaut
 1. Kubernetes
 1. Linux
-    * [Lista básica de aplicativos para instalar](./content/linux/aplicativos_instalar/index.md)
+    * [Lista básica de aplicativos para instalar](./content/linux/aplicativos_instalar/index.html)
     * [Vim](./content/vim/index.html)
     * [Terminal Linux](./content/linux/terminal/index.html)
 1. [Microservice](./content/microservice/index.html)

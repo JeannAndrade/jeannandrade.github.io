@@ -38,7 +38,7 @@ Instale o VS Code a partir da loja e faça login para sincronizar
 
 ## Oh My Zsh
 
-Siga o [passo a passo](https://jeannandrade.github.io/content/linux/index.html#instalando-o-oh-my-zsh-no-linux) para instalar
+Siga o [passo a passo](https://jeannandrade.github.io/content/linux/terminal/index.html#instalando-o-oh-my-zsh-no-linux) para instalar
 
 ## Calibre
 
