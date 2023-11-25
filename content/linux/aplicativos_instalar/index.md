@@ -8,7 +8,7 @@ layout: internal
 
 Utilizo o Microsoft Edge, então vou começar por ele já que muita coisa depende de senhas e favoritos já cadastrados na minha conta.
 
-Instalação do *curl*
+Instalação do Microsoft Edge
 
 1. `sudo apt install curl`
 1. `curl <https://packages.microsoft.com/keys/microsoft.asc> | gpg --dearmor > microsoft.gpg`
@@ -44,7 +44,7 @@ Siga o [passo a passo](https://jeannandrade.github.io/content/linux/index.html#i
 
 Segundo o [site do Calibre](https://calibre-ebook.com/download_linux), a instalação deve ser feita através do binário fornecido pela URL listada abaixo. Não deve ser instalado da Loja.
 
-Primeiro foi preciso instalar uam lib chamada libxcb-cursor0:
+Primeiro foi preciso instalar uma lib chamada libxcb-cursor0:
 
 `sudo apt-get -y install libxcb-cursor0`
 
@@ -52,7 +52,7 @@ Em seguida:
 
 `sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin`
 
-## Dot.Net SDK
+## .NET SDK
 
 Seguir as instruções da [página oficial](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu-2310)
 
