@@ -71,6 +71,8 @@ Para configurar a sua identidade:
 
 Para configurar o editor padrão:
 
+`git config --global color.ui true`
+
 `git config --global core.editor emacs`
 
 Caso opte pelo notepad++ `git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"`
