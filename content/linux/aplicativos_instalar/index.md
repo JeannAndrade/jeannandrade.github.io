@@ -8,7 +8,7 @@ layout: internal
 
 Utilizo o Microsoft Edge, então vou começar por ele já que muita coisa depende de senhas e favoritos já cadastrados na minha conta.
 
-Instalação do Microsoft Edge
+Instalação do programa curl
 
 1. `sudo apt install curl`
 1. `curl <https://packages.microsoft.com/keys/microsoft.asc> | gpg --dearmor > microsoft.gpg`
