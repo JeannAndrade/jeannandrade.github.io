@@ -223,7 +223,7 @@ Para remover um arquivo do Git, você tem que removê-lo dos arquivos monitorado
 
 `git rm file_name`
 
-Se você já modificou o arquivo ou já o adicionou a area de stage, você deve forçar a remoção com o opção `-f`.
+Se você já modificou o arquivo ou já o adicionou a area de stage, você deve forçar a remoção com o opção -f.
 
 Se quiser remover o arquivo da area de stage, mas ainda sim quer mantê-lo no disco, use a opção *--cached*. Isso é útil quando você acidentalmente adiciona a area de stage algum arquivo importante, que é necessário para o projeto, mas vc não precisa mantê-lo no Git.
 
