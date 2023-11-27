@@ -76,17 +76,26 @@ No próprio aplicativo já existe um MongoSh, que é o shell para o mongo. se qu
 `use nome-banco`
 : Para criar um banco ou trocar de banco de dados
 
+`db.dropDatabase()`
+: Para remover um banco com todas as suas collections
+
 `db.getCollectionInfos()`
 : Para obter informações sobre as coleções presentes no banco
 
 `db.getCollectionNames()`
 : Para retornar um array com os nomes das *collections*
 
+`show collections`
+: Vai listar as collections do banco atual
+
 `db.createCollection("nome_collection")`
 : Para criar uma collection em um banco de forma explícita
 
 `db.nome_collection`
 : Para criar (de forma implícita) ou acessar uma collection
+
+`db.nome_collection.drop()`
+: Para remover uma collection junto com os seus dados
 
 `db.nome_collection.find()`
 : Vai listar todos os documents da coleção
@@ -100,17 +109,32 @@ db.novaColecao.insertOne({nome: "Jeann"})
 db.novaColecao.find()
 ```
 
-mongoimport <arquivo> -d <database> -c <collection>
-mongoexport -c <collection> -d <database> -o <output>
-mongodump -d <banco> -o <diretorio>
-mongorestore <diretorio>
+`mongoimport <arquivo> -d <database> -c <collection>`
+: Para importar um banco no formato json
 
+`mongoexport -c <collection> -d <database> -o <output>`
+: Para exportar um banco de dados
+
+`mongodump -d <banco> -o <output_directory>`
+: Para exportar um banco com mais de uma collection. Será exportado um arquivo para cada collection, por isso é preciso informar uma pasta para os arquivos da exportação.
+
+`mongorestore <input_directory>`
+: Para importar a estrutura de arquivos presente na pasta de entrada
+
+Exercício completo de criação de banco, backup, exclusão e restauração:
+
+```
 use novoBanco
 db.novaColecao.insertOne({nome: "Jeann", idade: 40})
 db.novaColecao.find()
 mongodump -d novoBanco -o novobancodir
 db.dropDatabase()
 mongorestore novobancodir
+```
+
+`mongostat`
+: Comando para monitoramento do mongo. É possível ver, por segundo,  quantas consultas estão rodando, use de rede, memória etc.
+: É precisa rodar no shell e não conectado a um banco através do *use*.
 
 InsertMany
 
