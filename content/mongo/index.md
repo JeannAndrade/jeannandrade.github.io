@@ -34,6 +34,10 @@ Executa o container:
 
 `docker run --name mongodb -d -p 27017:27017 -v mongodb-vol:/data/db -e MONGO_INITDB_ROOT_USERNAME=user -e MONGO_INITDB_ROOT_PASSWORD=pass mongodb/mongodb-community-server:$MONGODB_VERSION`
 
+## Escolhendo os Drivers para diferentes linguagens
+
+Acesse a [página oficial do mongo](https://www.mongodb.com/docs/drivers/) para ter acesso ao driver e instruções de como utilizá-lo.
+
 ## Instalando o Compass
 
 Primeiro baixe o pacote do compass [veja aqui a última versão](https://www.mongodb.com/docs/compass/current/install/)
@@ -63,29 +67,38 @@ No próprio aplicativo já existe um MongoSh, que é o shell para o mongo. se qu
 
 ## Comandos
 
-Para listar os bancos de dados
+`db`
+: Para listar o banco atual
 
 `show dbs`
-
-Para criar um banco ou trocar de banco de dados
+: Para listar os bancos de dados
 
 `use nome-banco`
-
-Para obter informações sobre as coleções presentes no banco
+: Para criar um banco ou trocar de banco de dados
 
 `db.getCollectionInfos()`
-
-Para retornar um array com os nomes das *collections*:
+: Para obter informações sobre as coleções presentes no banco
 
 `db.getCollectionNames()`
+: Para retornar um array com os nomes das *collections*
 
-Para criar ou acessar uma collection basta usar o comando db.nome_colecao
+`db.createCollection("nome_collection")`
+: Para criar uma collection em um banco de forma explícita
+
+`db.nome_collection`
+: Para criar (de forma implícita) ou acessar uma collection
+
+`db.nome_collection.find()`
+: Vai listar todos os documents da coleção
+: Pode ser usando .pretty() para formatar a saída
 
 O exemplo abaixo cria um banco, uma coleção e insere um document dentro. Em seguida pede para listar todos os documents da coleção.
 
+```
 use novoBanco
 db.novaColecao.insertOne({nome: "Jeann"})
 db.novaColecao.find()
+```
 
 mongoimport <arquivo> -d <database> -c <collection>
 mongoexport -c <collection> -d <database> -o <output>
