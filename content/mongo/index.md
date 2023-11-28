@@ -65,7 +65,7 @@ Na minha máquina o MongoDB já foi instalado, o passo a passo está no arquivo 
 Para testar não para o terminal. Utilize o aplicativo MongoDB Compass que foi instalado junto com a aplicação.
 No próprio aplicativo já existe um MongoSh, que é o shell para o mongo. se quiser ver funcionando rode o seguinte comando
 
-## Comandos
+## Comandos DDL
 
 `db`
 : Para listar o banco atual
@@ -136,9 +136,15 @@ mongorestore novobancodir
 : Comando para monitoramento do mongo. É possível ver, por segundo,  quantas consultas estão rodando, use de rede, memória etc.
 : É precisa rodar no shell e não conectado a um banco através do *use*.
 
-InsertMany
+## Comandos DML
 
-db.collection.insertMany([{conteudo},{conteudo},{conteudo}])
+`db.collection.insertOne({dado})`
+: Utilizado para inserir um documento
+: exemplo db.collection.insertOne({ nome: "João", idade: 22 , hobbies: ["Jogar", "Programar"]})
+: O id do document pode ser fornecido no método de inserção, da seguinte forma: db.collection.insertOne({_id: "meu_id", nome: "abc"})
+
+`db.collection.insertMany([{conteudo},{conteudo},{conteudo}])`
+: Para inserir mais de um document de uma vez
 
 Write Concern
 
