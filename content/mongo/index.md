@@ -138,11 +138,12 @@ mongorestore novobancodir
 : Vai listar todos os documents da coleção
 : Pode ser usando .pretty() para formatar a saída
 : Pode ser aplicado um filtro db.books.find({pageCount: 342})
-: Operador *in* db.books.find({categories: { $in: ["Java", "C#"]}})
-: Operador *gt* db.books.find({pageCount: { $gt: 342 }})
-: Operador *lt* db.books.find({pageCount: { $lt: 90 }})
-: Operador *or* db.books.find({ $or: [{pageCount: {$lt:90}, _id: {$lt: 5 }}]})
-: múltiplas condições db.books.find({ pageCount: 592 , _id: 6}).pretty()
+: Operador *in*: db.books.find({categories: { $in: ["Java", "C#"]}})
+: Operador *gt*: db.books.find({pageCount: { $gt: 342 }})
+: Operador *lt*: db.books.find({pageCount: { $lt: 90 }})
+: Operador *or*: db.books.find({ $or: [{pageCount: {$lt:90}, _id: {$lt: 5 }}]})
+: múltiplas condições: db.books.find({ pageCount: 592 , _id: 6}). Equivale ao operador *and*.
+: Combinando *and* e *or*: db.books.find({ status: "Publish ", $or: [{pageCount: {$lt:90},_id: {$lt: 5 }}]})
 
 `db.nome_collection.findOne()`
 :
