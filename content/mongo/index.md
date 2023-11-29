@@ -97,10 +97,6 @@ No próprio aplicativo já existe um MongoSh, que é o shell para o mongo. se qu
 `db.nome_collection.drop()`
 : Para remover uma collection junto com os seus dados
 
-`db.nome_collection.find()`
-: Vai listar todos os documents da coleção
-: Pode ser usando .pretty() para formatar a saída
-
 O exemplo abaixo cria um banco, uma coleção e insere um document dentro. Em seguida pede para listar todos os documents da coleção.
 
 ```
@@ -138,6 +134,19 @@ mongorestore novobancodir
 
 ## Comandos DML
 
+`db.nome_collection.find()`
+: Vai listar todos os documents da coleção
+: Pode ser usando .pretty() para formatar a saída
+: Pode ser aplicado um filtro db.books.find({pageCount: 342})
+: Operador *in* db.books.find({categories: { $in: ["Java", "C#"]}})
+: Operador *gt* db.books.find({pageCount: { $gt: 342 }})
+: Operador *lt* db.books.find({pageCount: { $lt: 90 }})
+: Operador *or* db.books.find({ $or: [{pageCount: {$lt:90}, _id: {$lt: 5 }}]})
+: múltiplas condições db.books.find({ pageCount: 592 , _id: 6}).pretty()
+
+`db.nome_collection.findOne()`
+:
+
 `db.collection.insertOne({dado})`
 : Utilizado para inserir um documento
 : exemplo db.collection.insertOne({ nome: "João", idade: 22 , hobbies: ["Jogar", "Programar"]})
@@ -146,9 +155,8 @@ mongorestore novobancodir
 `db.collection.insertMany([{conteudo},{conteudo},{conteudo}])`
 : Para inserir mais de um document de uma vez
 
-Write Concern
-
-db.mercado.insertMany([{},{},{}],{w: "majority", wtimeout: 200})
+`db.mercado.insertMany([{},{},{}],{w: "majority", wtimeout: 200})`
+: Write Concern é uma configuração que pode ser adicionada ao insertMany
 
 Update
 db.books.updateOne({_id:314}, {$set: {pageCount: 1000}})
