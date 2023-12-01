@@ -119,6 +119,26 @@ O que faz? Exibe detalhes como a data de criação, o tamanho e as permissões d
 
 [top](#table-of-contents)
 
+## Dicas de uso
+
+### xkill
+
+Digitando `xkill` no terminal o cursor vai ser transformar em um *x* e vc pode clicar em cima de qualquer janela visível para fecha-la. Util quando um app trava.
+
+### Alt + F2
+
+Abre uma caixa de diálogo para executar um comando. Todo comando digitado aqui precisa estar dentro da pasta \bin
+
+### Alt + Esc
+
+Vai alternar entre as janelas abertas sem exibir as miniaturas, como faria o *alt + tab*. Já a tecla do *Windows* vai abrir a miniatura dos apps abertos.
+
+### Arquivo oculto
+
+Coloque um *.* na frente de um arquivo para torná-lo oculto. *Ctrl + H* vai exibir os arquivos ocultos.
+
+[top](#table-of-contents)
+
 ## Perguntas e respostas
 
 ### What should/shouldn't go in .zshenv, .zshrc, .zlogin, .zprofile, .zlogout?

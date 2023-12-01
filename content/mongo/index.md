@@ -144,9 +144,10 @@ mongorestore novobancodir
 : Operador *or*: db.books.find({ $or: [{pageCount: {$lt:90}, _id: {$lt: 5 }}]})
 : múltiplas condições: db.books.find({ pageCount: 592 , _id: 6}). Equivale ao operador *and*.
 : Combinando *and* e *or*: db.books.find({ status: "Publish ", $or: [{pageCount: {$lt:90},_id: {$lt: 5 }}]})
+: Função count: db.books.find({pageCount: { $lt: 90 }}).count()
 
 `db.nome_collection.findOne()`
-:
+: Se a consulta resultar em um registro, retorna o documento, senão retorna null. No find o cursor sempre irá retornar e nunca será nulo.
 
 `db.collection.insertOne({dado})`
 : Utilizado para inserir um documento
@@ -159,9 +160,12 @@ mongorestore novobancodir
 `db.mercado.insertMany([{},{},{}],{w: "majority", wtimeout: 200})`
 : Write Concern é uma configuração que pode ser adicionada ao insertMany
 
-Update
-db.books.updateOne({_id:314}, {$set: {pageCount: 1000}})
-db.books.updateMany({pageCount: {$gt: 500}},{$set: {bestseller: true}})
+`db.books.updateOne({_id:314}, {$set: {pageCount: 1000}})`
+: O comando terá sucesso se atualizar apenas um documento. O primeiro parâmetro é a condição e o seguinte o que será atualizado.
+
+`db.books.updateMany({pageCount: {$gt: 500}},{$set: {bestseller: true}})`
+: Usado para atualizar mais de um documento ao mesmo tempo
+
 db.books.updateMany({pageCount: {$gt: 500}, categories: "Java"},{$push: {categories: "Many Pages"}})
 
 Trocar todo o conteudo (replace)

@@ -26,15 +26,13 @@ Siga a série de comandos do livro para fazer a instalação no Linux 22.04 LTS.
 
 Esse [link](https://phoenixnap.com/kb/docker-permission-denied) mostra como resolver:
 
-```bash
-# Enter the command below to create the docker group on the system.
-sudo groupadd -f docker
-# Type the following usermod command to add the active user to the docker group.
-sudo usermod -aG docker $USER
-# Apply the group changes to the current terminal session by typing:
-newgrp docker
-# Check if the docker group is in the list of user groups.
-groups
-```
+* Enter the command below to create the docker group on the system.
+  * `sudo groupadd -f docker`
+* Type the following usermod command to add the active user to the docker group.
+  * `sudo usermod -aG docker $USER`
+* Apply the group changes to the current terminal session by typing:
+  * `newgrp docker`
+* Check if the docker group is in the list of user groups.
+  * `groups`
 
 [top](/content/docker/index.html#docker-table-of-contents)
