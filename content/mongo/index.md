@@ -138,12 +138,6 @@ mongorestore novobancodir
 : Vai listar todos os documents da coleção
 : Pode ser usando .pretty() para formatar a saída
 : Pode ser aplicado um filtro db.books.find({pageCount: 342})
-: Operador *in*: db.books.find({categories: { $in: ["Java", "C#"]}})
-: Operador *gt*: db.books.find({pageCount: { $gt: 342 }})
-: Operador *lt*: db.books.find({pageCount: { $lt: 90 }})
-: Operador *or*: db.books.find({ $or: [{pageCount: {$lt:90}, _id: {$lt: 5 }}]})
-: múltiplas condições: db.books.find({ pageCount: 592 , _id: 6}). Equivale ao operador *and*.
-: Combinando *and* e *or*: db.books.find({ status: "Publish ", $or: [{pageCount: {$lt:90},_id: {$lt: 5 }}]})
 : Função count: db.books.find({pageCount: { $lt: 90 }}).count()
 
 `db.nome_collection.findOne()`
@@ -161,55 +155,59 @@ mongorestore novobancodir
 : Write Concern é uma configuração que pode ser adicionada ao insertMany
 
 `db.books.updateOne({_id:314}, {$set: {pageCount: 1000}})`
-: O comando terá sucesso se atualizar apenas um documento. O primeiro parâmetro é a condição e o seguinte o que será atualizado.
+: O comando terá sucesso se atualizar apenas um documento. O primeiro parâmetro é a condição e o seguinte o que será atualizado. Note que você especifica qual parte do documento será atualizado usando o operador $set.
 
 `db.books.updateMany({pageCount: {$gt: 500}},{$set: {bestseller: true}})`
 : Usado para atualizar mais de um documento ao mesmo tempo
+: Importante observar que o operador *set* irá criar o atributo caso o mesmo não exista no documento.
+: se o *document* de filtro estiver vazio *{}*, vai atualizar todo o banco de dados.
 
-db.books.updateMany({pageCount: {$gt: 500}, categories: "Java"},{$push: {categories: "Many Pages"}})
+`db.books.updateMany({pageCount: {$gt: 500}, categories: "Java"},{$push: {categories: "Many Pages"}})`
+: O operador push serve para adicionar um item a um array
+: Note que se tentarmos atualizar um array diretamente com o operador *set* ele será substituído.
 
-Trocar todo o conteudo (replace)
-db.books.replaceOne({_id: 120},{foi: "substituido"})
+`db.books.replaceOne({_id: 120},{foi: "substituido"})`
+: Vai trocar todo o conteúdo do documento por outro (replace)
 
-Atualizando um array
-db.books.updateOne({_id: 201},{$push: {categories: "PHP"}})
+`db.books.deleteOne({_id:314})`
+: Remove um documento da coleção
 
-Atualizando todos
-db.books.updateMany({},{$set: {atualizando: true}})
+`db.books.deleteMany({categories: "Java"})`
+: Remove mais de um registro conforme o filtro
+: deleteMany com o filtro vazia vai deixar a collection vazia
 
-Delete
-db.books.deleteOne({_id:314})
-db.books.deleteMany({categories: "Java"})
-deleteMany com o filtro vazia vai deixar a collection vazia
+## Tipo de dados
 
-Tipo de dados
-const matheus = db.strings.findOne({nome: "Matheus"})
-typeof matheus.nome (string)
-typeof matheus (object)
+Verificando o tipo de dado com typeof
+: const matheus = db.strings.findOne({nome: "Matheus"})
+: typeof matheus.nome (string)
+: typeof matheus (object)
 
-Data
-db.datas.insertOne({nome: "Matheus", created_at: new Date()})
+`db.datas.insertOne({nome: "Matheus", created_at: new Date()})`
+: Cria uma data no formato ISO
 
-Number
-No mongo todos os números são classificados como double
-db.number.insertOne({double: 12.2, outro_double: 50, inteiro: NumberInt("5")})
+`db.documents.insertOne({nome: "jeann", desc: { profissao: "dev", hobbies: ["Estudar", "Ler", "Caminhar"]}})`
+: Cria um registro com um *document* dentro
 
-Operadores
-$eq
-db.restaurants.findOne({rating:{$eq:5}})
-$gt e $gte
-db.restaurants.find({type_of_food: "Breakfast", rating: {$gte: 3}})
-$lt e $lte
-$in
-db.restaurants.find({type_of_food: {$in: ["Pizza","Chinese"]}})
-$ne (not equal)
-db.restaurants.find({rating: {$ne: 3}})
-$exists
-db.restaurants.find({bad_restaurant: {$exists: true}})
-$text
-db.restaurants.find({$text: {$search: "pizza"}})
-É preciso criar um indice encima do campo que será usado para busca
-db.restaurants.createIndex({name: "text"})
+`db.collections.insertOne({nome: "joao", esta_trabalhando: false})`
+: Cria um atributo boolean no documento
+
+`db.number.insertOne({double: 12.2, outro_double: 50, inteiro: NumberInt("5")})`
+: No mongo todos os números são classificados como double
+: Caso queira forçar o inteiro, use o NumberInt
+
+### Operadores
+
+Operadores mais usados
+: Operador *eq* e *ne*: db.books.find({nome: { $eq: "Pedro" }})
+: Operador *in*: db.books.find({categories: { $in: ["Java", "C#"]}})
+: Operador *gt* e *gte*: db.books.find({pageCount: { $gt: 342 }})
+: Operador *lt* e *lte*: db.books.find({pageCount: { $lt: 90 }})
+: Operador *or*: db.books.find({ $or: [{pageCount: {$lt:90}, _id: {$lt: 5 }}]})
+: múltiplas condições: db.books.find({ pageCount: 592 , _id: 6}). Equivale ao operador *and*.
+: Combinando *and* e *or*: db.books.find({ status: "Publish ", $or: [{pageCount: {$lt:90},_id: {$lt: 5 }}]})
+: Operador *exists*: db.restaurants.find({bad_restaurant: {$exists: true}})
+: Operador *text*: db.restaurants.find({$text: {$search: "pizza"}}). É preciso criar um indice encima do campo que será usado para busca com o comando db.restaurants.createIndex({name: "text"})
 
 Consultando dentro de array
 db.alunos.find({quimica: {$all: [10]}})   --se dentro do array tem alguma nota 10
