@@ -119,9 +119,7 @@ mongorestore novobancodir
 
 `db.nome_collection.find()`
 : Vai listar todos os documents da coleção
-: Pode ser usando .pretty() para formatar a saída
 : Pode ser aplicado um filtro db.books.find({pageCount: 342})
-: Função count: db.books.find({pageCount: { $lt: 90 }}).count()
 
 `db.nome_collection.findOne()`
 : Se a consulta resultar em um registro, retorna o documento, senão retorna null. No find o cursor sempre irá retornar e nunca será nulo.
@@ -179,7 +177,7 @@ Verificando o tipo de dado com typeof
 : No mongo todos os números são classificados como double
 : Caso queira forçar o inteiro, use o NumberInt
 
-### Operadores
+## Operadores
 
 Operadores mais usados
 : Operador *eq* e *ne*: db.books.find({nome: { $eq: "Pedro" }})
@@ -187,10 +185,25 @@ Operadores mais usados
 : Operador *gt* e *gte*: db.books.find({pageCount: { $gt: 342 }})
 : Operador *lt* e *lte*: db.books.find({pageCount: { $lt: 90 }})
 : Operador *or*: db.books.find({ $or: [{pageCount: {$lt:90}, _id: {$lt: 5 }}]})
-: múltiplas condições: db.books.find({ pageCount: 592 , _id: 6}). Equivale ao operador *and*.
+: Múltiplas condições: db.books.find({ pageCount: 592 , _id: 6}). Equivale ao operador *and*.
 : Combinando *and* e *or*: db.books.find({ status: "Publish ", $or: [{pageCount: {$lt:90},_id: {$lt: 5 }}]})
 : Operador *exists*: db.restaurants.find({bad_restaurant: {$exists: true}})
 : Operador *text*: db.restaurants.find({$text: {$search: "pizza"}}). É preciso criar um indice encima do campo que será usado para busca com o comando db.restaurants.createIndex({name: "text"})
+
+## Arrays
+
+Trabalhando com arrays
+: Para pesquisar dentro de um array: db.col.find({notas : 8})
+: Para pesquisar exatamente pelo array: db.col.find({notas: [8, 4, 5]})
+: Para pesquisar em array de documentos: db.col.find({notas : {cor: "verde", tamanho: "G", qtd: 48}})
+: Operador *all*: Para pesquisar parcial pelo array: db.col.find({notas: {$all: [4, 8]}})
+: Operador *size*: Para pesquisar pelo tamanho do array: db.col.find({notas: {$size: 4}})
+
+## Funções
+
+Funções mais usadas
+: Função count: db.books.find({pageCount: { $lt: 90 }}).count()
+: Função pretty: Podemos usar *.pretty()* para formatar a saída
 
 ## Relacionamentos
 
@@ -218,6 +231,10 @@ db.embedded.insertOne({
         Complemento: "casa"
     }
 })
+
+Um find fica assim:
+
+db.embedded.find({"endereco.casa.numero" : 10})
 
 Um exemplo de *One to Many*:
 
@@ -286,16 +303,31 @@ A ideia é associar um documento de uma coleção com um ou mais documentos de o
 
 ![Many to Many Relationship](./img/many_to_many.png)
 
-Mongoose - um ODM, ou seja um framework para se trabalhar com o MongoDB de uma forma mais simplista
+db.pessoas.insertMany([{nome: "Jomar"}, {nome: "Rafael"}])
 
-Na minha máquina o MongoDB já foi instalado, o passo a passo está no arquivo de configuração do ambiente de desenvolvimento
-Para testar não para o terminal. Utilize o aplicativo MongoDB Compass que foi instalado junto com a aplicação.
-No próprio aplicativo já existe um MongoSh, que é o shell para o mongo. se quiser ver funcionando rode o seguinte comando
+const jomar = db.pessoas.findOne({nome: "Jomar"})
 
-Consultando dentro de array
-db.alunos.find({quimica: {$all: [10]}})   --se dentro do array tem alguma nota 10
+const rafael = db.pessoas.findOne({nome: "Rafael"})
 
-db.alunos.find({quimica: {$size: 2}})     --retorna apenas os documentos com array de tamanho 2
+db.cursos.insertMany([{nome: "PHP"}, {nome: "Go"}])
+
+const php = db.cursos.findOne({nome: "PHP"})
+
+const go = db.cursos.findOne({nome: "Go"})
+
+db.curso_pessoa.insertMany([
+{curso_id: php._id, pessoa_id: jomar._id},
+{curso_id: php._id, pessoa_id: rafael._id},
+{curso_id: go._id, pessoa_id: jomar._id}])
+
+const idsAlunos = [];
+
+db.curso_pessoa.find({curso_id: php._id})
+    .forEach(function(aluno){
+        idsAlunos.push(aluno.pessoa_id);
+});
+
+db.pessoas.find( { _id: { $in : idsAlunos }})
 
 operador $inc
 O operador $inc pode acrescentar ou diminuir uma quantidade especificada a um valor
