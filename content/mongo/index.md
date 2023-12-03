@@ -48,23 +48,6 @@ Em seguida instale o pacote baixado
 
 `sudo dpkg -i mongodb-compass_1.40.4_amd64.deb`
 
-## Conceitos
-
-No mongoDb não existe o conceito de tabela, o que se guarda são *documents* dentro de *collections*.
-
-Existem os seguintes tipos de relacionamento entre Collections
-
-* One to Many
-* Many to Many
-* One to One
-* Subdocuments
-
-Mongoose - um ODM, ou seja um framework para se trabalhar com o MongoDB de uma forma mais simplista
-
-Na minha máquina o MongoDB já foi instalado, o passo a passo está no arquivo de configuração do ambiente de desenvolvimento
-Para testar não para o terminal. Utilize o aplicativo MongoDB Compass que foi instalado junto com a aplicação.
-No próprio aplicativo já existe um MongoSh, que é o shell para o mongo. se quiser ver funcionando rode o seguinte comando
-
 ## Comandos DDL
 
 `db`
@@ -208,6 +191,106 @@ Operadores mais usados
 : Combinando *and* e *or*: db.books.find({ status: "Publish ", $or: [{pageCount: {$lt:90},_id: {$lt: 5 }}]})
 : Operador *exists*: db.restaurants.find({bad_restaurant: {$exists: true}})
 : Operador *text*: db.restaurants.find({$text: {$search: "pizza"}}). É preciso criar um indice encima do campo que será usado para busca com o comando db.restaurants.createIndex({name: "text"})
+
+## Relacionamentos
+
+No mongoDb não existe o conceito de tabela, o que se guarda são *documents* dentro de *collections*. Cada documento tem um tamanho máximo de 16Mb.
+
+Existem os seguintes tipos de relacionamento entre Collections
+
+* Subdocuments
+* One to One
+* One to Many
+* Many to Many
+
+### Embedded Documents ou subdocumentos
+
+São documentos adicionados dentro de outro documento. Este relacionamento funciona bem com *One to One* e *One to Many*.
+
+Um exemplo de *One to One*:
+
+db.embedded.insertOne({
+    nome: "João",
+    idade: 45,
+    endereco: {
+        rua : "Rua das flores",
+        numero: 10,
+        Complemento: "casa"
+    }
+})
+
+Um exemplo de *One to Many*:
+
+db.embedded.insertOne({
+    nome: "João",
+    idade: 45,
+    endereco: {
+        casa: {
+            rua : "Rua das flores",
+            numero: 10,
+            Complemento: "casa"
+        },
+        trabalho: {
+            rua : "Rua das árvores",
+            numero: 105,
+            Complemento: "Galpão"
+        }
+    }
+})
+
+### One to One
+
+A ideia é associar um documento de uma coleção com um documento de outra coleção.
+
+![One to One Relationship](./img/one_to_one.png)
+
+db.pessoas.insertOne({nome: "Jose"})
+
+const jose = db.pessoas.findOne()
+
+db.enderecos.insertOne({rua: "Rua das flores", numero: 455, complemento: "casa", pessoa_id: jose._id})
+
+db.enderecos.find()
+
+```js
+{
+  _id: ObjectId("656c7793cec781ff54a67afd"),
+  rua: 'Rua das flores',
+  numero: 455,
+  complemento: 'casa',
+  pessoa_id: ObjectId("656c7677cec781ff54a67afb")
+}
+```
+
+### One to Many
+
+A ideia é associar um documento de uma coleção com um ou mais documentos de outra coleção.
+
+![One to Many Relationship](./img/one_to_many.jpg)
+
+db.pessoas.insertMany([{nome: "Gustavo"}, {nome: "Marina"}])
+
+const gustavo = db.pessoas.findOne({nome: "Gustavo"})
+
+const marina = db.pessoas.findOne({nome: "Marina"})
+
+db.compras.insertMany([{produtos:["Liquidificador", "Torneira"], pessoa_id: gustavo._id},{produtos:["prego","martelo"], pessoa_id: gustavo._id}])
+
+db.compras.insertMany([{produtos:["Alicate", "Pá"], pessoa_id: marina._id},{produtos:["parafuso","chave allen"], pessoa_id: marina._id}])
+
+db.compras.find({pessoa_id: marina._id})
+
+### Many to Many
+
+A ideia é associar um documento de uma coleção com um ou mais documentos de outra coleção, e vice-versa, mantendo um collection de relação entre eles.
+
+![Many to Many Relationship](./img/many_to_many.png)
+
+Mongoose - um ODM, ou seja um framework para se trabalhar com o MongoDB de uma forma mais simplista
+
+Na minha máquina o MongoDB já foi instalado, o passo a passo está no arquivo de configuração do ambiente de desenvolvimento
+Para testar não para o terminal. Utilize o aplicativo MongoDB Compass que foi instalado junto com a aplicação.
+No próprio aplicativo já existe um MongoSh, que é o shell para o mongo. se quiser ver funcionando rode o seguinte comando
 
 Consultando dentro de array
 db.alunos.find({quimica: {$all: [10]}})   --se dentro do array tem alguma nota 10
