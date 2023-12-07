@@ -213,6 +213,8 @@ Outro opção é adicionar a mensagem inline:
 
 Quando vc precisa corrigir um commit, ou porque esquecer de acrescentar um arquivo ou porque errou na mensagem e deseja corrigir, use o *git add* para acrescentar o que falta e depois use o *commit --amend*. Neste caso o commit anterior nem será exibido no histórico. O nome commit passará a ser a única entrada no histórico.
 
+`git commit --amend -m "nova mensagem em substituição a anterior"`
+
 ### Skipping the Staging Area
 
 Adicionando a opção *-a* ao command *git commit* fará que qualquer arquivo monitorado pelo git, mas ainda não incluído na area de stage, seja adicionado automaticamente. Arquivos não monitorados pelo git ficarão de fora do commit.
