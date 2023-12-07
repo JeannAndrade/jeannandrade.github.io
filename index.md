@@ -26,6 +26,8 @@ layout: default
     * [.Net cli](./content/net/cli/index.html)
 1. Shell
     * PowerShell
+1. Windows
+    * [Dicas e soluções de projetos](./content/windows/dicas/index.html)
 
 ## Soft Skills
 
