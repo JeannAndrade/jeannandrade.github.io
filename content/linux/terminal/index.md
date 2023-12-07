@@ -125,7 +125,7 @@ Example aliases:
 alias zshconfig="nano ~/.zshrc"
 alias jekyllbs="script/bootstrap"
 alias jekyllsv="bundle exec jekyll serve"
-alias jekellts="script/cibuild"
+alias jekyllts="script/cibuild"
 ```
 
 [top](#table-of-contents)
