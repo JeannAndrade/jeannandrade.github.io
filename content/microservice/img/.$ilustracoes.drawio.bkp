@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-12-08T01:52:43.637Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.2 Chrome/114.0.5735.289 Electron/25.9.4 Safari/537.36" etag="T75tngQj66P_T67p8Nti" version="22.1.2" type="device" pages="2">
+<mxfile host="Electron" modified="2023-12-09T18:58:57.380Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.2 Chrome/114.0.5735.289 Electron/25.9.4 Safari/537.36" etag="_RN9Tw3_t187YqzI73cV" version="22.1.2" type="device" pages="4">
   <diagram name="Página-1" id="51rqvyu_YtnegG70sBJ8">
     <mxGraphModel dx="1114" dy="838" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -172,11 +172,70 @@
             <mxPoint x="361" y="465" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="sxU3zYH5KAm-sBjheqzV-4" value="CDC" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sxU3zYH5KAm-sBjheqzV-2">
+          <mxGeometry x="-0.2247" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="sxU3zYH5KAm-sBjheqzV-3" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeWidth=3;fillColor=#d80073;strokeColor=#A50040;" edge="1" parent="wQUBwngjyFSkvlIORtVp-1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="399" y="464.5" as="sourcePoint" />
             <mxPoint x="558" y="464.9568965517242" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="sxU3zYH5KAm-sBjheqzV-5" value="CDC" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sxU3zYH5KAm-sBjheqzV-3">
+          <mxGeometry x="-0.3586" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="OFAUKzxlKj43aaN_z02C" name="Página-3">
+    <mxGraphModel dx="1114" dy="838" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DsnGqcAMi7fy5-USH3Zv-4" value="RPC síncrona" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;verticalAlign=bottom;" edge="1" parent="1" source="DsnGqcAMi7fy5-USH3Zv-1" target="DsnGqcAMi7fy5-USH3Zv-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DsnGqcAMi7fy5-USH3Zv-1" value="Produto" style="shape=image;html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;image=img/clipart/Gear_128x128.png" vertex="1" parent="1">
+          <mxGeometry x="600" y="390" width="80" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="DsnGqcAMi7fy5-USH3Zv-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="DsnGqcAMi7fy5-USH3Zv-2" target="DsnGqcAMi7fy5-USH3Zv-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DsnGqcAMi7fy5-USH3Zv-6" value="RPC assíncrona" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;dashed=1;verticalAlign=bottom;" edge="1" parent="1" source="DsnGqcAMi7fy5-USH3Zv-2" target="DsnGqcAMi7fy5-USH3Zv-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DsnGqcAMi7fy5-USH3Zv-2" value="Pedido" style="shape=image;html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;image=img/clipart/Gear_128x128.png" vertex="1" parent="1">
+          <mxGeometry x="413.5" y="400" width="50" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="DsnGqcAMi7fy5-USH3Zv-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="DsnGqcAMi7fy5-USH3Zv-3" target="DsnGqcAMi7fy5-USH3Zv-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DsnGqcAMi7fy5-USH3Zv-3" value="Cliente" style="shape=image;html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;image=img/clipart/Gear_128x128.png" vertex="1" parent="1">
+          <mxGeometry x="230" y="410" width="40" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Página-4" id="-C3OZXWsmEZs8JXGP6Ql">
+    <mxGraphModel dx="1114" dy="838" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="dDXJulDfN2pXx5s7tUSs-0" />
+        <mxCell id="dDXJulDfN2pXx5s7tUSs-1" parent="dDXJulDfN2pXx5s7tUSs-0" />
+        <mxCell id="dDXJulDfN2pXx5s7tUSs-3" value="Produto" style="shape=image;html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;image=img/clipart/Gear_128x128.png" vertex="1" parent="dDXJulDfN2pXx5s7tUSs-1">
+          <mxGeometry x="600" y="390" width="80" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dDXJulDfN2pXx5s7tUSs-6" value="Pedido" style="shape=image;html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;image=img/clipart/Gear_128x128.png" vertex="1" parent="dDXJulDfN2pXx5s7tUSs-1">
+          <mxGeometry x="413.5" y="400" width="50" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="dDXJulDfN2pXx5s7tUSs-8" value="Cliente" style="shape=image;html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;image=img/clipart/Gear_128x128.png" vertex="1" parent="dDXJulDfN2pXx5s7tUSs-1">
+          <mxGeometry x="230" y="410" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ehIWwPpQT0hrtzuMgHmg-0" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;rotation=90;" vertex="1" parent="dDXJulDfN2pXx5s7tUSs-1">
+          <mxGeometry x="440" y="70" width="30" height="480" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
