@@ -110,6 +110,64 @@ Existem dois padrões de design que podemos usar: (1) [Composição de página d
 
 Esta composição tem que ser responsiva, levando em consideração todos os diferentes dispositivos.
 
+## Comunicação entre microsserviços
+
+Uma vez que nosso subdomínio é isolado, seu pacote é implantado e executado independentemente um do outro. Esses microsserviços podem ser mais ou menos complexos, podem armazenar dados ou não, ter interface de usuário ou não, mas a maioria deles acabará se comunicando entre si. Quando o fazem, precisam expor e consumir APIs, usar um protocolo de comunicação e escolher um estilo de comunicação. Vamos nos concentrar nas duas principais famílias de comunicação: invocação de procedimento remoto (RPC) e mensagens.
+
+### Remote Procedure Call
+
+A Invocação de Procedimento Remoto, também conhecida como Chamada de Procedimento Remoto, é o protocolo de comunicação entre processos mais simples e familiar. Funciona com base no princípio de request/response. Um serviço solicita algo a outro serviço e este responde. Por exemplo, nosso microsserviço de pedido de compra solicita que o microsserviço do produto obtenha o preço de um produto específico. Essa chamada pode ser síncrona, o que significa que o chamador aguardará até que a solicitação retorne, ou assíncrona, por exemplo, o microsserviço do usuário invoca o microsserviço do pedido para obter uma cópia de um pedido de compra específico por e-mail. Isso pode ser feito de forma assíncrona. O microsserviço do pedido enviará de volta uma notificação assim que o e-mail for enviado. Existem numerosos exemplos de tecnologias RPI, como REST, SOAP ou gRPC.
+
+![Modelo de comunicação RPC](./img/rpc.png)
+
+### Mensagens
+
+Nesse formato os microsserviços trocam mensagens ou eventos por meio de um *broker* ou canal. Funciona da seguinte forma: quando um microsserviço deseja interagir com outro, ele publica uma mensagem no *broker*. Os outros microsserviços se inscrevem nesse *broker* se estiverem interessados em tais mensagens e recebem as mensagens posteriormente. Esses microsserviços podem então atualizar seu próprio estado. As mensagens assíncronas desempenham um papel significativo em manter as coisas fracamente acopladas em uma arquitetura de microsserviços. Eles também melhoram a disponibilidade, pois o *broker* de mensagens armazena as mensagens em buffer até que o consumidor seja capaz de processá-las. Existem numerosos exemplos de *broker* de mensagens, como Apache Kafka ou Rabbit MQ.
+
+![Modelo de comunicação por mensagem](./img/broker.png)
+
+### Formato da mensagem
+
+Não importa se usamos mensagens ou RPC, precisamos definir o formato das trocas de microsserviços de dados. Dependendo das necessidades da sua arquitetura, você pode usar texto ou binário. As mensagens de texto podem assumir diversos formatos, mesmo que os mais utilizados atualmente sejam XML, JSON ou YAML. A principal vantagem é que eles são legíveis por humanos, fáceis de implementar e fáceis de depurar. Você também pode trocar mensagens binárias. Protocolos binários como o gRPC, por exemplo, são mais compactos, porém mais difíceis de manusear.
+
+### Como cada equipe sabe como invocar um microsserviço externo?
+
+Através de APIs e contratos. Uma API, ou interface de programa de aplicativo, é um conjunto de rotinas, estrutura de dados e protocolos expostos pelo microsserviço. Digamos que nosso microsserviço de pedido exponha duas APIs, uma para criar um novo pedido de compra e outra para recuperar um pedido existente. Para que os outros serviços saibam o que está exposto e como invocá-lo, o microsserviço order expõe um contrato. Dessa forma, o microsserviço do usuário obtém o contrato, lê-o e descobre como invocar uma API remota para criar um pedido de compra. Dependendo se você usa SOAP, REST ou gRPC, você terá que descrever sua API de microsserviços usando WSDL, Swagger ou Interface Definition Language.
+
+### Considerando especificidades dos dispositivos
+
+Como a maioria das aplicações atuais, precisamos estar cientes da multiplicidade de dispositivos, bem como das restrições da rede. Se um laptop conectado a uma boa rede de fibra óptica precisar recuperar um pedido de compra específico, talvez queiramos fornecer todos os detalhes, incluindo uma representação em PDF, mas se a mesma chamada de API acontecer a partir de um dispositivo móvel preso no transporte público com problemas conexão com a Internet, podemos querer mostrar apenas um subconjunto de informações. Como você pode ver, cada dispositivo tem necessidades diferentes, portanto devemos ter APIs e contratos diferentes por dispositivo. Esta é uma prática comum que também tem sido aplicada à arquitetura de microsserviços.
+
+## Serviços distribuídos
+
+### Service registry
+
+Quando temos microsserviços conversando entre si por meio de uma rede, precisamos implementar alguns padrões extras para garantir que o sistema seja confiável. Um aplicativo baseado em microsserviço normalmente é executado em um ambiente onde o número de instâncias de serviço e sua localização de rede mudam dinamicamente. Então, como o cliente de um microsserviço descobre sua localização se ela muda constantemente? A resposta é usar um **registro de serviço**.
+
+Um **registro de serviço** é uma lista telefônica de serviços com suas localizações, permitindo que os clientes procurem serviços por seus nomes lógicos. A primeira coisa que nossos microsserviços precisam fazer é o autoregistro. Isso significa que eles precisam registrar o local da rede na inicialização e, posteriormente, cancelar o registro no desligamento. Ao fazer uma solicitação a um serviço, o cliente precisa primeiro descobrir a localização de uma instância de serviço consultando o registro. E então pode invocar o microsserviço necessário. Registros de serviços famosos são Eureka, Zookeeper ou Consul, por exemplo.
+
+### Cross-Origin Resource Sharing, or CORS
+
+Ao lidar com microsserviços localizados em servidores diferentes, precisamos rapidamente lidar com o Cross-Origin Resource Sharing, ou CORS. No HTTP, a política de mesma origem é muito restritiva. De acordo com esta política, um documento hospedado no microsserviço do usuário só pode interagir com outros documentos que também estejam nesse mesmo servidor. Em suma, a política de mesma origem impõe que os documentos que interagem entre si tenham a mesma origem. Uma origem é composta pelo protocolo, HTTP ou HTTPS, o host e o número da porta. Mas em uma arquitetura de microsserviços, os serviços estão localizados em origens diferentes e precisam se comunicar entre si, ou seja, atravessando a origem.
+
+Por motivos de segurança, os navegadores restringem solicitações HTTP de origem cruzada iniciadas em scripts. Para permitir o compartilhamento de recursos entre origens, os microsserviços precisam usar cabeçalhos HTTP adicionais para permitir que um agente do usuário obtenha permissão para acessar recursos selecionados de um servidor em uma origem diferente. Isso normalmente lida com a família de cabeçalhos HTTP access-control-allow-origin. Mas o CORS não é a única coisa que pode reter uma chamada entre dois microsserviços.
+
+### Circuit breaker
+
+Com a Invocação de Procedimento Remoto, os serviços precisam estar disponíveis, pois não há intermediários, como quando utilizando mensagens. Quando nosso microsserviço de usuário invoca o pedido de compra de forma síncrona, sempre existe a possibilidade de o pedido de compra estar indisponível. Isso pode ocorrer devido a uma falha na rede ou porque o pedido de compra está sob carga pesada e é essencialmente inutilizável.
+
+A falha do microsserviço do pedido de compra pode potencialmente se espalhar para o microsserviço do usuário e, em seguida, para todo o aplicativo. Chamamos isso de efeito dominó. Uma falha em um sistema pode fazer com que outros sistemas falhem. Para evitar isso, precisamos introduzir um circuit breaker (disjuntor). Um circuit breaker é uma forma de invocar um serviço remoto por meio de um proxy para desviar a chamada, se necessário. Por exemplo, se o número de falhas consecutivas ultrapassar um determinado limite, o circuit breaker deixará de tentar invocar o serviço remoto e desviará as chamadas. Depois que o tempo limite expirar, o circuit breaker começará a permitir a passagem de um número limitado de solicitações. Se essas solicitações forem bem-sucedidas, o circuit breaker retoma a operação normal. O circuit breaker tenta lentamente reintroduzir o tráfego. Já existem alguns circuit breakers por aí, como Hystrix ou JRugged.
+
+### API gateway
+
+Vamos retomar nossas interfaces de usuário. Cada microsserviço possui seu próprio conjunto de componentes gráficos, mas no final das contas, eles devem ser agregados em um único aplicativo.
+
+Como esses componentes acessam os serviços individuais? Uma solução é ter um relacionamento 1:1 entre o componente e o microsserviço, mas cada chamada precisa lidar com questões transversais, como segurança.
+
+Uma abordagem melhor é ter um API Gateway, que é o ponto de entrada único para todos os clientes. Isso permite que cada cliente tenha uma interface unificada para todos os microsserviços. O gateway pode então tratar solicitações de duas maneiras. Algumas solicitações são simplesmente roteadas para o serviço apropriado, outras podem lidar com questões transversais, como autenticação, autorização ou determinação da localização dos serviços por meio do registro.
+
+Um gateway também pode ser o local ideal para inserir a tradução da API. Dispositivos diferentes precisam de dados diferentes, portanto o gateway pode expor uma API diferente para cada cliente. Existem alguns gateways que podem ser usados imediatamente em uma arquitetura de microsserviço, como Zuul, Netty ou Finagle.
+
 ## microsserviço Patterns
 
 Sugestões de curso:
