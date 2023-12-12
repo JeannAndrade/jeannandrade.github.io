@@ -307,17 +307,17 @@ A parte de log tem outras opções muito interessantes sobre filtros, na página
 
 ### Retirando um arquivo da area de stage
 
-`git reset HEAD file_name`
+`git restore --staged file_name`
 
 O arquivo foi colocado na area de stage com o comando *add*, mas agora vc precisa retirá-lo dessa area.
 
 ### Desfazendo alterações em arquivo no diretório de trabalho
 
-`git checkout -- file_name`
+`git restore file_name`
 
 Aqui o arquivo foi alterado, mas ainda não foi dado o add. Dessa forma ele está alterado, mas não está na area de stage. Ex.:
 
-`git checkout -- CONTRIBUTING.md`
+`git restore CONTRIBUTING.md`
 
 [top](#git-table-of-contents)
 
@@ -611,7 +611,8 @@ Você pode configurar atalhos no git usando o comando de configuração:
 | `git config --global alias.st status` | git st |
 | `git config --global alias.pl pull` | git pl |
 | `git config --global alias.ph push` | git ph |
-| `git config --global alias.unstage 'reset HEAD --'` | git unstage fileA |
+| `git config --global alias.unstage 'restore --staged'` | git unstage fileA |
+| `git config --global alias.unadd restore` | git unadd fileA |
 | `git config --global alias.last 'log -1 HEAD'` | git last |
 
 [top](#git-table-of-contents)
