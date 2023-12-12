@@ -6,11 +6,51 @@ layout: internal
 
 Fontes: Microservices: The big picture, Antonio Gonçalves, PluralSight
 
-* Comparação entre arquitetura de microsserviço e arquitetura de monólito
-* Como o ciclo de desenvolvimento de software pode ser afetado pela escolha entre estas abordagem
-* Terminologia e microsserviço
-* Conceitos e padrões de design utilizados em microsserviço
-* Prós e contras de microsserviço
+Conteúdo:
+
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Ciclo de vida do desenvolvimento de software](#ciclo-de-vida-do-desenvolvimento-de-software)
+- [O que são Microsserviços?](#o-que-são-microsserviços)
+- [Terminologia, padrões de Projeto e conceitos](#terminologia-padrões-de-projeto-e-conceitos)
+  - [Primeiro uma análise de uma aplicação monolítica](#primeiro-uma-análise-de-uma-aplicação-monolítica)
+  - [Construindo uma aplicação em microsserviços](#construindo-uma-aplicação-em-microsserviços)
+  - [Organizando a equipe](#organizando-a-equipe)
+  - [Armazenamento de dados](#armazenamento-de-dados)
+- [User Interface](#user-interface)
+- [Comunicação entre microsserviços](#comunicação-entre-microsserviços)
+  - [Remote Procedure Call](#remote-procedure-call)
+  - [Mensagens](#mensagens)
+  - [Formato da mensagem](#formato-da-mensagem)
+  - [Como cada equipe sabe como invocar um microsserviço externo?](#como-cada-equipe-sabe-como-invocar-um-microsserviço-externo)
+  - [Considerando especificidades dos dispositivos](#considerando-especificidades-dos-dispositivos)
+- [Serviços distribuídos](#serviços-distribuídos)
+  - [Service registry](#service-registry)
+  - [Cross-Origin Resource Sharing, or CORS](#cross-origin-resource-sharing-or-cors)
+  - [Circuit breaker](#circuit-breaker)
+  - [API gateway](#api-gateway)
+- [Segurança](#segurança)
+- [Escalabilidade](#escalabilidade)
+- [Disponibilidade](#disponibilidade)
+- [Monitoramento](#monitoramento)
+  - [Monitoramento e Dashboard](#monitoramento-e-dashboard)
+  - [health check](#health-check)
+  - [Agregação de log](#agregação-de-log)
+  - [Exception Traking](#exception-traking)
+  - [Metrics](#metrics)
+  - [Auditing](#auditing)
+  - [Rate Limiting](#rate-limiting)
+  - [Alerting](#alerting)
+  - [Distributed Tracing](#distributed-tracing)
+- [microsserviço Patterns](#microsserviço-patterns)
+
+<!-- TOC end -->
+
+- Comparação entre arquitetura de microsserviço e arquitetura de monólito
+- Como o ciclo de desenvolvimento de software pode ser afetado pela escolha entre estas abordagem
+- Terminologia e microsserviço
+- Conceitos e padrões de design utilizados em microsserviço
+- Prós e contras de microsserviço
 
 ## Ciclo de vida do desenvolvimento de software
 
@@ -38,10 +78,10 @@ O termo microsserviços descreve um estilo de desenvolvimento de software que cr
 
 É importante entender que:
 
-* Cada microsserviço deve fazer uma coisa e fazê-lo bem. Portanto, o micro refere-se ao escopo da funcionalidade do serviço.
-* Um microsserviço é um serviço construído em torno de um recurso de negócios específico, **que pode ser implantado de forma independente**. Chamamos isso de contexto delimitado.
-* Os microsserviços são desenvolvidos e implantados de forma independente. Cada microsserviço é implantado à sua maneira e em seu próprio ritmo. E como os microsserviços precisam interagir entre si, eles trocam mensagens entre eles.
-* Portanto, para construir um aplicativo corporativo de grande porte, precisamos identificar os subdomínios do nosso domínio comercial principal e construir cada subdomínio como um microsserviço. Por exemplo, um aplicativo de comércio eletrônico tem um domínio grande, mas pensando bem, você pode dividi-lo em vários subdomínios menores, como gerenciamento de usuários, catálogo, faturamento e assim por diante.
+- Cada microsserviço deve fazer uma coisa e fazê-lo bem. Portanto, o micro refere-se ao escopo da funcionalidade do serviço.
+- Um microsserviço é um serviço construído em torno de um recurso de negócios específico, **que pode ser implantado de forma independente**. Chamamos isso de contexto delimitado.
+- Os microsserviços são desenvolvidos e implantados de forma independente. Cada microsserviço é implantado à sua maneira e em seu próprio ritmo. E como os microsserviços precisam interagir entre si, eles trocam mensagens entre eles.
+- Portanto, para construir um aplicativo corporativo de grande porte, precisamos identificar os subdomínios do nosso domínio comercial principal e construir cada subdomínio como um microsserviço. Por exemplo, um aplicativo de comércio eletrônico tem um domínio grande, mas pensando bem, você pode dividi-lo em vários subdomínios menores, como gerenciamento de usuários, catálogo, faturamento e assim por diante.
 
 Um serviço é um componente de código limitado implementável de forma independente que oferece suporte à interoperabilidade por meio de comunicação baseada em mensagens. James Lewis e Martin Fowler, ambos da Thoughtworks, foram quem cunharam o termo microsserviço. A definição original que eles deram diz: o estilo arquitetural de microsserviços é uma abordagem para desenvolver um único aplicativo como um conjunto de pequenos serviços, cada um executando seu próprio processo e se comunicando com mecanismos leves. Por mecanismos leves, eles queriam dizer recursos HTTP. Esses serviços são construídos em torno de capacidades de negócios, o famoso contexto delimitado, e podem ser implantados de forma independente.
 
@@ -57,20 +97,20 @@ Os microsserviços vão obrigar você a ser mais ágil, aos demais usuários, ao
 
 Monólitos tem vários benefícios:
 
-* Eles são simples de desenvolver, a stack técnica é limitada a alguns frameworks, linguagens e bancos de dados.
-* O código pode caber em um único IDE e pode ser facilmente construído.
-* Eles são simples de testar, é claro que você ainda precisa simular alguns serviços externos ao fazer testes de integração, mas a maioria dos seus testes testa um único software.
-* Os monólitos também são simples de implantar. Você simplesmente  implanta os artefatos finais com os runtime apropriados, configura algumas propriedades e pronto.
-* Eles também são simples de escalar: basta executar várias instâncias do mesmo aplicativo por trás de um load balancer.
+- Eles são simples de desenvolver, a stack técnica é limitada a alguns frameworks, linguagens e bancos de dados.
+- O código pode caber em um único IDE e pode ser facilmente construído.
+- Eles são simples de testar, é claro que você ainda precisa simular alguns serviços externos ao fazer testes de integração, mas a maioria dos seus testes testa um único software.
+- Os monólitos também são simples de implantar. Você simplesmente  implanta os artefatos finais com os runtime apropriados, configura algumas propriedades e pronto.
+- Eles também são simples de escalar: basta executar várias instâncias do mesmo aplicativo por trás de um load balancer.
 
 Quando o aplicativo se torna grande e as equipes aumentam de tamanho, a abordagem monolítica apresenta diversas desvantagens:
 
-* Quanto maior for o aplicativo, mais difícil será para um novo membro da equipe se tornar produtivo. E você precisará de algumas equipes extras para lidar com o tamanho de um monólito em crescimento. Quando a aplicação atingir um determinado tamanho, será necessário dividir a organização em equipes que se concentrem em áreas funcionais específicas. Por exemplo, uma equipe apenas desenvolvendo a UI, outra para o backend, outra para testes, para implantação. O problema de um aplicativo monolítico é que ele impede que as equipes trabalhem de forma independente. As equipes devem ser coordenadas.
-* Com grandes monólitos o código do aplicativo ficará mais difícil de entender e modificar. Como resultado, o desenvolvimento normalmente fica mais lento, seguido pela qualidade do código. Você não conseguirá tirar vantagem facilmente das tecnologias emergentes, mas sim apostar em um compromisso de longo prazo com a tecnologia atual.
-* E se uma pequena parte do aplicativo precisar de um banco de dados diferente? Você precisará alterar muito código apenas para isso.
-* Você acabará escalando o aplicativo pelos motivos errados. Se precisar de mais CPU para lidar com todas as faturas, digamos para as vendas de Natal, você precisará dimensionar toda a aplicação, não apenas as faturas.
-* Quanto maior o aplicativo, mais tempo o contêiner que hospeda o aplicativo levará para inicializar e mais recursos ele consumirá.
-* O banco de dados contém todos os dados e pode ficar enorme, o que terá impacto no desempenho da aplicação.
+- Quanto maior for o aplicativo, mais difícil será para um novo membro da equipe se tornar produtivo. E você precisará de algumas equipes extras para lidar com o tamanho de um monólito em crescimento. Quando a aplicação atingir um determinado tamanho, será necessário dividir a organização em equipes que se concentrem em áreas funcionais específicas. Por exemplo, uma equipe apenas desenvolvendo a UI, outra para o backend, outra para testes, para implantação. O problema de um aplicativo monolítico é que ele impede que as equipes trabalhem de forma independente. As equipes devem ser coordenadas.
+- Com grandes monólitos o código do aplicativo ficará mais difícil de entender e modificar. Como resultado, o desenvolvimento normalmente fica mais lento, seguido pela qualidade do código. Você não conseguirá tirar vantagem facilmente das tecnologias emergentes, mas sim apostar em um compromisso de longo prazo com a tecnologia atual.
+- E se uma pequena parte do aplicativo precisar de um banco de dados diferente? Você precisará alterar muito código apenas para isso.
+- Você acabará escalando o aplicativo pelos motivos errados. Se precisar de mais CPU para lidar com todas as faturas, digamos para as vendas de Natal, você precisará dimensionar toda a aplicação, não apenas as faturas.
+- Quanto maior o aplicativo, mais tempo o contêiner que hospeda o aplicativo levará para inicializar e mais recursos ele consumirá.
+- O banco de dados contém todos os dados e pode ficar enorme, o que terá impacto no desempenho da aplicação.
 
 ### Construindo uma aplicação em microsserviços
 
@@ -88,9 +128,9 @@ O design orientado a domínio nos fornece um conjunto de técnicas e padrões pa
 
 Os microsserviços também têm impacto na maneira como você organiza suas equipes e seu código:
 
-* O primeiro impacto é que você passa de uma equipe por domínio para uma equipe por subdomínio. Além disso, desde a fase de design, fica claro que o subdomínio do usuário cobre menos funcionalidades do que o subdomínio do pedido. Isso significa que você pode dimensionar corretamente cada equipe. A equipe menor para o usuário, a equipe maior para o produto e um pouco maior para o subdomínio do pedido que cobre muitas funcionalidades de negócios.
-* Cada equipe agora é totalmente independente, ao mesmo tempo em que é a única responsável por todo o ciclo de vida do produto, desde o desenvolvimento até a implantação. É aí que você precisa abraçar as metodologias Agile e Devops, para que cada um com suas habilidades diferentes aprenda a trabalhar junto no mesmo produto. Mesmo que as equipes sejam todas independentes, lembre-se que esses microsserviços acabam se comunicando entre si. Isso significa que você ainda terá que gerenciar e orquestrar a integração entre as equipes em um determinado momento.
-* Sendo cada equipe independente e separada, cada uma pode ter o código e a documentação em repositórios separados. Isso como está usando diferentes softwares de controle de versão, como Git, Subversion ou Mercurial. Lembre-se que cada software é independente, portanto o versionamento é importante. Por exemplo, a equipe do pedido de compra pode estar desenvolvendo a versão 1.2 do microsserviço, enquanto a equipe do produto testará a versão 4.8 do microsserviço.
+- O primeiro impacto é que você passa de uma equipe por domínio para uma equipe por subdomínio. Além disso, desde a fase de design, fica claro que o subdomínio do usuário cobre menos funcionalidades do que o subdomínio do pedido. Isso significa que você pode dimensionar corretamente cada equipe. A equipe menor para o usuário, a equipe maior para o produto e um pouco maior para o subdomínio do pedido que cobre muitas funcionalidades de negócios.
+- Cada equipe agora é totalmente independente, ao mesmo tempo em que é a única responsável por todo o ciclo de vida do produto, desde o desenvolvimento até a implantação. É aí que você precisa abraçar as metodologias Agile e Devops, para que cada um com suas habilidades diferentes aprenda a trabalhar junto no mesmo produto. Mesmo que as equipes sejam todas independentes, lembre-se que esses microsserviços acabam se comunicando entre si. Isso significa que você ainda terá que gerenciar e orquestrar a integração entre as equipes em um determinado momento.
+- Sendo cada equipe independente e separada, cada uma pode ter o código e a documentação em repositórios separados. Isso como está usando diferentes softwares de controle de versão, como Git, Subversion ou Mercurial. Lembre-se que cada software é independente, portanto o versionamento é importante. Por exemplo, a equipe do pedido de compra pode estar desenvolvendo a versão 1.2 do microsserviço, enquanto a equipe do produto testará a versão 4.8 do microsserviço.
 
 ### Armazenamento de dados
 
@@ -173,6 +213,70 @@ Uma abordagem melhor é ter um API Gateway, que é o ponto de entrada único par
 Um gateway também pode ser o local ideal para inserir a tradução da API. Dispositivos diferentes precisam de dados diferentes, portanto o gateway pode expor uma API diferente para cada cliente. Existem alguns gateways que podem ser usados imediatamente em uma arquitetura de microsserviço, como Zuul, Netty ou Finagle.
 
 ![API Gateway](./img/gateway.png)
+
+## Segurança
+
+Autenticação e autorização são os termos usados para controlar o acesso a um serviço e aplicar políticas. Autenticação é o processo de afirmar que alguém realmente é quem afirma ser. Por exemplo, pedindo um usuário e senha. Autorização refere-se a regras que determinam quem tem permissão para fazer o quê. Por exemplo, apenas administradores podem remover usuários existentes do nosso microsserviço de usuário. Para isso, utilizamos um sistema de gerenciamento de identidade e acesso. Ele aborda a necessidade de garantir o acesso adequado aos recursos em todo o nosso sistema distribuído. Isso significa que nossos microsserviços não precisam lidar com formulários de registro, autenticação de usuários ou armazenamento de credenciais. Eles delegam autenticação e autorização ao sistema de gerenciamento de identidade e acesso. Por exemplo, um usuário tenta se autenticar, com a credencial errada, não terá permissão para acessar o microsserviço do usuário. Se as credenciais estiverem corretas, a chamada poderá ser feita para o serviço. Com o logon único, uma vez logados, os usuários não precisam fazer login novamente para acessar um microsserviço diferente. É aqui que você pode encontrar protocolos de autenticação como Kerberos, OpenID Connect, OAuth 2.0 ou SAML.
+
+Aqui você pode ver a vantagem de ter um gateway como ponto de entrada único para solicitações de clientes. Ele autentica solicitações e as encaminha para outros serviços, que por sua vez podem invocar outros serviços. Alguns sistemas de gerenciamento de identidade e acesso bem conhecidos são Okta, Keycloak ou Shiro.
+
+Num sistema distribuído, é fundamental afirmar a autenticidade das solicitações de forma consistente em todos os serviços. Em outras palavras, uma vez autenticado, como um microsserviço comunica a identidade do solicitante aos outros microsserviços? A resposta é através de tokens de acesso. Um token de acesso armazena com segurança informações sobre um usuário e é então trocado entre serviços. Cada serviço precisa ter certeza de que o token é válido e retirar dele as informações do usuário para verificar se o usuário está autorizado a realizar a operação ou não. Os tokens podem seguir a especificação JSON Web Token.
+
+Outra possibilidade é utilizar cookies entre chamadas de serviço. Você pode ver novamente o benefício do gateway, pois ele centraliza as chamadas da interface do usuário e o controle do token de acesso.
+
+![token de acesso](./img/security.png)
+
+## Escalabilidade
+
+Uma grande vantagem de uma arquitetura de microsserviços é que você pode dimensionar cada microsserviço de forma independente, dependendo de suas necessidades. Mas para ser distribuído, o sistema também tem que estar disponível e, para isso, existem algumas técnicas que você deve conhecer. No Natal, nosso aplicativo certamente ficará sobrecarregado, pois os clientes comprarão mais produtos. Nosso microsserviço de usuário pode não ser muito afetado por isso, mas definitivamente precisaremos dimensionar nossos pedidos de compra e microsserviços de produtos.
+
+Na verdade, existem várias maneiras de fazer isso. A escala vertical significa que você escala adicionando mais potência a uma máquina existente. Por exemplo, a máquina para nosso microsserviço de pedido de compra obtém mais CPU e RAM e funciona bem para esse microsserviço específico. Já o dimensionamento horizontal significa que você dimensiona adicionando mais máquinas. Assim, nosso microsserviço de produto é replicado em máquinas diferentes.
+
+Falamos sobre replicação de serviços ou clustering. Os serviços podem aumentar ou diminuir com base em determinadas métricas predefinidas. Quando escalamos horizontalmente, obtemos diversas instâncias do mesmo microsserviço localizadas em servidores diferentes. Quando o pedido de compra invocar o produto, qual das três instâncias ele utilizará? Lembre-se que temos um serviço de registro, então todas as instâncias do produto ficam cadastradas nele. Então é só uma questão de ter um balanceamento de carga do cliente no pedido de compra.
+
+O balanceador de carga será selecionado entre as instâncias registradas do microsserviço do produto. Então aqui as três instâncias são descobertas. Em seguida, o balanceador de carga escolhe entre as instâncias candidatas para qual encaminhar a solicitação. O balanceador de carga decide com base nos critérios que desejar, round-robin, ou com base no peso e na capacidade do serviço. Ribbon ou Meraki são ferramentas comuns de balanceamento de carga de cliente.
+
+## Disponibilidade
+
+Disponibilidade significa a probabilidade de um sistema estar operacional em um determinado momento. Os sistemas disponíveis relatam a disponibilidade em termos de minutos ou horas de inatividade por ano. Por exemplo, espera-se que um sistema com alta disponibilidade esteja disponível 99,999% do tempo. Em nossa arquitetura, temos alguns pontos únicos de falha, também chamados de SPOF. Um ponto único de falha é uma parte de um sistema que, se falhar, impedirá o funcionamento de todo o sistema. Por exemplo, temos apenas um gateway, um agente de mensagens, um registro de serviço e um sistema de gerenciamento de identidade e acesso. Para que um sistema distribuído esteja continuamente disponível, cada solicitação recebida por um nó que não cai no sistema deve resultar em uma resposta. Isso significa que se o registro do serviço estiver inativo, o microsserviço do usuário não conseguirá localizar os microsserviços do pedido de compra e todo o sistema ficará indisponível. Para corrigir isso, **todos os pontos únicos de falha precisam ser dimensionados horizontalmente**, portanto, temos várias instâncias. Eles também precisam ser agrupados em um cluster para que possam se manter sincronizados.
+
+## Monitoramento
+
+### Monitoramento e Dashboard
+
+Um dos aspectos mais importantes de um sistema distribuído é o monitoramento. Isto permite-lhe tomar medidas proativas se, por exemplo, um serviço estiver a consumir recursos inesperados ou não responder. Há tantas partes móveis e tantas máquinas envolvidas em uma arquitetura de microsserviços que você precisa monitorar rapidamente o que está acontecendo. Você precisa visualizar rapidamente as instâncias em execução, vendo suas taxas de falha e sucesso e identificando o Botão x. Uma característica fundamental do monitoramento é que ele deve ser centralizado. Imagine ter que fazer login em cada máquina, verificar os logs ou o processo manualmente. Isso não é possível quando você tem dezenas, centenas e, às vezes, milhares de dispositivos para monitorar. E quando a arquitetura é muito complexa, a informação precisa ser visual. As ferramentas de monitoramento precisam de um painel onde você possa visualizar rapidamente o que está errado. Painéis de monitoramento como Kibana, Grafana ou Splunk permitem visualizar todos os tipos de informações.
+
+### health check
+
+Uma informação muito importante é o exame de saúde. Às vezes, uma instância de microsserviço pode estar em execução, mas ser incapaz de lidar com solicitações. Por exemplo, pode ter ficado sem conexões com o banco de dados. Como detectar que um microsserviço em execução não consegue lidar com solicitações? Uma maneira é ter uma API de verificação de integridade em cada microsserviço, que é um endpoint HTTP que retorna a integridade do serviço e pode receber ping pelo monitoramento centralizado. A API de verificação de integridade realiza várias verificações, como status do banco de dados, status do host, espaço em disco, memória disponível e assim por diante. O monitoramento centralizado invoca periodicamente esses endpoints para verificar a integridade de cada serviço e, portanto, a integridade de todo o sistema. Pense nisso como batimentos cardíacos.
+
+### Agregação de log
+
+Nosso aplicativo consiste em vários microsserviços executados em várias máquinas. Graças à verificação de integridade, sabemos que eles estão vivos, mas como podemos entender o comportamento do aplicativo e solucionar problemas? Bem, cada microsserviço grava informações sobre o que está fazendo em um arquivo de log em um formato padronizado. O arquivo de log contém erros, avisos, informações e mensagens de depuração. Mas como não é eficiente ler cada arquivo de log de cada microsserviço para entender o que está acontecendo, usamos um agregador de log. É um serviço de log centralizado que agrega log de cada instância de serviço. Os administradores podem então pesquisar e analisar os logs dos painéis. Existem alguns agregadores de log que você pode escolher, como LogStash, Splunk ou PaperTrail.
+
+### Exception Traking
+
+Às vezes ocorrem erros ao encerrar solicitações. Quando ocorre um erro, um microsserviço lança uma exceção, que contém uma mensagem de erro e um rastreamento de pilha. Esta exceção aparece no meio do arquivo de log com todos os tipos de informações e pode ser difícil de encontrar. É por isso que as exceções devem ser registradas em um sistema centralizado de rastreamento de exceções, para que possam ser investigadas e resolvidas pelos desenvolvedores. Isso é crucial para compreender os erros do nosso sistema, corrigi-los e, esperançosamente, ver a evolução dos erros diminuindo ao longo do tempo.
+
+### Metrics
+
+Temos verificações de integridade, registros, mas como sabemos que o sistema está ficando lento ou como detectamos problemas de desempenho? Precisamos instrumentar nossos microsserviços para coletar estatísticas sobre operações individuais. Quanto tempo leva para responder uma solicitação HTTP, quanto tempo leva para criar um pedido de compra, quanto tempo leva para acessar o banco de dados? Temos então que agregar essas métricas em um serviço de métricas centralizado, que fornece relatórios e alertas. Existem várias ferramentas que você pode usar, como DropWizard, Spring Actuator ou Prometheus.
+
+### Auditing
+
+Em uma arquitetura de microsserviços, é importante compreender o comportamento dos usuários. É útil saber quais ações um usuário executou recentemente, logins e logouts bem-sucedidos, qual microsserviço foi solicitado para essa interação específica do usuário, quais páginas foram visitadas, quantos produtos foram navegados, quantos produtos foram comprados? A atividade do usuário deve ser registrada em um sistema centralizado, para que possamos entender melhor as partes do nosso sistema que são muito utilizadas pelos nossos usuários e, portanto, otimizá-las ou escaloná-las, se necessário.
+
+### Rate Limiting
+
+Mas não são apenas os usuários que podem acessar seus microsserviços. Todos os microsservidores podem, e às vezes podem ser microsserviços de terceiros que invocam suas APIs. É por isso que você deve controlar o uso da API configurando a limitação de taxa. A limitação de taxa não é nova e não está apenas relacionada a microsserviços. Na verdade, o principal motivo para implementar a limitação de taxa foi defender as aplicações contra ataques DoS e negação de serviço. Foi uma forma de aplicar políticas para limitar o tráfego proveniente de fontes específicas, clientes específicos, endereços de API e assim por diante. Hoje em dia, com microsserviços e APIs expostas, a limitação de taxa tornou-se uma forma de gerenciar nossas APIs. Podemos limitar a taxa de quantas solicitações HTTP um cliente pode fazer em um determinado período de tempo. É também uma forma de monetizar nossas APIs. Por exemplo, um cliente específico tem o direito de acessar a API do nosso produto apenas 100 vezes por dia. Se o cliente quiser mais acessos, deverá pagar mais por isso.
+
+### Alerting
+
+Agora que temos toneladas de informações sobre a integridade do sistema, exceções, métricas, auditorias, como ser proativo e corrigir um problema quando ele ocorre, os administradores não podem passar o dia olhando para o sistema de monitoramento centralizado. Em vez disso, eles precisam configurar alertas que são acionados quando determinadas mensagens aparecem nos logs, para que possam esquecer informações não relevantes. Portanto, quando um determinado limite for atingido, o sistema de monitoramento deverá gerar um alerta.
+
+### Distributed Tracing
+
+Agora, com todo o monitoramento e alertas, poderíamos pensar que terminamos, mas há algo específico dos sistemas distribuídos que deve ser levado em consideração, o rastreamento distribuído. As solicitações geralmente abrangem vários serviços, por exemplo, um usuário acessa o microsserviço do usuário, faz login, cria um carrinho de compras, seleciona alguns produtos do banco de dados e gera um pedido de compra. Até agora, registramos cada evento separadamente e podemos rastrear toda a solicitação, desde a interface do usuário até o banco de dados, por meio de três microsserviços. Com o rastreamento distribuído, instrumentamos os serviços com código que atribui a cada solicitação um identificador de correlação exclusivo que é então passado entre os serviços. Isso cria uma cadeia de chamadas. Ele fornece insights úteis, por exemplo, todo o tempo de resposta de uma invocação inteira e as fontes de latência. Já os logs e as métricas nos fornecem insights de uma operação individual. Existem alguns sistemas de rastreamento que você pode usar em sua arquitetura de microsserviços, como Dapper, HTrace ou Zipkin.
 
 ## microsserviço Patterns
 
