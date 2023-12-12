@@ -144,7 +144,9 @@ Como a maioria das aplicações atuais, precisamos estar cientes da multiplicida
 
 Quando temos microsserviços conversando entre si por meio de uma rede, precisamos implementar alguns padrões extras para garantir que o sistema seja confiável. Um aplicativo baseado em microsserviço normalmente é executado em um ambiente onde o número de instâncias de serviço e sua localização de rede mudam dinamicamente. Então, como o cliente de um microsserviço descobre sua localização se ela muda constantemente? A resposta é usar um **registro de serviço**.
 
-Um **registro de serviço** é uma lista telefônica de serviços com suas localizações, permitindo que os clientes procurem serviços por seus nomes lógicos. A primeira coisa que nossos microsserviços precisam fazer é o autoregistro. Isso significa que eles precisam registrar o local da rede na inicialização e, posteriormente, cancelar o registro no desligamento. Ao fazer uma solicitação a um serviço, o cliente precisa primeiro descobrir a localização de uma instância de serviço consultando o registro. E então pode invocar o microsserviço necessário. Registros de serviços famosos são Eureka, Zookeeper ou Consul, por exemplo.
+Um **registro de serviço** é uma lista telefônica de serviços com suas localizações, permitindo que os clientes procurem serviços por seus nomes lógicos. A primeira coisa que nossos microsserviços precisam fazer é o autorregistro. Isso significa que eles precisam registrar o local da rede na inicialização e, posteriormente, cancelar o registro no desligamento. Ao fazer uma solicitação a um serviço, o cliente precisa primeiro descobrir a localização de uma instância de serviço consultando o registro. E então pode invocar o microsserviço necessário. Registros de serviços famosos são Eureka, Zookeeper ou Consul, por exemplo.
+
+![registro de serviço](./img/register.png)
 
 ### Cross-Origin Resource Sharing, or CORS
 
@@ -158,6 +160,8 @@ Com a Invocação de Procedimento Remoto, os serviços precisam estar disponíve
 
 A falha do microsserviço do pedido de compra pode potencialmente se espalhar para o microsserviço do usuário e, em seguida, para todo o aplicativo. Chamamos isso de efeito dominó. Uma falha em um sistema pode fazer com que outros sistemas falhem. Para evitar isso, precisamos introduzir um circuit breaker (disjuntor). Um circuit breaker é uma forma de invocar um serviço remoto por meio de um proxy para desviar a chamada, se necessário. Por exemplo, se o número de falhas consecutivas ultrapassar um determinado limite, o circuit breaker deixará de tentar invocar o serviço remoto e desviará as chamadas. Depois que o tempo limite expirar, o circuit breaker começará a permitir a passagem de um número limitado de solicitações. Se essas solicitações forem bem-sucedidas, o circuit breaker retoma a operação normal. O circuit breaker tenta lentamente reintroduzir o tráfego. Já existem alguns circuit breakers por aí, como Hystrix ou JRugged.
 
+![Circuit breaker](./img/circuit_breaker.png)
+
 ### API gateway
 
 Vamos retomar nossas interfaces de usuário. Cada microsserviço possui seu próprio conjunto de componentes gráficos, mas no final das contas, eles devem ser agregados em um único aplicativo.
@@ -167,6 +171,8 @@ Como esses componentes acessam os serviços individuais? Uma solução é ter um
 Uma abordagem melhor é ter um API Gateway, que é o ponto de entrada único para todos os clientes. Isso permite que cada cliente tenha uma interface unificada para todos os microsserviços. O gateway pode então tratar solicitações de duas maneiras. Algumas solicitações são simplesmente roteadas para o serviço apropriado, outras podem lidar com questões transversais, como autenticação, autorização ou determinação da localização dos serviços por meio do registro.
 
 Um gateway também pode ser o local ideal para inserir a tradução da API. Dispositivos diferentes precisam de dados diferentes, portanto o gateway pode expor uma API diferente para cada cliente. Existem alguns gateways que podem ser usados imediatamente em uma arquitetura de microsserviço, como Zuul, Netty ou Finagle.
+
+![API Gateway](./img/gateway.png)
 
 ## microsserviço Patterns
 

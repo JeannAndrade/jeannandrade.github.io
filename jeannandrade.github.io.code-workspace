@@ -26,15 +26,19 @@
 		},
 		"peacock.color": "#6dcbf8",
 		"cSpell.words": [
+			"Akka",
+			"autorregistro",
 			"buildx",
 			"containerd",
 			"contêinerizar",
 			"DBHOST",
 			"Deamon",
+			"Debezium",
 			"Dockerfiles",
 			"dockerhub",
 			"exampleapp",
 			"HEALTHCHECK",
+			"Hystrix",
 			"linux",
 			"mariadb",
 			"Mountpoint",
@@ -51,6 +55,7 @@
 			"psweb",
 			"runc",
 			"runtimes",
+			"Thoughtworks",
 			"vtest",
 			"WORKDIR"
 		]
