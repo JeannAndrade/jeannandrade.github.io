@@ -4,7 +4,10 @@ layout: internal
 
 # .NET MAUI
 
-Fonte: <https://docs.microsoft.com/en-us/dotnet/maui/>
+Fonte:
+
+- <https://docs.microsoft.com/en-us/dotnet/maui/>
+- .NET MAUI Cross-Platform Application, Roger Le
 
 ## Verificando os workload instalados na máquina
 
@@ -22,3 +25,13 @@ A lista estando vazia é preciso instalar a partir do configurador do Visual Stu
 
 .NET MAUI Class Library
 : Essa é a opção para criar uma biblioteca de classe .NET MAUI. Podemos construir uma biblioteca de componentes compartilhados assim como uma biblioteca de classe .NET MAUI.
+
+## Estrutura do projeto
+
+Common files
+
+App.xaml
+
+MainPage.xaml
+
+and MauiProgram.cs
