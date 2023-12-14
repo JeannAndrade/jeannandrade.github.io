@@ -22,6 +22,7 @@ layout: default
     * [Terminal Linux](./content/linux/terminal/index.html)
 1. [Microservice](./content/microservice/index.html)
 1. [.Net](./content/net/index.html)
+    * [.Net MAUI](./content/net/maui/index.html)
     * [ASP.NET Core](./content/net/aspnet/index.html)
     * [.Net cli](./content/net/cli/index.html)
 1. Shell
@@ -32,3 +33,4 @@ layout: default
 ## Soft Skills
 
 1. [Code Review](./content/code_review/index.html)
+1. [Aspectos gerais]()
