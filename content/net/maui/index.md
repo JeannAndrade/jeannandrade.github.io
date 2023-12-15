@@ -90,6 +90,52 @@ Uma variedade de recursos desde imagens, fontes, splash screens, estilos e outro
 |Resumed|Este evento é gerado quando um aplicativo é retomado após ser interrompido. |Stopped -> Running|OnResumed|
 |Destroying|Este evento é gerado quando a janela nativa está sendo destruída e desalocada.|Stopped -> Not running|OnDestroying|
 
+Como se faz a subscrição em cada tipo de evento:
+
+```csharp
+public partial class App : Application
+{
+    public App()
+    {
+        InitializeComponent();
+
+        MainPage = new AppShell();
+    }
+
+    protected override Window CreateWindow(IActivationState activationState)
+    {
+        Window window = base.CreateWindow(activationState);
+        window.Created += (s, e) => {
+            Debug.WriteLine("PassXYZ.Vault.App: 1. Created event");
+        };
+
+        window.Activated += (s, e) => {
+            Debug.WriteLine("PassXYZ.Vault.App: 2. Activated event");
+        };
+
+        window.Deactivated += (s, e) => {
+            Debug.WriteLine("PassXYZ.Vault.App: 3. Deactivated event");
+        };
+
+        window.Stopped += (s, e) => {
+            Debug.WriteLine("PassXYZ.Vault.App: 4. Stopped event");
+        };
+
+        window.Resumed += (s, e) => {
+            Debug.WriteLine("PassXYZ.Vault.App: 5. Resumed event");
+        };
+
+        window.Destroying += (s, e) => {
+            Debug.WriteLine("PassXYZ.Vault.App: 6. Destroying event");
+        };
+
+        return window;
+    }
+}
+```
+
+Depois de lançarmos nosso aplicativo, podemos ver que os eventos Created e Activated são acionados. Então, minimizamos nosso aplicativo. Podemos ver que os eventos Deactivated e Stopped são disparados. Quando retomamos nosso aplicativo, os eventos Resumed e Activated são disparados. Finalmente, fechamos nosso aplicativo e um evento Destroying é disparado.
+
 ## Injeção de dependência (DI), Logging e Configuração
 
 Estes 3 recursos podem ser configurados no arquivo MauiProgram.cs, logo após a criação do builder.
