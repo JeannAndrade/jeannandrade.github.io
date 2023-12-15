@@ -6,9 +6,9 @@ layout: internal
 
 ## Table of contents
 
-1. [History of .Net](#history)
+1. [History of .Net](#history-of-net)
 
-## History
+## History of .Net
 
 Fonte: [Wiki](https://en.wikipedia.org/wiki/.NET)
 
@@ -26,3 +26,22 @@ Fonte: [Wiki](https://en.wikipedia.org/wiki/.NET)
 | .NET 7 | November/22 | Visual Studio 2022 Version 17.4 | May/24 |
 | .NET 8 (LTS) | November/23 | Visual Studio 2022 Version 17.8 | November/26 |
 | .NET 9 | November/24 | (projected) |May 2026 (projected) |
+
+## History of CSharp
+
+|Versão do C#| SDK|
+|----|----|
+|1.0| .NET Framework 1.0|
+|1.2| .NET Framework 1.1|
+|2.0| .NET Framework 2.0|
+|3.0| .NET Framework 3.0|
+|3.5| .NET Framework 3.5|
+|4.0| .NET Framework 4.0|
+|5.0| .NET 5.0|
+|6.0| .NET 6.0|
+|7.0| .NET 6.0|
+|8.0| .NET 6.0|
+|9.0| .NET 6.0|
+|10.0| .NET 6.0|
+|11.0| .NET 7.0|
+|12.0| .NET 8.0|
