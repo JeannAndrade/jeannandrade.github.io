@@ -9,6 +9,7 @@ Fonte: C# in a Nutshell, Joseph Albahari & Ben Albahari
     - [Lambda Expression](#lambda-expression)
     - [Extension methods](#extension-methods)
     - [Implicitly typed local variables](#implicitly-typed-local-variables)
+    - [Query comprehension](#query-comprehension)
   - [Instanciação de objetos](#instancia%C3%A7%C3%A3o-de-objetos)
 
 <!-- /TOC -->
@@ -65,6 +66,14 @@ Variáveis locais tipadas implicitamente permitem omitir o tipo de variável em 
 
 ```csharp
 var filteredNames = names.Where(n => n.Length == 4);
+```
+
+### Query comprehension
+
+ A sintaxe *Query comprehension* fornece sintaxe no estilo SQL para escrever consultas. A sintaxe *Query comprehension* pode simplificar substancialmente certos tipos de consultas, além de servir como açúcar sintático para consultas no estilo lambda. Aqui está o exemplo anterior em sintaxe de compreensão:
+
+```csharp
+var filteredNames =from n in names where n.Length >= 4 select n;
 ```
 
 ## Instanciação de objetos
