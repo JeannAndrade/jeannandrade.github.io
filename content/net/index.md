@@ -6,11 +6,16 @@ layout: internal
 
 ## Table of contents
 
-1. [History of .Net](#history-of-net)
+<!-- TOC -->
+
+- [Microsoft .Net](#microsoft-net)
+  - [Table of contents](#table-of-contents)
+  - [History of .Net](#history-of-net)
+  - [History of CSharp](#history-of-csharp)
+
+<!-- /TOC -->
 
 ## History of .Net
-
-Fonte: [Wiki](https://en.wikipedia.org/wiki/.NET)
 
 | Version | Release date | Released with | Support ends |
 | ----- | ----- | ----- | ----- |
