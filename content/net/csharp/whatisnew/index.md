@@ -151,10 +151,44 @@ Expressão<Func<string,bool>> predicado = s => s.Length > 10;
 
 ### Dynamic binding
 
+A vinculação dinâmica é a maior inovação do C# 4.0. Este recurso foi inspirado em linguagens dinâmicas como Python, Ruby, JavaScript e Smalltalk. A vinculação dinâmica adia a vinculação – o processo de resolução de tipos e membros – do tempo de compilação para o tempo de execução. Embora C# continue sendo uma linguagem predominantemente de tipagem estática, uma variável do tipo dinâmico é resolvida de maneira tardia. Por exemplo:
+
+```csharp
+dynamic d = "hello";
+Console.WriteLine (d.ToUpper());  // HELLO
+Console.WriteLine (d.Foo());      // Compiles OK but gives runtime error
+```
+
+Chamar um objeto dinamicamente é útil em cenários que, de outra forma, exigiriam um código de reflexão complicado. A ligação dinâmica também é útil ao interoperar com linguagens dinâmicas e componentes COM.
+
 ### Type variance with generic interfaces and delegates
 
 ### Optional parameters
 
+Parâmetros opcionais permitem que funções especifiquem valores de parâmetros padrão para que os chamadores possam omitir argumentos. Uma declaração de parâmetro opcional, como:
+
+```csharp
+void Foo (int x = 23) { Console.WriteLine (x); }
+```
+
+pode ser chamado da seguinte forma:
+
+```csharp
+Foo(); // 23
+```
+
 ### Named arguments
 
+Argumentos nomeados permitem que um chamador de função identifique um argumento pelo nome em vez de pela posição. Por exemplo, o método anterior agora pode ser chamado da seguinte forma:
+
+```csharp
+Foo (x:5);
+```
+
 ### COM interoperability improvements
+
+## C# 5.0
+
+### Asynchronous functions
+
+A grande novidade do C# 5.0 é o suporte para funções assíncronas por meio de duas novas palavras-chave, async e await. As funções assíncronas permitem continuações síncronas, o que facilita a escrita de aplicativos com interfaces ricas e responsivos para o cliente e thread-safe. Eles também facilitam a escrita de aplicações com alto I/O de forma concorrentes e eficientes que não bloqueiam a thread em operação de I/O.
