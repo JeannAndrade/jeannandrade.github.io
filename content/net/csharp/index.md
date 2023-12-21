@@ -1,6 +1,10 @@
-# Anotações sobre a linguagem C\#
+---
+layout: internal
+---
 
-1. [Instanciação de objetos]
+# C\#
+
+1. [O que há de novo C# 2.0 to 12](./whatisnew/index.html)
 
 ## Instanciação de objetos
 
