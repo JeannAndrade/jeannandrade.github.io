@@ -25,6 +25,13 @@ h6 {
   font-weight: normal;
 }
 
+h3::after {
+  content: "";
+  display: block;
+  margin-top: 0.4em;
+  border-bottom: 1px dotted #c2c1bf;
+}
+
 p,
 ul,
 ol,
