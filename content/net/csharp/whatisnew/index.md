@@ -142,7 +142,7 @@ public class Stock
 *Expression trees* são DOMs de código em miniatura que descrevem expressões lambda. O compilador C# 3.0 gera árvores de expressão quando uma expressão lambda é atribuída ao tipo especial Expression<TDelegate>:
 
 ```csharp
-Expressão<Func<string,bool>> predicado = s => s.Length > 10;
+Expression<Func<string,bool>> predicado = s => s.Length > 10;
 ```
 
 *Expression trees* possibilitam que consultas LINQ sejam executadas remotamente (por exemplo, em um servidor de banco de dados) porque podem ser examinadas e traduzidas em tempo de execução (por exemplo, em uma instrução SQL).
@@ -192,3 +192,96 @@ Foo (x:5);
 ### Asynchronous functions
 
 A grande novidade do C# 5.0 é o suporte para funções assíncronas por meio de duas novas palavras-chave, async e await. As funções assíncronas permitem continuações síncronas, o que facilita a escrita de aplicativos com interfaces ricas e responsivos para o cliente e thread-safe. Eles também facilitam a escrita de aplicações com alto I/O de forma concorrentes e eficientes que não bloqueiam a thread em operação de I/O.
+
+## C# 6.0
+
+A maior novidade do C# 6.0 é que o compilador foi completamente reescrito em C#. Conhecido como projeto “Roslyn”, o novo compilador expõe todo o pipeline de compilação por meio de bibliotecas, permitindo realizar análises de código em código-fonte arbitrário.
+
+### null-conditional (“Elvis”) operator
+
+O operador nulo-condicional (“Elvis”) evita ter que verificar explicitamente nulo antes de chamar um método ou acessar um membro de tipo. No exemplo a seguir, o resultado é avaliado como nulo em vez de gerar uma NullReferenceException:
+
+```csharp
+System.Text.StringBuilder sb = null;
+string result = sb?.ToString(); // result is null
+```
+
+### Expression-bodied functions
+
+Funções com corpo de expressão permitem que métodos, propriedades, operadores e indexadores que compõem uma única expressão sejam escritos de forma mais concisa, no estilo de uma expressão lambda:
+
+```csharp
+public int TimesTwo (int x) => x * 2;
+public string SomeProperty => "Property value";
+```
+
+### Property initializers
+
+Os inicializadores de propriedade permitem atribuir um valor inicial a uma propriedade automática:
+
+```csharp
+public DateTime Created { get; set; } = DateTime.Now;
+```
+
+A inicialização também pode ser read-only:
+
+```csharp
+public DateTime Created { get; } = DateTime.Now;
+```
+
+Propriedades somente leitura também podem ser definidas no construtor, facilitando a criação de tipos imutáveis (somente leitura).
+
+### Index initializers
+
+Os inicializadores de índice permitem a inicialização em uma única etapa de qualquer tipo que exponha um indexador:
+
+```csharp
+new Dictionary<int,string>()
+{
+  [3] = "three",
+  [10] = "ten"
+}
+```
+
+### String interpolation
+
+A interpolação de strings oferece uma alternativa sucinta à string. Formatar:
+
+```csharp
+string s = $"It is {DateTime.Now.DayOfWeek} today";
+```
+
+### Exception filters
+
+Os filtros de exceção permitem aplicar uma condição a um bloco catch:
+
+```csharp
+try
+{
+  new WebClient().DownloadString("<http://asef>");
+}
+catch (WebException ex) when (ex.Status == WebExceptionStatus.Timeout)
+{
+  ...
+}
+```
+
+### using static
+
+A diretiva using static permite importar todos os membros estáticos de um tipo, para que você possa usar esses membros sem qualificação:
+
+```csharp
+using static System.Console;
+  ...
+WriteLine ("Hello, world"); // WriteLine instead of Console.WriteLine
+```
+
+### nameof
+
+O operador nameof (Capítulo 3) retorna o nome de uma variável, tipo ou outro símbolo como uma string. Isso evita quebrar o código ao renomear um símbolo no Visual Studio:
+
+```csharp
+int capacity = 123;
+string x = nameof (capacity); // x is "capacity"
+string y = nameof (Uri.Host); // y is "Host"
+```
