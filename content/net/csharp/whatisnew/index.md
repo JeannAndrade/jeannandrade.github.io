@@ -6,7 +6,7 @@ layout: internal
 
 Fonte: C# in a Nutshell, Joseph Albahari & Ben Albahari
 
-## C# 3.0
+## C# 3.0 (2007)
 
 ### Lambda Expression
 
@@ -147,7 +147,7 @@ Expression<Func<string,bool>> predicado = s => s.Length > 10;
 
 *Expression trees* possibilitam que consultas LINQ sejam executadas remotamente (por exemplo, em um servidor de banco de dados) porque podem ser examinadas e traduzidas em tempo de execução (por exemplo, em uma instrução SQL).
 
-## C# 4.0
+## C# 4.0 (2010)
 
 ### Dynamic binding
 
@@ -187,13 +187,13 @@ Foo (x:5);
 
 ### COM interoperability improvements
 
-## C# 5.0
+## C# 5.0 (2012)
 
 ### Asynchronous functions
 
 A grande novidade do C# 5.0 é o suporte para funções assíncronas por meio de duas novas palavras-chave, async e await. As funções assíncronas permitem continuações síncronas, o que facilita a escrita de aplicativos com interfaces ricas e responsivos para o cliente e thread-safe. Eles também facilitam a escrita de aplicações com alto I/O de forma concorrentes e eficientes que não bloqueiam a thread em operação de I/O.
 
-## C# 6.0
+## C# 6.0 (2015)
 
 A maior novidade do C# 6.0 é que o compilador foi completamente reescrito em C#. Conhecido como projeto “Roslyn”, o novo compilador expõe todo o pipeline de compilação por meio de bibliotecas, permitindo realizar análises de código em código-fonte arbitrário.
 
@@ -285,3 +285,88 @@ int capacity = 123;
 string x = nameof (capacity); // x is "capacity"
 string y = nameof (Uri.Host); // y is "Host"
 ```
+
+## C# 7.0 (2017)
+
+### Numeric literal improvements
+
+Literais numéricos em C# 7 podem incluir sublinhados para melhorar a legibilidade. Eles são chamados de separadores de dígitos e são ignorados pelo compilador:
+
+```csharp
+int million = 1_000_000;
+```
+
+Literais binários podem ser especificados com o prefixo 0b:
+
+```csharp
+var b = 0b1010_1011_1100_1101_1110_1111;
+```
+
+### Out variables and discards
+
+O C# 7 facilitou a chamada de métodos que contêm parâmetros *out*. Primeiro, agora você pode declarar variáveis instantaneamente:
+
+```csharp
+bool successful = int.TryParse ("123", out int result);
+Console.WriteLine (result);
+```
+
+E ao chamar um método com vários parâmetros de saída, você pode descartar aqueles que não lhe interessam com o caractere de sublinhado:
+
+```csharp
+SomeBigMethod (out _, out _, out _, out int x, out _, out _, out _);
+Console.WriteLine (x);
+```
+
+### Patterns
+
+Você também pode introduzir variáveis instantâneas com o operador *is*. Elas são chamadas de *pattern variables*:
+
+```csharp
+void Foo (object x)
+{
+  if (x is string s)
+    Console.WriteLine (s.Length);
+}
+```
+
+É equivalente a:
+
+```csharp
+Stock s;
+if (a is Stock)
+{
+  s = (Stock) a;
+  Console.WriteLine (s.SharesOwned);
+}
+```
+
+A instrução switch também oferece suporte a padrões, para que você usar switch com tipo e também as constantes. Você pode especificar condições com uma cláusula quando e também ativar o valor nulo:
+
+```csharp
+switch (x) // x é um object
+{
+  case int i:
+    Console.WriteLine ("It's an int!");
+    break;
+  case string s:
+    Console.WriteLine (s.Length); // We can use the s variable
+    break;
+  case bool b when b == true:  // Matches only when b is true
+    Console.WriteLine ("True");
+    break;
+  case null:
+    Console.WriteLine ("Nothing");
+    break;
+}
+```
+
+### Local methods
+
+### More expression-bodied members
+
+### Deconstructors
+
+### Tuples
+
+### throw expressions
