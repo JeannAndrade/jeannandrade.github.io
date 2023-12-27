@@ -6,6 +6,48 @@ layout: internal
 
 Fonte: C# in a Nutshell, Joseph Albahari & Ben Albahari
 
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Novidades C# 3 até 12](#novidades-c-3-até-12)
+  - [C# 3.0 (2007)](#c-30-2007)
+    - [Lambda Expression](#lambda-expression)
+    - [Extension methods](#extension-methods)
+    - [Implicitly typed local variables](#implicitly-typed-local-variables)
+    - [Query comprehension](#query-comprehension)
+    - [Anonymous types](#anonymous-types)
+    - [Implicitly typed arrays](#implicitly-typed-arrays)
+    - [Object initializers](#object-initializers)
+    - [Automatic properties](#automatic-properties)
+    - [Expression trees](#expression-trees)
+  - [C# 4.0 (2010)](#c-40-2010)
+    - [Dynamic binding](#dynamic-binding)
+    - [Type variance with generic interfaces and delegates](#type-variance-with-generic-interfaces-and-delegates)
+    - [Optional parameters](#optional-parameters)
+    - [Named arguments](#named-arguments)
+    - [COM interoperability improvements](#com-interoperability-improvements)
+  - [C# 5.0 (2012)](#c-50-2012)
+    - [Asynchronous functions](#asynchronous-functions)
+  - [C# 6.0 (2015)](#c-60-2015)
+    - [null-conditional (“Elvis”) operator](#null-conditional-elvis-operator)
+    - [Expression-bodied functions](#expression-bodied-functions)
+    - [Property initializers](#property-initializers)
+    - [Index initializers](#index-initializers)
+    - [String interpolation](#string-interpolation)
+    - [Exception filters](#exception-filters)
+    - [using static](#using-static)
+    - [nameof](#nameof)
+  - [C# 7.0 (2017)](#c-70-2017)
+    - [Numeric literal improvements](#numeric-literal-improvements)
+    - [Out variables and discards](#out-variables-and-discards)
+    - [Patterns](#patterns)
+    - [Local methods](#local-methods)
+    - [More expression-bodied members](#more-expression-bodied-members)
+    - [Deconstructors](#deconstructors)
+    - [Tuples](#tuples)
+    - [throw expressions](#throw-expressions)
+
+<!-- TOC end -->
+
 ## C# 3.0 (2007)
 
 ### Lambda Expression
