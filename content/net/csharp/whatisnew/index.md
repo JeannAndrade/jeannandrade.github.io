@@ -363,10 +363,117 @@ switch (x) // x é um object
 
 ### Local methods
 
+Um método local é um método declarado dentro de outra função:
+
+```csharp
+void WriteCubes()
+{
+  Console.WriteLine (Cube (3));
+  Console.WriteLine (Cube (4));
+  Console.WriteLine (Cube (5));
+  int Cube (int value) => value * value * value;
+}
+```
+
+Os métodos locais são visíveis apenas para a função que os contém e podem capturar variáveis locais da mesma forma que as expressões lambda.
+
 ### More expression-bodied members
+
+O C# 6 introduziu a sintaxe “fat-arrow” com corpo de expressão para métodos, propriedades somente leitura, operadores e indexadores. C# 7 estende isso para construtores, propriedades de leitura/gravação e finalizadores:
+
+```csharp
+public class Person
+{
+  string name;
+  public Person (string name) => Name = name;
+
+  public string Name
+  {
+    get => name;
+    set => name = value ?? "";
+  }
+
+  ~Person () => Console.WriteLine ("finalize");
+}
+```
 
 ### Deconstructors
 
+C# 7 introduziu o padrão desconstrutor. Enquanto um construtor normalmente pega um conjunto de valores (como parâmetros) e os atribui aos campos, um desconstrutor faz o inverso e atribui os campos de volta a um conjunto de variáveis. Poderíamos escrever um desconstrutor para a classe Person no exemplo anterior da seguinte maneira (deixando de lado o tratamento de exceções):
+
+```csharp
+public void Deconstruct (out string firstName, out string lastName)
+{
+  int spacePos = name.IndexOf (' ');
+  firstName = name.Substring (0, spacePos);
+  lastName = name.Substring (spacePos + 1);
+}
+```
+
+Os desconstrutores são chamados com a seguinte sintaxe especial:
+
+```csharp
+var joe = new Person ("Joe Bloggs");
+var (first, last) = joe;    // Deconstruction
+Console.WriteLine (first);  // Joe
+Console.WriteLine (last);   // Bloggs
+```
+
 ### Tuples
 
+Talvez a melhoria mais notável no C# 7 seja o suporte explícito a tuplas. As tuplas fornecem uma maneira simples de armazenar um conjunto de valores relacionados:
+
+```csharp
+var bob = ("Bob", 23);
+Console.WriteLine (bob.Item1);  // Bob
+Console.WriteLine (bob.Item2);  // 23
+```
+
+As novas tuplas do C# são açúcar sintático para usar as estruturas genéricas System.ValueTuple<...>. Mas graças à magia do compilador, os elementos da tupla podem ser nomeados:
+
+```csharp
+var tuple = (Name:"Bob", Age:23);
+Console.WriteLine (tuple.Name);   // Bob
+Console.WriteLine (tuple.Age);    // 23
+```
+
+Com tuplas, as funções podem retornar vários valores sem recorrer a parâmetros *out*:
+
+```csharp
+static (int row, int column) GetFilePosition() => (3, 10);
+
+static void Main()
+{
+  var pos = GetFilePosition();
+  Console.WriteLine (pos.row);    // 3
+  Console.WriteLine (pos.column); // 10
+}
+```
+
+As tuplas suportam implicitamente o padrão de desconstrução, para que possam ser facilmente desconstruídas em variáveis individuais. Podemos reescrever o método Main anterior para que a tupla retornada por GetFilePosition seja atribuída a duas variáveis locais, row e column:
+
+```csharp
+static void Main()
+{
+  (int row, int column) = GetFilePosition();
+  Console.WriteLine (row);    // 3
+  Console.WriteLine (column); // 10
+}
+```
+
 ### throw expressions
+
+Antes do C# 7, throw sempre era uma instrução. Agora também pode aparecer como uma expressão em funções com corpo de expressão:
+
+```csharp
+public string Foo() => throw new NotImplementedException();
+```
+
+Uma expressão throw também pode aparecer em uma expressão condicional ternária:
+
+```csharp
+string Capitalize (string value) =>
+  value == null ? throw new ArgumentException ("value") :
+  value == "" ? "" :
+  char.ToUpper (value[0]) + value.Substring (1);
+```
