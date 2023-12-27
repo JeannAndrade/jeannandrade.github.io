@@ -434,6 +434,10 @@ Depois crie a tag adicionando o checksum ou parte dele ao final do commando:
 
 ### Show tag data
 
+Para ver o que foi alterado em um determinado commit, passe a hash do commit (ou parte dele) como parâmetro do git log:
+
+`git log 9a4e619e8b23da2f4c19b8331803d22eb36b89be`
+
 You can see the tag data along with the commit that was tagged by using the git show command.
 
 `git show v1.4`
