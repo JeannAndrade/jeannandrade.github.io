@@ -519,3 +519,134 @@ string Capitalize (string value) =>
   value == "" ? "" :
   char.ToUpper (value[0]) + value.Substring (1);
 ```
+
+## C# 8.0 (2019)
+
+### Indices And Ranges
+
+Índices e intervalos simplificam o trabalho com elementos ou partes de um array. Os índices permitem fazer referência a elementos relativos ao final de um array usando o operador ^. ^1 refere-se ao último elemento, ^2 refere-se ao penúltimo elemento e assim por diante:
+
+```csharp
+char[] vowels = new char[] {'a','e','i','o','u'};
+char lastElement  = vowels [^1];   // 'u'
+char secondToLast = vowels [^2];   // 'o'
+```
+
+Os intervalos permitem “dividir” um array usando o operador '..':
+
+```csharp
+char[] firstTwo =  vowels [..2];    // 'a', 'e'
+char[] lastThree = vowels [2..];    // 'i', 'o', 'u'
+char[] middleOne = vowels [2..3]    // 'i'
+char[] lastTwo =   vowels [^2..];   // 'o', 'u'
+```
+
+C# implementa índices e intervalos com a ajuda dos tipos Index e Range:
+
+```csharp
+Index last = ^1;
+Range firstTwoRange = 0..2;
+char[] firstTwo = vowels [firstTwoRange];   // 'a', 'e'
+```
+
+Você pode oferecer suporte a índices e intervalos em suas próprias classes definindo um indexador com um tipo de parâmetro Index ou Range:
+
+```csharp
+class Sentence
+{
+  string[] words = "The quick brown fox".Split();
+
+  public string this   [Index index] => words [index];
+  public string[] this [Range range] => words [range];
+}
+
+var sentence = new Sentence();
+Range firstTwo = 0..2;
+
+System.Console.WriteLine(sentence[0]);  //The
+System.Console.WriteLine(sentence[1]);  //quick
+System.Console.WriteLine(sentence[2]);  //brown
+System.Console.WriteLine(string.Join(" ", sentence[firstTwo]));  //The quick
+
+```
+
+### Null-Coalescing Assignment
+
+O operador ??= atribui uma variável apenas se ela for nula. Em vez disso:
+
+```csharp
+if (s == null) s = "Hello, world";
+```
+
+agora você pode escrever isto:
+
+```csharp
+s ??= "Hello, world";
+```
+
+### Using Declarations
+
+Se você omitir os colchetes e o bloco de instruções após uma instrução using, ela se tornará uma declaração using. O recurso é então descartado quando a execução fica fora do bloco de instrução envolvente:
+
+```csharp
+if (File.Exists ("file.txt"))
+{
+  using var reader = File.OpenText ("file.txt");
+  Console.WriteLine (reader.ReadLine());
+  ...
+}
+```
+
+Nesse caso, o reader será descartado quando a execução estiver fora do bloco de instrução if.
+
+### Readonly Members
+
+C# 8 permite aplicar o modificador readonly às funções de um struct, garantindo que se a função tentar modificar qualquer campo, um erro em tempo de compilação será gerado:
+
+```csharp
+struct Point
+{
+  public int X, Y;
+  public readonly void ResetX() => X = 0;  // Error!
+}
+```
+
+Se uma função somente leitura chamar uma função não somente leitura, o compilador gerará um aviso (e copiará defensivamente a estrutura para evitar a possibilidade de uma mutação).
+
+### Static Local Methods
+
+Adicionar o modificador estático a um método local evita que ele veja as variáveis e parâmetros locais do método envolvente. Isso ajuda a reduzir o acoplamento, bem como permite que o método local declare variáveis como desejar, sem risco de colidir com aquelas do método que o contém.
+
+```csharp
+string[] words = "The quick brown fox".Split();
+
+System.Console.WriteLine(LetterCounter(words));
+
+
+int LetterCounter(string[] sentence)
+{
+  int counter = 0;
+
+  foreach (var word in sentence)
+  {
+    counter += LettersInWord(word);
+  }
+
+  static int LettersInWord(string word)
+  {
+    return word.Length;
+  }
+
+  return counter;
+}
+```
+
+### Default Interface Members
+
+### Switch Expressions
+
+### Tuple, Positional, And Property Patterns
+
+### Nullable Reference Types
+
+### Asynchronous Streams
