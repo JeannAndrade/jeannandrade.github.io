@@ -158,6 +158,8 @@ Para levar um arquivo de Untracked para Staged:
 
 `git add .`
 
+`git add \./\*.java`
+
 The git add command takes a path name for either a file or a directory; if it’s a directory, the command adds all the files in that directory recursively.
 
 ### Staging Modified Files
@@ -250,6 +252,14 @@ De forma padrão, o *git log* irá exibir a lista de commits na ordem reversa cr
 A opção *-p* ou *--patch* mostra a diferença adicionada em cada commit e vc ainda pode adicionar um limite na quantidade de commits a serem exibidos.
 
 `git log -p -2`
+
+Para ver o histórico de alterações de um arquivo em específico:
+
+`git log --[filename]`
+
+e para ver o que mudou em cada commit, só adicionar o -p:
+
+`git log -p --[filename]`
 
 Outra opção importante é o *--pretty* que pode ser oneline, short, full, fuller, format
 
