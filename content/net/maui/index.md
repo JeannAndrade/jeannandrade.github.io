@@ -16,6 +16,7 @@ Fonte:
     - [Verificando os workload instalados na máquina](#verificando-os-workload-instalados-na-m%C3%A1quina)
     - [Verificando os templates disponíveis](#verificando-os-templates-dispon%C3%ADveis)
     - [Criando um projeto .Net MAUI](#criando-um-projeto-net-maui)
+    - [Compilando e rodando para Android via cli](#compilando-e-rodando-para-android-via-cli)
   - [Templates para o .NET MAUI](#templates-para-o-net-maui)
   - [Estrutura do projeto](#estrutura-do-projeto)
     - [Common files](#common-files)
@@ -44,6 +45,10 @@ A lista vai mostrar os templates disponíveis de acordo com os workloads instala
 ### Criando um projeto .Net MAUI
 
 `dotnet new maui -n "PassXYZ.Vault"`
+
+### Compilando e rodando para Android via cli
+
+`dotnet build -t:Run -f net8.0-android`
 
 ## Templates para o .NET MAUI
 
