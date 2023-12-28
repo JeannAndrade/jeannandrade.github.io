@@ -255,11 +255,11 @@ A opção *-p* ou *--patch* mostra a diferença adicionada em cada commit e vc a
 
 Para ver o histórico de alterações de um arquivo em específico:
 
-`git log --[filename]`
+`git log -- [filename]`
 
 e para ver o que mudou em cada commit, só adicionar o -p:
 
-`git log -p --[filename]`
+`git log -p -- [filename]`
 
 Outra opção importante é o *--pretty* que pode ser oneline, short, full, fuller, format
 
