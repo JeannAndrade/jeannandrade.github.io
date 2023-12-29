@@ -643,10 +643,96 @@ int LetterCounter(string[] sentence)
 
 ### Default Interface Members
 
+C# 8 permite adicionar uma implementação padrão a um membro da interface, tornando opcional a implementação:
+
+```csharp
+interface ILogger
+{
+  void Log (string text) => Console.WriteLine (text);
+}
+```
+
+Isso significa que você pode adicionar um membro a uma interface sem quebrar as implementações. As implementações padrão devem ser chamadas explicitamente através da interface:
+
+```csharp
+((ILogger)new Logger()).Log ("message");
+```
+
+As interfaces também podem definir membros estáticos (incluindo campos), que podem ser acessados a partir do código dentro de implementações padrão:
+
+```csharp
+interface ILogger
+{
+  void Log (string text) => Console.WriteLine (Prefix + text);
+  static string Prefix = "";
+}
+```
+
+ou de fora da interface:
+
+```csharp
+ILogger.Prefix = "File log: ";
+```
+
+a menos que seja restrito por meio de um modificador de acessibilidade no membro da interface estática (como privado, protegido ou interno). Campos de instância são proibidos.
+
 ### Switch Expressions
+
+No C# 8, você pode usar switch no contexto de uma expressão:
+
+```csharp
+string cardName = cardNumber switch    // assuming cardNumber is an int
+{
+  13 => "King",
+  12 => "Queen",
+  11 => "Jack",
+  _ => "Pip card"   // equivalent to 'default'
+};
+```
 
 ### Tuple, Positional, And Property Patterns
 
+O C# 8 oferece suporte a três novos padrões, principalmente para o benefício de instruções/expressões switch. Os padrões de tupla permitem ativar vários valores:
+
+```csharp
+int cardNumber = 12; string suite = "espadas";
+string cardName = (cardNumber, suite) switch
+{
+  (13, "espadas") => "Rei de espadas",
+  (13, "paus") => "Rei de paus",
+  ...
+};
+```
+
+Os padrões posicionais permitem uma sintaxe semelhante para objetos que expõem um desconstrutor, e os padrões de propriedade permitem fazer a correspondência com as propriedades de um objeto. Você pode usar todos os padrões tanto em switches quanto pelo operador is. O exemplo a seguir usa um padrão de propriedade para testar se obj é uma string com comprimento 4:
+
+```csharp
+if (obj is string { Length:4 }) ...
+```
+
 ### Nullable Reference Types
+
+Enquanto os tipos de valor anuláveis trazem nulidade aos tipos de valor, os tipos de referência anuláveis fazem o oposto e trazem (um grau de) não nulidade aos tipos de referência, com o objetivo de ajudar a evitar NullReferenceExceptions. Os tipos de referência anuláveis introduzem um nível de segurança que é imposto exclusivamente pelo compilador na forma de avisos ou erros quando ele detecta código que corre o risco de gerar uma NullReferenceException.
+
+Os tipos de referência anuláveis podem ser habilitados no nível do projeto (por meio do elemento Nullable no arquivo de projeto .csproj) ou no código (por meio da diretiva #nullable). Depois de habilitado, o compilador torna a não nulidade o padrão: se você deseja que um tipo de referência aceite nulos, você deve aplicar o ? sufixo para indicar um tipo de referência anulável:
+
+```csharp
+#nullable enable    // Enable nullable reference types from this point on
+
+string s1 = null;   // Generates a compiler warning! (s1 is non-nullable)
+string? s2 = null;  // OK: s2 is nullable reference type
+```
+
+Os campos não inicializados também geram um aviso (se o tipo não estiver marcado como anulável), assim como a desreferenciação de um tipo de referência anulável, se o compilador achar que uma Null​ReferenceException pode ocorrer:
+
+```csharp
+void Foo (string? s) => Console.Write (s.Length);  // Warning (.Length)
+```
+
+Para remover o aviso, você pode usar o operador de null-forgiving (!):
+
+```csharp
+void Foo (string? s) => Console.Write (s!.Length);
+```
 
 ### Asynchronous Streams
