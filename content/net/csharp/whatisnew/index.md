@@ -736,3 +736,24 @@ void Foo (string? s) => Console.Write (s!.Length);
 ```
 
 ### Asynchronous Streams
+
+Antes do C# 8, você podia usar *yield return* para escrever um iterador ou *await* para escrever uma função assíncrona. Mas você não poderia fazer as duas coisas e escrever um iterador que aguarda, produzindo elementos de forma assíncrona. C# 8 conserta isso através da introdução de fluxos assíncronos:
+
+```csharp
+async IAsyncEnumerable<int> RangeAsync (
+  int start, int count, int delay)
+{
+  for (int i = start; i < start + count; i++)
+  {
+    await Task.Delay (delay);
+    yield return i;
+  }
+}
+```
+
+A declaração *await foreach* consome um fluxo assíncrono:
+
+```csharp
+await foreach (var number in RangeAsync (0, 10, 100))
+  Console.WriteLine (number);
+```
