@@ -519,3 +519,241 @@ string Capitalize (string value) =>
   value == "" ? "" :
   char.ToUpper (value[0]) + value.Substring (1);
 ```
+
+## C# 8.0 (2019)
+
+### Indices And Ranges
+
+Índices e intervalos simplificam o trabalho com elementos ou partes de um array. Os índices permitem fazer referência a elementos relativos ao final de um array usando o operador ^. ^1 refere-se ao último elemento, ^2 refere-se ao penúltimo elemento e assim por diante:
+
+```csharp
+char[] vowels = new char[] {'a','e','i','o','u'};
+char lastElement  = vowels [^1];   // 'u'
+char secondToLast = vowels [^2];   // 'o'
+```
+
+Os intervalos permitem “dividir” um array usando o operador '..':
+
+```csharp
+char[] firstTwo =  vowels [..2];    // 'a', 'e'
+char[] lastThree = vowels [2..];    // 'i', 'o', 'u'
+char[] middleOne = vowels [2..3]    // 'i'
+char[] lastTwo =   vowels [^2..];   // 'o', 'u'
+```
+
+C# implementa índices e intervalos com a ajuda dos tipos Index e Range:
+
+```csharp
+Index last = ^1;
+Range firstTwoRange = 0..2;
+char[] firstTwo = vowels [firstTwoRange];   // 'a', 'e'
+```
+
+Você pode oferecer suporte a índices e intervalos em suas próprias classes definindo um indexador com um tipo de parâmetro Index ou Range:
+
+```csharp
+class Sentence
+{
+  string[] words = "The quick brown fox".Split();
+
+  public string this   [Index index] => words [index];
+  public string[] this [Range range] => words [range];
+}
+
+var sentence = new Sentence();
+Range firstTwo = 0..2;
+
+System.Console.WriteLine(sentence[0]);  //The
+System.Console.WriteLine(sentence[1]);  //quick
+System.Console.WriteLine(sentence[2]);  //brown
+System.Console.WriteLine(string.Join(" ", sentence[firstTwo]));  //The quick
+
+```
+
+### Null-Coalescing Assignment
+
+O operador ??= atribui uma variável apenas se ela for nula. Em vez disso:
+
+```csharp
+if (s == null) s = "Hello, world";
+```
+
+agora você pode escrever isto:
+
+```csharp
+s ??= "Hello, world";
+```
+
+### Using Declarations
+
+Se você omitir os colchetes e o bloco de instruções após uma instrução using, ela se tornará uma declaração using. O recurso é então descartado quando a execução fica fora do bloco de instrução envolvente:
+
+```csharp
+if (File.Exists ("file.txt"))
+{
+  using var reader = File.OpenText ("file.txt");
+  Console.WriteLine (reader.ReadLine());
+  ...
+}
+```
+
+Nesse caso, o reader será descartado quando a execução estiver fora do bloco de instrução if.
+
+### Readonly Members
+
+C# 8 permite aplicar o modificador readonly às funções de um struct, garantindo que se a função tentar modificar qualquer campo, um erro em tempo de compilação será gerado:
+
+```csharp
+struct Point
+{
+  public int X, Y;
+  public readonly void ResetX() => X = 0;  // Error!
+}
+```
+
+Se uma função somente leitura chamar uma função não somente leitura, o compilador gerará um aviso (e copiará defensivamente a estrutura para evitar a possibilidade de uma mutação).
+
+### Static Local Methods
+
+Adicionar o modificador estático a um método local evita que ele veja as variáveis e parâmetros locais do método envolvente. Isso ajuda a reduzir o acoplamento, bem como permite que o método local declare variáveis como desejar, sem risco de colidir com aquelas do método que o contém.
+
+```csharp
+string[] words = "The quick brown fox".Split();
+
+System.Console.WriteLine(LetterCounter(words));
+
+
+int LetterCounter(string[] sentence)
+{
+  int counter = 0;
+
+  foreach (var word in sentence)
+  {
+    counter += LettersInWord(word);
+  }
+
+  static int LettersInWord(string word)
+  {
+    return word.Length;
+  }
+
+  return counter;
+}
+```
+
+### Default Interface Members
+
+C# 8 permite adicionar uma implementação padrão a um membro da interface, tornando opcional a implementação:
+
+```csharp
+interface ILogger
+{
+  void Log (string text) => Console.WriteLine (text);
+}
+```
+
+Isso significa que você pode adicionar um membro a uma interface sem quebrar as implementações. As implementações padrão devem ser chamadas explicitamente através da interface:
+
+```csharp
+((ILogger)new Logger()).Log ("message");
+```
+
+As interfaces também podem definir membros estáticos (incluindo campos), que podem ser acessados a partir do código dentro de implementações padrão:
+
+```csharp
+interface ILogger
+{
+  void Log (string text) => Console.WriteLine (Prefix + text);
+  static string Prefix = "";
+}
+```
+
+ou de fora da interface:
+
+```csharp
+ILogger.Prefix = "File log: ";
+```
+
+a menos que seja restrito por meio de um modificador de acessibilidade no membro da interface estática (como privado, protegido ou interno). Campos de instância são proibidos.
+
+### Switch Expressions
+
+No C# 8, você pode usar switch no contexto de uma expressão:
+
+```csharp
+string cardName = cardNumber switch    // assuming cardNumber is an int
+{
+  13 => "King",
+  12 => "Queen",
+  11 => "Jack",
+  _ => "Pip card"   // equivalent to 'default'
+};
+```
+
+### Tuple, Positional, And Property Patterns
+
+O C# 8 oferece suporte a três novos padrões, principalmente para o benefício de instruções/expressões switch. Os padrões de tupla permitem ativar vários valores:
+
+```csharp
+int cardNumber = 12; string suite = "espadas";
+string cardName = (cardNumber, suite) switch
+{
+  (13, "espadas") => "Rei de espadas",
+  (13, "paus") => "Rei de paus",
+  ...
+};
+```
+
+Os padrões posicionais permitem uma sintaxe semelhante para objetos que expõem um desconstrutor, e os padrões de propriedade permitem fazer a correspondência com as propriedades de um objeto. Você pode usar todos os padrões tanto em switches quanto pelo operador is. O exemplo a seguir usa um padrão de propriedade para testar se obj é uma string com comprimento 4:
+
+```csharp
+if (obj is string { Length:4 }) ...
+```
+
+### Nullable Reference Types
+
+Enquanto os tipos de valor anuláveis trazem nulidade aos tipos de valor, os tipos de referência anuláveis fazem o oposto e trazem (um grau de) não nulidade aos tipos de referência, com o objetivo de ajudar a evitar NullReferenceExceptions. Os tipos de referência anuláveis introduzem um nível de segurança que é imposto exclusivamente pelo compilador na forma de avisos ou erros quando ele detecta código que corre o risco de gerar uma NullReferenceException.
+
+Os tipos de referência anuláveis podem ser habilitados no nível do projeto (por meio do elemento Nullable no arquivo de projeto .csproj) ou no código (por meio da diretiva #nullable). Depois de habilitado, o compilador torna a não nulidade o padrão: se você deseja que um tipo de referência aceite nulos, você deve aplicar o ? sufixo para indicar um tipo de referência anulável:
+
+```csharp
+#nullable enable    // Enable nullable reference types from this point on
+
+string s1 = null;   // Generates a compiler warning! (s1 is non-nullable)
+string? s2 = null;  // OK: s2 is nullable reference type
+```
+
+Os campos não inicializados também geram um aviso (se o tipo não estiver marcado como anulável), assim como a desreferenciação de um tipo de referência anulável, se o compilador achar que uma Null​ReferenceException pode ocorrer:
+
+```csharp
+void Foo (string? s) => Console.Write (s.Length);  // Warning (.Length)
+```
+
+Para remover o aviso, você pode usar o operador de null-forgiving (!):
+
+```csharp
+void Foo (string? s) => Console.Write (s!.Length);
+```
+
+### Asynchronous Streams
+
+Antes do C# 8, você podia usar *yield return* para escrever um iterador ou *await* para escrever uma função assíncrona. Mas você não poderia fazer as duas coisas e escrever um iterador que aguarda, produzindo elementos de forma assíncrona. C# 8 conserta isso através da introdução de fluxos assíncronos:
+
+```csharp
+async IAsyncEnumerable<int> RangeAsync (
+  int start, int count, int delay)
+{
+  for (int i = start; i < start + count; i++)
+  {
+    await Task.Delay (delay);
+    yield return i;
+  }
+}
+```
+
+A declaração *await foreach* consome um fluxo assíncrono:
+
+```csharp
+await foreach (var number in RangeAsync (0, 10, 100))
+  Console.WriteLine (number);
+```
