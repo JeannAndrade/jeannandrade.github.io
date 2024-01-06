@@ -34,4 +34,3 @@ layout: default
 ## Soft Skills
 
 1. [Code Review](./content/code_review/index.html)
-1. [Aspectos gerais]()
