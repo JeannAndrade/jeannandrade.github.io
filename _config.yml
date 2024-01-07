@@ -1,7 +1,6 @@
 title: Minha página de anotações
 description: Minhas notas e observações de estudo sobre diversos temas de tecnologia. Esta página está em constante evolução.
 show_downloads: false
-baseurl: "/learndigitalelectronics"
 google_analytics:
 theme: jekyll-theme-midnight
 remote_theme: pages-themes/midnight@v0.2.0
