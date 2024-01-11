@@ -84,6 +84,10 @@ p4merge araxis bc3 codecompare vimdiff emerge):
 
 `git config merge.tool kdiff3`
 
+Para fazer com que novos branches sejam levados (push) para o servidor remoto apenas utilizando o *git push*
+
+`git config --global --add --bool push.autoSetupRemote true`
+
 ## Getting a git repository
 
 ### Init
@@ -328,6 +332,20 @@ O arquivo foi colocado na area de stage com o comando *add*, mas agora vc precis
 Aqui o arquivo foi alterado, mas ainda não foi dado o add. Dessa forma ele está alterado, mas não está na area de stage. Ex.:
 
 `git restore CONTRIBUTING.md`
+
+### Guardando as alterações quando um commit não é adequado
+
+O git possui o comando *stash* que possibilita vc guardar as alterações em uma área diferente, fora do seu branch, e poder reaplicá-lo mais tarde, no mesmo branch ou em um outro qualquer.
+
+| Comando | Opções | Para que serve |
+| ----- | ----- | ----- |
+| stash | [push [-p \| --patch] [-S \| --staged] [-k \| --[no-]keep-index] [-q \| --quiet]` | Salva suas modificações locais em uma nova entrada do stash e reverta-as para HEAD (na árvore de trabalho e no índice). A parte \<message\> é opcional e fornece a descrição junto com o estado do stashed. |
+| stash list | [\<log-options\>] | Lista as modificações guardadas |
+| stash show | [-u \| --include-untracked \| --only-untracked] [\<diff-options\>] [\<stash\>] | Inspeciona uma modificação |
+| stash pop | [--index] [-q \| --quiet] [\<stash\>] | Remova uma alteração da lista de stash e o aplica no topo do estado atual da árvore de trabalho, ou seja, faz a operação inversa de git stash push. O diretório de trabalho deve corresponder ao índice. |
+| stash apply | [--index] [-q \| --quiet] [\<stash\>] | Aplica uma alteração no branch, mas sem remover da lista de stash |
+| stash drop | [-q \| --quiet] [\<stash\>] | Remove uma alteração da lista de stash |
+| stash branch \<branchname\> |[\<stash\>]|Cria e faz check-out de um novo branch chamado \<branchname\> começando no commit no qual o \<stash\> foi originalmente criado, aplica as alterações registradas em \<stash\> à nova árvore de trabalho e índice. Se isso for bem-sucedido e \<stash\> for uma referência no formato stash@{\<revision\>}, ele apagará o \<stash\>.|
 
 [top](#git-table-of-contents)
 
