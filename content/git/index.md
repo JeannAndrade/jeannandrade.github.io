@@ -339,7 +339,7 @@ O git possui o comando *stash* que possibilita vc guardar as alterações em uma
 
 | Comando | Opções | Para que serve |
 | ----- | ----- | ----- |
-| stash | [push [-p \| --patch] [-S \| --staged] [-k \| --[no-]keep-index] [-q \| --quiet]` | Salva suas modificações locais em uma nova entrada do stash e reverta-as para HEAD (na árvore de trabalho e no índice). A parte \<message\> é opcional e fornece a descrição junto com o estado do stashed. |
+| stash | [push [-p \| --patch] [-S \| --staged] [-k \| --[no-]keep-index] [-q \| --quiet] [(-m \| --message) \<message\>] | Salva suas modificações locais em uma nova entrada do stash e reverta-as para HEAD (na árvore de trabalho e no índice). A parte \<message\> é opcional e fornece a descrição junto com o estado do stashed. |
 | stash list | [\<log-options\>] | Lista as modificações guardadas |
 | stash show | [-u \| --include-untracked \| --only-untracked] [\<diff-options\>] [\<stash\>] | Inspeciona uma modificação |
 | stash pop | [--index] [-q \| --quiet] [\<stash\>] | Remova uma alteração da lista de stash e o aplica no topo do estado atual da árvore de trabalho, ou seja, faz a operação inversa de git stash push. O diretório de trabalho deve corresponder ao índice. |
