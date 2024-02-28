@@ -27,7 +27,7 @@ Foram usados como fonte:
 | cd | Navegar entre pastas |
 | pwd | imprimir a pasta de trabalho |
 | whoami | quem é o usuário atual |
-| Redirecionadores | redireciona a saída de um comando para outro. Ex. whoami >> diolinux.txt |
+| Redirecionadores | redireciona a saída de um comando para outro. O '>' redireciona sobrescrevendo. O '>>' redireciona adiciona ao final.  Ex. whoami >> diolinux.txt |
 | criar e acessar pasta com nome composto | englobar o nome composto entre " ou ' |
 | touch | usado frequentemente para criar arquivo |
 | nano | editar arquivo de texto |
