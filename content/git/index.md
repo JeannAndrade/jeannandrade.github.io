@@ -660,7 +660,7 @@ Página oficial para os 3 maiores versionadores que eu utilizo:
 ### Gerando a chave
 
 * Inicie verificando se há chaves ssh registradas no seu Linux: `ls -al /home/jeann/.ssh`
-  * troquei "jeann" pelo seu usuário.
+  * troque "jeann" pelo seu usuário.
 * No Terminal entre com o comando: `ssh-keygen -t ed25519 -C "your_email@example.com"`
   * Irá aparecer a pergunta: "Enter a file in which to save the key (/home/YOU/.ssh/ALGORITHM):[Press enter]". Aqui vc vai precisar alterar o nome do arquivo caso já existam chaves cadastradas com o nome padrão, senão vai dar erro.
 * Vai pedir uma senha. No prompt, digite uma frase secreta segura.
