@@ -42,7 +42,7 @@ Siga o [passo a passo](https://jeannandrade.github.io/content/linux/terminal/ind
 
 ## Ruby
 
-O Ruby é utilizado pelo Jekyll, que motor responsável por converter Markdown em HTML nas páginas do GitHub. Para rodar o site localmente e poder fazer os testes antes de publicar, é preciso ter um Ruby instalado.
+O Ruby é utilizado pelo Jekyll, que é motor responsável por converter Markdown em HTML nas páginas do GitHub. Para rodar o site localmente e poder fazer os testes antes de publicar, é preciso ter um Ruby instalado.
 
 A fonte do conteúdo abaixo é [esse site](https://gorails.com/setup/ubuntu/23.10#comments).
 

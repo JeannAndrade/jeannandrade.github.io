@@ -8,43 +8,53 @@ Fonte: C# in a Nutshell, Joseph Albahari & Ben Albahari
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [Novidades C# 3 até 12](#novidades-c-3-até-12)
-  - [C# 3.0 (2007)](#c-30-2007)
-    - [Lambda Expression](#lambda-expression)
-    - [Extension methods](#extension-methods)
-    - [Implicitly typed local variables](#implicitly-typed-local-variables)
-    - [Query comprehension](#query-comprehension)
-    - [Anonymous types](#anonymous-types)
-    - [Implicitly typed arrays](#implicitly-typed-arrays)
-    - [Object initializers](#object-initializers)
-    - [Automatic properties](#automatic-properties)
-    - [Expression trees](#expression-trees)
-  - [C# 4.0 (2010)](#c-40-2010)
-    - [Dynamic binding](#dynamic-binding)
-    - [Type variance with generic interfaces and delegates](#type-variance-with-generic-interfaces-and-delegates)
-    - [Optional parameters](#optional-parameters)
-    - [Named arguments](#named-arguments)
-    - [COM interoperability improvements](#com-interoperability-improvements)
-  - [C# 5.0 (2012)](#c-50-2012)
-    - [Asynchronous functions](#asynchronous-functions)
-  - [C# 6.0 (2015)](#c-60-2015)
-    - [null-conditional (“Elvis”) operator](#null-conditional-elvis-operator)
-    - [Expression-bodied functions](#expression-bodied-functions)
-    - [Property initializers](#property-initializers)
-    - [Index initializers](#index-initializers)
-    - [String interpolation](#string-interpolation)
-    - [Exception filters](#exception-filters)
-    - [using static](#using-static)
-    - [nameof](#nameof)
-  - [C# 7.0 (2017)](#c-70-2017)
-    - [Numeric literal improvements](#numeric-literal-improvements)
-    - [Out variables and discards](#out-variables-and-discards)
-    - [Patterns](#patterns)
-    - [Local methods](#local-methods)
-    - [More expression-bodied members](#more-expression-bodied-members)
-    - [Deconstructors](#deconstructors)
-    - [Tuples](#tuples)
-    - [throw expressions](#throw-expressions)
+- [C# 3.0 (2007)](#c-30-2007)
+   - [Lambda Expression](#lambda-expression)
+   - [Extension methods](#extension-methods)
+   - [Implicitly typed local variables](#implicitly-typed-local-variables)
+   - [Query comprehension](#query-comprehension)
+   - [Anonymous types](#anonymous-types)
+   - [Implicitly typed arrays](#implicitly-typed-arrays)
+   - [Object initializers](#object-initializers)
+   - [Automatic properties](#automatic-properties)
+   - [Expression trees](#expression-trees)
+- [C# 4.0 (2010)](#c-40-2010)
+   - [Dynamic binding](#dynamic-binding)
+   - [Type variance with generic interfaces and delegates](#type-variance-with-generic-interfaces-and-delegates)
+   - [Optional parameters](#optional-parameters)
+   - [Named arguments](#named-arguments)
+   - [COM interoperability improvements](#com-interoperability-improvements)
+- [C# 5.0 (2012)](#c-50-2012)
+   - [Asynchronous functions](#asynchronous-functions)
+- [C# 6.0 (2015)](#c-60-2015)
+   - [null-conditional (“Elvis”) operator](#null-conditional-elvis-operator)
+   - [Expression-bodied functions](#expression-bodied-functions)
+   - [Property initializers](#property-initializers)
+   - [Index initializers](#index-initializers)
+   - [String interpolation](#string-interpolation)
+   - [Exception filters](#exception-filters)
+   - [using static](#using-static)
+   - [nameof](#nameof)
+- [C# 7.0 (2017)](#c-70-2017)
+   - [Numeric literal improvements](#numeric-literal-improvements)
+   - [Out variables and discards](#out-variables-and-discards)
+   - [Patterns](#patterns)
+   - [Local methods](#local-methods)
+   - [More expression-bodied members](#more-expression-bodied-members)
+   - [Deconstructors](#deconstructors)
+   - [Tuples](#tuples)
+   - [throw expressions](#throw-expressions)
+- [C# 8.0 (2019)](#c-80-2019)
+   - [Indices And Ranges](#indices-and-ranges)
+   - [Null-Coalescing Assignment](#null-coalescing-assignment)
+   - [Using Declarations](#using-declarations)
+   - [Readonly Members](#readonly-members)
+   - [Static Local Methods](#static-local-methods)
+   - [Default Interface Members](#default-interface-members)
+   - [Switch Expressions](#switch-expressions)
+   - [Tuple, Positional, And Property Patterns](#tuple-positional-and-property-patterns)
+   - [Nullable Reference Types](#nullable-reference-types)
+   - [Asynchronous Streams](#asynchronous-streams)
 
 <!-- TOC end -->
 
@@ -757,3 +767,30 @@ A declaração *await foreach* consome um fluxo assíncrono:
 await foreach (var number in RangeAsync (0, 10, 100))
   Console.WriteLine (number);
 ```
+
+## C# 9.0 (2021)
+
+C# 9.0 ships with Visual Studio 2019, and is used when you target .NET 5.
+
+### Top-Level Statements
+
+Você pode escrever um programa sem o peso de um método main e uma classe Program:
+
+```csharp
+using System;
+Console.WriteLine ("Hello, world");
+```
+
+Top-Level Statements podem incluir métodos (que atuam como métodos locais). Você também pode acessar os argumentos da linha de comando através da variável “mágica” args e retornar um valor ao chamador. As Top-Level Statements podem ser seguidas por declarações de tipo e namespace.
+
+### Init-Only Setters
+
+### Records
+
+### Pattern-Matching Improvements
+
+### Target-Typed New Expressions
+
+### Interop Improvements
+
+### Other New Features
