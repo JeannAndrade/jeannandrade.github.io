@@ -31,7 +31,7 @@ Fontes:
 
 ## Principais comandos
 
-[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes) | [tag](#tagging) | [show](#show-tag-data) | [branch](#listando-branches) | [checkout](#alternando-entre-branches) | [merge](#mergeando-branches) | [rebase](#rebase) | [stash](#guardando-as-alterações-quando-um-commit-não-é-adequado)
+[init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes) | [tag](#tagging) | [show](#show-tag-data) | [branch](#listando-branches) | [checkout](#alternando-entre-branches) | [merge](#mergeando-branches) | [rebase](#rebase) | [stash](#guardando-as-alterações-quando-um-commit-não-é-adequado)  | [reset](#desfazendo-um-commit-no-qual-ainda-não-foi-feito-um-push)
 
 ## Help
 
@@ -332,6 +332,24 @@ O arquivo foi colocado na area de stage com o comando *add*, mas agora vc precis
 Aqui o arquivo foi alterado, mas ainda não foi dado o add. Dessa forma ele está alterado, mas não está na area de stage. Ex.:
 
 `git restore CONTRIBUTING.md`
+
+### Desfazendo um commit no qual ainda não foi feito um push
+
+Para reverter um commit no Git no qual ainda não foi executado um push, você pode usar o comando __git reset__. Aqui estão algumas opções, dependendo de como você deseja reverter as mudanças:
+
+`git reset --soft HEAD~1`
+
+Este comando desfaz o último commit, mas mantém suas alterações em sua área de staging (index), permitindo que você modifique e recommit as alterações se necessário.
+
+`git reset --mixed HEAD~1`
+
+ (ou simplesmente git reset HEAD~1): Este comando desfaz o último commit e todas as mudanças na sua área de staging, mas mantém as mudanças em seu diretório de trabalho. Isso permite que você edite os arquivos antes de fazer um novo commit.
+
+`git reset --hard HEAD~1`
+
+Este comando desfaz o último commit e descarta todas as mudanças no diretório de trabalho e na área de staging. Use este comando com cuidado, pois ele remove as mudanças feitas.
+
+Escolha o comando que melhor se adapta à sua necessidade. Lembre-se de que HEAD~1 refere-se ao commit anterior ao HEAD atual. Se você precisar reverter mais de um commit, substitua 1 pelo número de commits que deseja reverter.
 
 ### Guardando as alterações quando um commit não é adequado
 
