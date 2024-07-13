@@ -7,10 +7,11 @@ layout: default
 ## Hard Skills
 
 1. AWS Básico
-1. Bando de Dados
+1. Banco de Dados
     * [MongoDB](./content/mongo/index.html)
     * PostgreSQL
 1. [Clean Architecture](./content/clean_architecture/index.html)
+1. [Data-intensive applications]()
 1. [Docker](./content/docker/index.html)
 1. [Git](./content/git/index.html)
 1. Java
@@ -29,7 +30,7 @@ layout: default
 1. Shell
     * PowerShell
 1. Windows
-    * [Dicas e soluções de projetos](./content/windows/dicas/index.html)
+    * [Dicas e soluções de problemas](./content/windows/dicas/index.html)
 
 ## Soft Skills
 
