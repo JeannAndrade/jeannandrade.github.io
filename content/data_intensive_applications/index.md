@@ -69,9 +69,20 @@ Outra classe de falha é um erro sistemático dentro do sistema:
 
 Não existe uma solução rápida para o problema das falhas sistemáticas de software. Muitas pequenas coisas podem ajudar: pensar cuidadosamente sobre suposições e interações no sistema; testes completos; isolamento de processos; permitindo que processos travem e reiniciem; medir, monitorar e analisar o comportamento do sistema na produção.
 
+#### Erros humanos
+
+Como podemos tornar nossos sistemas confiáveis, apesar de seres humanos não confiáveis? Os melhores sistemas combinam várias abordagens:
+
+* Projete sistemas de uma forma que minimize as oportunidades de erro. Por exemplo, abstrações, APIs e interfaces administrativas bem projetadas facilitam fazer “a coisa certa” e desencorajam “a coisa errada”.
+* Separe os locais onde as pessoas cometem mais erros dos locais onde podem causar falhas. Em particular, forneça ambientes sandbox não produtivos com todos os recursos, onde as pessoas possam explorar e experimentar com segurança, usando dados reais, sem afetar usuários reais.
+* Teste minuciosamente em todos os níveis, desde testes unitários até testes de integração de todo o sistema e testes manuais.
+* Permita a recuperação rápida e fácil de erros humanos, para minimizar o impacto em caso de falha. Por exemplo, agilize a reversão das alterações de configuração, implante um novo código gradualmente (para que quaisquer bugs inesperados afetem apenas um pequeno subconjunto de usuários) e forneça ferramentas para recalcular os dados (caso se descubra que o cálculo antigo estava incorreto).
+* Configure um monitoramento detalhado e claro, como métricas de desempenho e taxas de erro. Em outras disciplinas de engenharia isso é chamado de telemetria.
+* Implemente boas práticas de gestão e treinamento.
+
 ### Escalabilidade
 
- À medida que o sistema cresce (em volume de dados, volume de tráfego ou complexidade), devem existir formas razoáveis de lidar com esse crescimento.
+ À medida que o sistema cresce (em volume de dados, volume de tráfego ou complexidade), devem existir formas razoáveis de lidar com esse crescimento. Escalabilidade é o termo que usamos para descrever a capacidade de um sistema de lidar com o aumento da carga.
 
 ### Capacidade de manutenção
 
