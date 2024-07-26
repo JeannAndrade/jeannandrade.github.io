@@ -706,12 +706,14 @@ Abra o Git Bash, que provavelmente foi instalado pelo instalador do Git.
 
 cuidado, verificar antes o nome do arquivo da chave, que pode ser diferente
 
-### Adicionar a chave gerado ao seu versionador
+### Adicionar a chave gerada ao seu versionador
 
 * github
   * <https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account>
 * gitlab
   * <https://docs.gitlab.com/ee/user/ssh.html#add-an-ssh-key-to-your-gitlab-account>
+* bitbucket
+  * <https://support.atlassian.com/bitbucket-cloud/docs/set-up-personal-ssh-keys-on-linux/>
 
 ### Testando a comunicação com o servidor através do ssh
 
