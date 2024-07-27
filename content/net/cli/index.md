@@ -24,8 +24,8 @@ layout: internal
 ### Criar um projeto novo
 
 ```dotnet
-dotnet new globaljson --sdk-version 7.0.100 --output PartyInvites
-dotnet new mvc --no-https --output PartyInvites --framework net7.0
+dotnet new globaljson --sdk-version 8.0.107 --output PartyInvites
+dotnet new mvc --no-https --output PartyInvites --framework net8.0
 dotnet new sln -o PartyInvites
 dotnet sln PartyInvites add PartyInvites
 ```
