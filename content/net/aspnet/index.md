@@ -10,12 +10,17 @@ Fontes:
 
 ## Table of contents
 
+1. [HTTP, REST e Asp.net Core platform](#http-rest-e-plataforma-aspnet-core)
 1. [Conceitos básicos](#conceitos-básicos)
     1. [model binding]
 1. [As "Tag helper" mais usadas](#tag-helper-mais-utilizadas)
     1. [asp-action](#criando-links-com-asp-action)
     1. [asp-for](#referenciado-atributos-com-o-asp-for)
 1. [Dúvidas frequentes](./duvidasFrequentes/index.html)
+
+## HTTP, REST e Plataforma ASP.NET Core
+
+Montei uma apresentação sobre os temas: HTTP, REST e Plataforma ASP.NET Core. Arquivo PDF [aqui](docs/Meu%20entendimento%20ASP.NET%20Core%20-%20Jeann%20Andrade.pdf)
 
 ## Conceitos básicos
 
