@@ -84,6 +84,22 @@ Como podemos tornar nossos sistemas confiáveis, apesar de seres humanos não co
 
  À medida que o sistema cresce (em volume de dados, volume de tráfego ou complexidade), devem existir formas razoáveis de lidar com esse crescimento. Escalabilidade é o termo que usamos para descrever a capacidade de um sistema de lidar com o aumento da carga.
 
+#### Mas o que vem a ser carga?
+
+Primeiro, precisamos descrever sucintamente a carga atual no sistema; só então podemos discutir questões de crescimento (o que acontece se nossa carga dobrar?). A carga pode ser descrita com alguns números que chamamos de parâmetros de carga. A melhor escolha de parâmetros depende da arquitetura do seu sistema: pode ser solicitações por segundo para um servidor web, a proporção de leituras para gravações em um banco de dados, o número de usuários ativos simultaneamente em uma sala de bate-papo, a taxa de acertos em um cache ou outra coisa. Talvez o caso médio seja o que importa para você, ou talvez seu gargalo seja dominado por um pequeno
+número de casos extremos.
+
+#### E o que vem a ser performance?
+
+Depois de descrever a carga no seu sistema, você pode investigar o que acontece quando a carga aumenta. Você pode olhar para isso de duas maneiras:
+
+* Quando você aumenta um parâmetro de carga e mantém os recursos do sistema (CPU, memória, largura de banda da rede, etc.) inalterados, como o desempenho do seu sistema é afetado?
+* Quando você aumenta um parâmetro de carga, quanto você precisa aumentar os recursos se quiser manter o desempenho inalterado?
+
+Ambas as perguntas exigem números de desempenho, então vamos olhar brevemente para descrever o desempenho de um sistema.
+
+Em um sistema de processamento em lote como o Hadoop, geralmente nos importamos com o throughput (rendimento) — o número de registros que podemos processar por segundo ou o tempo total que leva para executar um trabalho em um conjunto de dados de um determinado tamanho. Em sistemas online, o que geralmente é mais importante é o tempo de resposta do serviço — ou seja, o tempo entre um cliente enviar uma solicitação e receber uma resposta.
+
 ### Capacidade de manutenção
 
 Com o tempo, muitas pessoas diferentes trabalharão no sistema (engenharia e operações, mantendo o comportamento atual e adaptando o sistema a novos casos de uso), e todas deverão ser capazes de trabalhar nele de forma produtiva.
