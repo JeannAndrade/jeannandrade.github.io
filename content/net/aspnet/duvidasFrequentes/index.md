@@ -49,3 +49,26 @@ A view:
 ```
 
 ----
+
+## O que é e como usar ASP.NET Core Middlewares
+
+ASP.NET Core Middleware é um pedaço de código integrado dentro do pipeline do aplicativo que podemos usar para lidar com requests e responses.
+Quando falamos sobre o middleware ASP.NET Core, podemos pensar nele como uma seção de código que é executada com cada request.
+
+Geralmente, temos mais de um componente de middleware em nosso
+aplicativo. Cada componente pode:
+
+* Passar a solicitação para o próximo componente de middleware no pipeline
+* Executar algum trabalho antes e depois do próximo componente no pipeline
+
+Para construir uma pipeline estamos usando request delegates, que manipulam cada requisição HTTP. Para configurar um request delegate usamos os métodos de extensão Run, Map e Use.
+
+Run adiciona um componente terminal a pipeline.
+
+Dentro da pipeline de request, uma aplicação executa cada componente na ordem em que aparece no código, de baixo para cima:
+
+![Pipeline de request](../img/middleware.png)
+
+A ordem de execução também é importante e segue a sequência abaixo:
+
+![Ordem em que os componentes do middleware são executados](../img/middleware_order.png)
