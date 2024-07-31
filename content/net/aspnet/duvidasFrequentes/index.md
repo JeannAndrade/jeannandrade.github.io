@@ -1,8 +1,17 @@
 ---
-layout: default
+layout: internal
 ---
 
 # Dúvidas frequentes em projetos ASP.NET Core
+
+Conteúdo:
+
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [@model e @Model na view](#model-e-model-na-view)
+- [O que é e como usar ASP.NET Core Middlewares](#o-que-é-e-como-usar-aspnet-core-middlewares)
+
+<!-- TOC end -->
 
 ## @model e @Model na view
 
@@ -58,8 +67,8 @@ Quando falamos sobre o middleware ASP.NET Core, podemos pensar nele como uma se�
 Geralmente, temos mais de um componente de middleware em nosso
 aplicativo. Cada componente pode:
 
-* Passar a solicitação para o próximo componente de middleware no pipeline
-* Executar algum trabalho antes e depois do próximo componente no pipeline
+- Passar a solicitação para o próximo componente de middleware no pipeline
+- Executar algum trabalho antes e depois do próximo componente no pipeline
 
 Para construir uma pipeline estamos usando request delegates, que manipulam cada requisição HTTP. Para configurar um request delegate usamos os métodos de extensão Run, Map e Use.
 

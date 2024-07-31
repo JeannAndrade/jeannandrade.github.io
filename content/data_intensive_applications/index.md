@@ -100,6 +100,14 @@ Ambas as perguntas exigem números de desempenho, então vamos olhar brevemente 
 
 Em um sistema de processamento em lote como o Hadoop, geralmente nos importamos com o throughput (rendimento) — o número de registros que podemos processar por segundo ou o tempo total que leva para executar um trabalho em um conjunto de dados de um determinado tamanho. Em sistemas online, o que geralmente é mais importante é o tempo de resposta do serviço — ou seja, o tempo entre um cliente enviar uma solicitação e receber uma resposta.
 
+Como várias requisições ao mesmo serviço apresentam tempo de resposta diferente, devemos observar esses números em uma distribuição. Usando o conceito de percentile, ordenamos o tempos do mais rápido para o mais lento e a média se torna o meio da distribuição.
+
+![Distribuição do tempo de resposta](./img/Distribuicao_tempo_resposta.png)
+
+Nesse caso pode-se dizer que 50% (p50) das requisições foram respondidas em menos que 1s, apesar de terem de ocorridos casos extremos que chegaram aos 2s.
+
+Outros percentiles importantes são p95, p99 e p999 (95%, 99%, 99.9%)  que geralmente atingem os clientes mais volumosos, e portanto que trazem mais renda para a empresa.
+
 ### Capacidade de manutenção
 
 Com o tempo, muitas pessoas diferentes trabalharão no sistema (engenharia e operações, mantendo o comportamento atual e adaptando o sistema a novos casos de uso), e todas deverão ser capazes de trabalhar nele de forma produtiva.
