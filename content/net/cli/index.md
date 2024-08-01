@@ -4,6 +4,10 @@ layout: internal
 
 # dotnet cli
 
+O link de referência para o uso da ferramenta é:
+
+[.NET CLI overview](https://learn.microsoft.com/en-us/dotnet/core/tools/)
+
 ## Table of contents
 
 1. [Comandos básicos](#comandos-básicos)
@@ -116,9 +120,9 @@ dotnet add package Swashbuckle.AspNetCore --version 5.0.0-rc2
 
 Usei a ideia para criar a pasta D:\Dropbox\NugetPackages
 
-Fonte de info: <https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-nuget-delete>
+Fonte de info: <https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-nuget-add-source>
 
-Primeiro foi preciso criar a estrutura de pasta hierarquica que o nuget precisa. Poderia ser feito com nuget init, mas como não tenho o nuget.exe instalado preferi fazer na mão.
+Primeiro foi preciso criar a estrutura de pasta hierárquica que o nuget precisa. Poderia ser feito com nuget init, mas como não tenho o nuget.exe instalado preferi fazer na mão.
 
 Fui em C:\Program Files (x86)\Microsoft SDKs\NuGetPackages e copiem um pacote qualquer para a pasta D:\Dropbox\NugetPackages
 
