@@ -139,7 +139,7 @@ ___
 | ----- | ----- |
 | `docker network ls` | Lista as redes disponíveis. -q lista os ids, que podem ser usado por outros comandos que operam em múltiplos volumes |
 | `docker network create backend` | Cria uma rede para que possa ser atribuída a um contêiner com o comando run: `docker run -d --name mysql -v productdata:/var/lib/mysql --network=backend -e MYSQL_ROOT_PASSWORD=mysecret -e bind-address=0.0.0.0 mysql:8.0.0` |
-| `docker network connect frontend productapp1` | Conecta uma contêiner a uma rede |
+| `docker network connect frontend productapp1` | Conecta um contêiner a uma rede |
 | `docker network rm` | Para remover uma rede |
 | `docker network rm $(docker network ls -q)` | Para remover todas as redes |
 | `docker network inspect bridge` | Lista todos os contêineres que estão na rede bridge e exibe o IP atribuído a eles para que possa receber requisições |
@@ -323,7 +323,7 @@ Para criar uma imagem a partir do *Dockerfile*, use docker build
 Contêineres têm tudo a ver com simplificar os processos construir, empacotar e executar um aplicativo. O processo de ponta a ponta se parece com o seguinte:
 
 1. Comece com o código fonte e as dependências do seu aplicativo
-1. Crie um *DockerFile* que descreva seu aplicativo, dependências e como executá -lo
+1. Crie um *DockerFile* que descreva seu aplicativo, dependências e como executá-lo
 1. Crie uma imagem desse pacote passando o *Dockerfile* para o comando do Docker Build
 1. Submeta a nova imagem para um registro (opcional)
 1. Execute um contêiner dessa imagem
