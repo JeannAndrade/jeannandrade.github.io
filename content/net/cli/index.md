@@ -163,6 +163,8 @@ Depois disso já pode apagar o pacote copiado inicialmente para pasta.
 
 ### Regenerating the Development Certificates
 
-`dotnet dev-certs https --cleandotnet dev-certs https --trust`
+`dotnet dev-certs https --clean`
+
+`dotnet dev-certs https --trust`
 
 [top](#table-of-contents)

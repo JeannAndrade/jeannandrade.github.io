@@ -9,7 +9,7 @@ layout: default
 1. AWS Básico
 1. Banco de Dados
     * [MongoDB](./content/mongo/index.html)
-    * PostgreSQL
+    * [PostgreSQL](./content/postgres/index.html)
 1. [Clean Architecture](./content/clean_architecture/index.html)
 1. [Data-intensive applications](./content/data_intensive_applications/index.html)
 1. [Docker](./content/docker/index.html)
