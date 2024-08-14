@@ -36,89 +36,90 @@ Para clonar o repositório: git clone <https://github.com/nigelpoulton/ddd-book.
 
 ### Comandos de verificação
 
-| Comando | Descrição
-| ----- | ----- |
-| `docker version` | Obtém informações sobre as versões e testa se o client e o Deamon (server) estão executando e falando um com o outro |
-| `docker info` | Obtém informações mais detalhadas do client e do server sobre os recursos que o Docker está gerenciando, como contêineres, imagens, volumes... |
+Comando | Descrição
+----- | -----
+`docker version` | Obtém informações sobre as versões e testa se o client e o Deamon (server) estão executando e falando um com o outro
+`docker info` | Obtém informações mais detalhadas do client e do server sobre os recursos que o Docker está gerenciando, como contêineres, imagens, volumes...
 
 ### Comandos associados a recursos
 
 #### Comandos sobre imagem
 
-| Comando | Descrição | Exemplo |
-| ----- | ----- | ------ |
-| `docker build` | constrói uma imagem a partir de um dockerfile | `docker build -t test:latest .` |
-| `docker images` | Lista as imagens já baixadas | `docker images` |
-| `docker pull` | obtém uma imagem da sua lista de fontes de imagem (default é dockerhub) | `docker pull ubuntu:latest` ou `docker pull nigelpoulton/tu-demo:v2` ou `docker pull gcr.io/google-containers/git-sync:v3.1.5` |
-| `docker push` | Comando para subir a imagem para o Docker Hub | `docker push nigelpoulton/ddd-book:ch8.1` |
-| `docker tag` | Esse comando serve para adicionar uma nova tag a imagem, sem sobrescrever a original. Para subir para o Docker Hub é preciso que a tag seja precedida do seu "id de usuário" | `docker tag ddd-book:ch8.1 nigelpoulton/ddd-book:ch8.1` |
-| `docker rmi` | remover uma imagem que não é mais usada. Não é possível apagar uma imagem que está em uso por um contêiner. Será preciso parar o contêiner e apagá-lo antes de apagar a imagem. | `docker rmi 44dd6f223004` |
-| `docker rmi $(docker images -q) -f` | remover todas as imagens de uma só vez. | `docker rmi $(docker images -q) -f` |
-| `docker inspect vtest` | inspeciona uma imagem. É especialmente útil na hora de descobrir se uma imagem usa volume | |
+Comando | Descrição | Exemplo
+----- | ----- | ------
+`docker build` | constrói uma imagem a partir de um dockerfile | `docker build -t test:latest .`
+`docker images` | Lista as imagens já baixadas | `docker images`
+`docker pull` | obtém uma imagem da sua lista de fontes de imagem (default é dockerhub) | `docker pull ubuntu:latest` ou `docker pull nigelpoulton/tu-demo:v2` ou `docker pull gcr.io/google-containers/git-sync:v3.1.5`
+`docker push` | Comando para subir a imagem para o Docker Hub | `docker push nigelpoulton/ddd-book:ch8.1`
+`docker tag` | Esse comando serve para adicionar uma nova tag a imagem, sem sobrescrever a original. Para subir para o Docker Hub é preciso que a tag seja precedida do seu "id de usuário" | `docker tag ddd-book:ch8.1 nigelpoulton/ddd-book:ch8.1`
+`docker rmi` | remover uma imagem que não é mais usada. Não é possível apagar uma imagem que está em uso por um contêiner. Será preciso parar o contêiner e apagá-lo antes de apagar a imagem. | `docker rmi 44dd6f223004`
+`docker rmi $(docker images -q) -f` | remover todas as imagens de uma só vez. | `docker rmi $(docker images -q) -f`
+`docker inspect vtest` | inspeciona uma imagem. É especialmente útil na hora de descobrir se uma imagem usa volume | .
 
 ___
 
 #### Comandos sobre contêiner
 
-| Comando | Descrição | Exemplo |
-| ----- | ----- | ------ |
-| `docker run <image> <app>` | Executa um contêiner usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest` |
-| `docker ps` | Lista os contêiner em execução. Use -a para listar inclusive os contêineres parados | `docker ps` |
-| `Press Ctrl-PQ` | para sair do contêiner sem finalizá-lo. O terminal sairá do terminal do contêiner para o terminal do host | |
-| `docker exec` | anexa seu shell ao terminal de um contêiner em execução | `docker exec -it vigilant_borg bash` |
-| `docker stop` | Para a execução do contêiner | `docker stop id_contêiner` ou `docker stop $(docker ps -q)` para parar todos |
-| `docker start` | Reinicializa um container parado com o comando stop | `docker start id_contêiner` ou `docker start $(docker ps -aq)` para iniciar todos |
-| `docker rm` | Elimina o contêiner |`docker rm id_container` |
-| `docker rm $(docker ps -aq)` | Elimina todos os contêineres de uma vez |`docker rm -f $(docker ps -aq)` vai forçar a parada do contêiner e depois eliminá-lo |
-| `docker logs` | Exibe os logs gerados pelo contêiner | `docker logs nome_container` e para exibir o log de forma contínua `docker logs -f nome_container` |
+Comando | Descrição | Exemplo
+----- | ----- | ------
+`docker run <image> <app>` | Executa um contêiner usando uma imagem como base | Ex1: `docker run -it ubuntu:latest /bin/bash`; Ex2: `docker run -d --name web1 --publish 8080:8080 test:latest`
+`docker ps` | Lista os contêiner em execução. Use -a para listar inclusive os contêineres parados | `docker ps`
+`Press Ctrl-PQ` | para sair do contêiner sem finalizá-lo. O terminal sairá do terminal do contêiner para o terminal do host | .
+`docker exec` | anexa seu shell ao terminal de um contêiner em execução | `docker exec -it vigilant_borg bash`
+`docker stop` | Para a execução do contêiner | `docker stop id_contêiner` ou `docker stop $(docker ps -q)` para parar todos
+`docker start` | Reinicializa um container parado com o comando stop | `docker start id_contêiner` ou `docker start $(docker ps -aq)` para iniciar todos
+`docker rm` | Elimina o contêiner |`docker rm id_container`
+`docker rm $(docker ps -aq)` | Elimina todos os contêineres de uma vez |`docker rm -f $(docker ps -aq)` vai forçar a parada do contêiner e depois eliminá-lo
+`docker logs` | Exibe os logs gerados pelo contêiner | `docker logs nome_container` e para exibir o log de forma contínua `docker logs -f nome_container`
+`docker inspect container_id` | inspeciona o container para visualizar seus detalhes | `docker inspect fc85 \| grep "IPAddress"` para ver o IP do atribuído ao container.
 
 Argumentos para o comando run:
 
-| Comando | Descrição |
-| ----- | ----- |
-| -e, --env | configura uma variável de ambiente |
-| --name | associa um nome ao contêiner |
-| --network | conecta o contêiner a uma rede definida por software |
-| -d | executa o contêiner em background e print o contêiner ID |
-| -p, --publish | cria um mapeamento entre portas, externa e interna ao contêiner |
-| --rm | remove o contêiner quando ele para. |
-| -v, --volume | configura um volume que irá prover um conteúdo para uma pasta no sistema de arquivos do contêiner. |
+Comando | Descrição
+----- | -----
+-e, --env | configura uma variável de ambiente
+--name | associa um nome ao contêiner
+--network | conecta o contêiner a uma rede definida por software
+-d | executa o contêiner em background e print o contêiner ID
+-p, --publish | cria um mapeamento entre portas, externa e interna ao contêiner
+--rm | remove o contêiner quando ele para.
+-v, --volume | configura um volume que irá prover um conteúdo para uma pasta no sistema de arquivos do contêiner.
 
 ___
 
 #### Comandos sobre Compose
 
-| Comando | Descrição | Exemplo |
-| ----- | ----- | ------ |
-| `docker compose version` | Para verificar a versão do docker-compose instalado | |
-| `docker compose up` | Para levantar a aplicação | deve ser rodado na pasta onde está o compose.yaml. `--detach` para subir em background |
-| `docker compose up -f compose_file.yaml` | Para levantar a aplicação | caso o arquivo compose esteja com outro nome |
-| `docker compose -f docker-compose.yml build` | processa o conteúdo do arquivo compose e cria as imagens para os container que ele contém. | |
-| `docker compose stop` | para os containers. Containers, redes e volumes são mantidos para serem iniciados novamente. | |
-| `docker compose down` | para os serviços e remove Containers e redes. Volumes são mantidos por serem persistentes | `--volumes` para remover os volumes também. `--rmi all` irá apagar as imagens criadas também |
-| `docker compose ls` | lista os containers que foram criados para os serviços definidos no arquivo compose. | |
-| `docker compose top` | lista os processos em execução em cada contêiner. | Os números PID retornados são os números PID vistos no host Docker (não nos contêineres). |
-| `docker compose rm` |  Apaga um app compose que já esteja parado | deleta somente os contêineres e as redes |
-| `docker compose restart` | reinicia um aplicação compose que estava parada | |
+Comando | Descrição | Exemplo
+----- | ----- | ------
+`docker compose version` | Para verificar a versão do docker-compose instalado | .
+`docker compose up` | Para levantar a aplicação | deve ser rodado na pasta onde está o compose.yaml. `--detach` para subir em background
+`docker compose up -f compose_file.yaml` | Para levantar a aplicação | caso o arquivo compose esteja com outro nome
+`docker compose -f docker-compose.yml build` | processa o conteúdo do arquivo compose e cria as imagens para os container que ele contém. | .
+`docker compose stop` | para os containers. Containers, redes e volumes são mantidos para serem iniciados novamente. | .
+`docker compose down` | para os serviços e remove Containers e redes. Volumes são mantidos por serem persistentes | `--volumes` para remover os volumes também. `--rmi all` irá apagar as imagens criadas também
+`docker compose ls` | lista os containers que foram criados para os serviços definidos no arquivo compose. | .
+`docker compose top` | lista os processos em execução em cada contêiner. | Os números PID retornados são os números PID vistos no host Docker (não nos contêineres).
+`docker compose rm` |  Apaga um app compose que já esteja parado | deleta somente os contêineres e as redes
+`docker compose restart` | reinicia um aplicação compose que estava parada | .
 
 ___
 
 #### Comandos sobre Multipass
 
-| Comando | Descrição | Exemplo |
-| ----- | ----- | ------ |
-| `multipass launch --name foo` | Launch an instance (by default you get the current Ubuntu LTS) | `multipass launch docker --name node1` para rodar uma instância do linux baseada na imagem do docker |
-| `multipass shell node1` | Connect to the VM. You’re now logged on to the VM and can run regular Docker commands. Just type exit to log out of the VM.| |
-| `multipass exec foo -- lsb_release -a` | Run commands in that instance, try running bash (logout or ctrl-d to quit) | |
-| `multipass list` | See your instances | |
-| `multipass stop foo bar` | Stop instances | |
-| `multipass start foo` | Start instances | |
-| `multipass delete foo` | Clean up what you don’t need | |
-| `multipass purge` | Clean up what you don’t need | |
-| `multipass find` | Find alternate images to launch | |
-| `multipass launch -n bar --cloud-init cloud-config.yaml` | Pass a cloud-init metadata file to an instance on launch. See [using cloud-init with multipass](https://blog.ubuntu.com/2018/04/02/using-cloud-init-with-multipass) for more details | |
-| `multipass help` | Get help | |
-| `multipass help <command>` | Get help for a command | |
+Comando | Descrição | Exemplo
+----- | ----- | ------
+`multipass launch --name foo` | Launch an instance (by default you get the current Ubuntu LTS) | `multipass launch docker --name node1` para rodar uma instância do linux baseada na imagem do docker
+`multipass shell node1` | Connect to the VM. You’re now logged on to the VM and can run regular Docker commands. Just type exit to log out of the VM.| ~
+`multipass exec foo -- lsb_release -a` | Run commands in that instance, try running bash (logout or ctrl-d to quit) | ~
+`multipass list` | See your instances | ~
+`multipass stop foo bar` | Stop instances | ~
+`multipass start foo` | Start instances | ~
+`multipass delete foo` | Clean up what you don’t need | ~
+`multipass purge` | Clean up what you don’t need | ~
+`multipass find` | Find alternate images to launch | ~
+`multipass launch -n bar --cloud-init cloud-config.yaml` | Pass a cloud-init metadata file to an instance on launch. See [using cloud-init with multipass](https://blog.ubuntu.com/2018/04/02/using-cloud-init-with-multipass) for more details | ~
+| `multipass help` | Get help | ~
+| `multipass help <command>` | Get help for a command | ~
 
 ___
 
