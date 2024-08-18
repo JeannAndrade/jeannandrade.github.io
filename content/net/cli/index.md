@@ -66,7 +66,7 @@ dotnet run
 
 ### Criar projeto de teste
 
-`dotnet new xunit -o SimpleApp.Tests --framework netcoreapp3.1`
+`dotnet new xunit -o SimpleApp.Tests --framework net8.0`
 
 `dotnet sln add SimpleApp.Testsdotnet add SimpleApp.Tests reference SimpleApp`
 
@@ -82,7 +82,7 @@ Use o seguinte comando para gerar um pacote Release para uma subpasta chamada pu
 
 A forma mais extensa dos comandos é:
 
-`dotnet publish --framework net7.0 --configuration Release --output dist`
+`dotnet publish --framework net8.0 --configuration Release --output dist`
 
 Uma pasta publish será criada com a estrutura do projeto
 
