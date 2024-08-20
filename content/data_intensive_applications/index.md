@@ -6,7 +6,7 @@ layout: internal
 
 Fontes:
 
-* Este é um resumo do livro Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems, do Martin Kleppmann.
+* Este é um resumo do livro [Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems, do Martin Kleppmann](./docs/f01.pdf).
 
 Índice:
 
