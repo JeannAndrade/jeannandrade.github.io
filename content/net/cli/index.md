@@ -10,10 +10,32 @@ O link de referência para o uso da ferramenta é:
 
 ## Table of contents
 
-1. [Comandos básicos](#comandos-básicos)
-1. [Nuget Packages](#nuget-packages)
-1. [Criando um Feed local](#criando-um-feed-local)
-1. [Utilitários](#utilitários)
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Comandos básicos](#comandos-básicos)
+  - [Listar SDKs](#listar-sdks)
+  - [Listar os templates disponíveis](#listar-os-templates-disponíveis)
+  - [Criar um projeto novo](#criar-um-projeto-novo)
+  - [Observando por alterações no projeto](#observando-por-alterações-no-projeto)
+  - [Criar um projeto F# do tipo console](#criar-um-projeto-f-do-tipo-console)
+  - [Compilando um projeto](#compilando-um-projeto)
+  - [Executar a aplicação](#executar-a-aplicação)
+  - [Criar projeto de teste](#criar-projeto-de-teste)
+  - [Executando testes](#executando-testes)
+  - [Publicar a aplicação](#publicar-a-aplicação)
+- [NuGet Packages](#nuget-packages)
+  - [Add package](#add-package)
+  - [Listar packages](#listar-packages)
+  - [Remove package](#remove-package)
+  - [Adicionando Package ao projeto](#adicionando-package-ao-projeto)
+- [Criando um Feed local](#criando-um-feed-local)
+  - [Configuração inicial do feed](#configuração-inicial-do-feed)
+  - [Como empacotar uma lib](#como-empacotar-uma-lib)
+- [Usando o nuget.org](#usando-o-nugetorg)
+- [Utilitários](#utilitários)
+  - [Regenerating the Development Certificates](#regenerating-the-development-certificates)
+
+<!-- TOC end -->
 
 ## Comandos básicos
 
@@ -158,6 +180,22 @@ Depois disso já pode apagar o pacote copiado inicialmente para pasta.
 `dotnet pack  .\LumiaFoundation\LumiaFoundation.csproj --include-symbols --output nupkgs`
 
 [top](#table-of-contents)
+
+## Usando o nuget.org
+
+Referencia para os comandos está na [documentação oficial](https://learn.microsoft.com/en-us/nuget/nuget-org/publish-a-package)
+
+Para facilitar minha vida, adicionei duas Functions ao meu .zshrc:
+
+Os dois comandos abaixo devem ser executados na pasta do projeto e na pasta "nupkgs" dentro do projeto, respectivamente.
+
+nuget-pack() {
+  dotnet pack --include-symbols --output nupkgs
+}
+
+nuget-push() {
+  dotnet nuget push $1 --api-key myKey --source <https://api.nuget.org/v3/index.json>
+}
 
 ## Utilitários
 
