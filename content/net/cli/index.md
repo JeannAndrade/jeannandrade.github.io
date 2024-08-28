@@ -66,7 +66,7 @@ O comando `dotnet watch` é um observador de arquivos. Quando detecta uma altera
 
 ### Criar um projeto F# do tipo console
 
-Dotnet new console -lang "F#" -o FirstIonideProject
+`Dotnet new console -lang "F#" -o FirstIonideProject`
 
 ### Compilando um projeto
 
@@ -82,9 +82,9 @@ Serve para buildar e executar um projeto maui Android
 
 ### Executar a aplicação
 
-dotnet build
+`dotnet build`
 
-dotnet run
+`dotnet run`
 
 ### Criar projeto de teste
 
@@ -114,15 +114,15 @@ Uma pasta publish será criada com a estrutura do projeto
 
 ### Add package
 
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.1
+`dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.1`
 
 ### Listar packages
 
-dotnet list package
+`dotnet list package`
 
 ### Remove package
 
-dotnet remove package Microsoft.EntityFrameworkCore.SqlServer
+`dotnet remove package Microsoft.EntityFrameworkCore.SqlServer`
 
 ### Adicionando Package ao projeto
 
@@ -135,6 +135,32 @@ dotnet add package Swashbuckle.AspNetCore --version 5.0.0-rc2
 ```
 
 [top](#table-of-contents)
+
+## Instalando o .NET Core SDK Tools
+
+Para instalar o **dotnet ef**, você pode seguir estes passos:
+
+Instalar como ferramenta global: Execute o seguinte comando no terminal para instalar o dotnet ef como uma ferramenta global:
+
+`dotnet tool install --global dotnet-ef`
+
+Verificar a instalação: Após a instalação, você pode verificar se o dotnet ef foi instalado corretamente executando:
+
+`dotnet ef`
+
+## Migration
+
+Para adicionar Migration ao seu projeto usando o .NET CLI, você pode usar o seguinte comando:
+
+`dotnet ef migrations add NomeDaMigracao`
+
+Certifique-se de substituir **NomeDaMigracao** pelo nome que você deseja dar à sua migração. Este comando cria os arquivos necessários para a migração no diretório Migrations do seu projeto.
+
+Se você estiver trabalhando com um projeto onde o DbContext está em um assembly diferente do projeto de inicialização, você pode especificar explicitamente os projetos de destino e de inicialização usando as opções --project e --startup-project:
+
+`dotnet ef migrations add NomeDaMigracao --project SeuProjeto --startup-project ProjetoDeInicializacao`
+
+Isso ajuda a garantir que a migração seja adicionada corretamente ao projeto certo
 
 ## Criando um Feed local
 
@@ -189,12 +215,9 @@ Para facilitar minha vida, adicionei duas Functions ao meu .zshrc:
 
 Os dois comandos abaixo devem ser executados na pasta do projeto e na pasta "nupkgs" dentro do projeto, respectivamente.
 
-nuget-pack() {
-  dotnet pack --include-symbols --output nupkgs
-}
+`nuget-pack`
 
-nuget-push() {
-  dotnet nuget push $1 --api-key myKey --source <https://api.nuget.org/v3/index.json>
+`nuget-push package-name.nupkg`
 }
 
 ## Utilitários
