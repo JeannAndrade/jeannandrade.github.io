@@ -24,9 +24,10 @@ layout: default
     * [Terminal Linux](./content/linux/terminal/index.html)
 1. [Microservice](./content/microservice/index.html)
 1. [.Net](./content/net/index.html)
+    * [ASP.NET Core](./content/net/aspnet/index.html)
+    * [Blazor](./content/net/blazor/index.html)
     * [C#](./content/net/csharp/index.html)
     * [.Net MAUI](./content/net/maui/index.html)
-    * [ASP.NET Core](./content/net/aspnet/index.html)
     * [.Net cli](./content/net/cli/index.html)
 1. Shell
     * PowerShell
