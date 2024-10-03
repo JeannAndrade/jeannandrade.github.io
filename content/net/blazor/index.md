@@ -10,7 +10,24 @@ Fontes:
 
 ## Table of contents
 
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+* [Conceitos](#conceitos)
+  * [Latência (Latency)](#latência-latency)
+  * [Throughput](#throughput)
+* [Motivação para usar Blazor](#motivação-para-usar-blazor)
+* [O que é Blazor](#o-que-é-blazor)
+* [Diferentes maneiras de rodar Blazor](#diferentes-maneiras-de-rodar-blazor)
+  * [Blazor Server](#blazor-server)
+  * [Blazor WebAssembly](#blazor-webassembly)
+
+<!-- TOC end -->
+
+<!-- TOC --><a name="conceitos"></a>
+
 ## Conceitos
+
+<!-- TOC --><a name="latência-latency"></a>
 
 ### Latência (Latency)
 
@@ -18,11 +35,15 @@ No desenvolvimento de software web, latência se refere ao tempo decorrido entre
 
 Por exemplo, quando você clica em um link em uma página web, latência é o tempo que o servidor leva para processar essa solicitação e enviar os dados necessários de volta para o seu navegador. Menor latência significa tempos de resposta mais rápidos, o que é crucial para uma boa experiência de usuário.
 
-## Throughput
+<!-- TOC --><a name="throughput"></a>
+
+### Throughput
 
 No desenvolvimento de software web, throughput se refere à quantidade de dados ou número de transações que um sistema pode processar dentro de um período específico. É uma medida de quanto trabalho pode ser concluído em um determinado período de tempo, geralmente expresso em termos de solicitações por segundo, transações por segundo ou bits/bytes por segundo.
 
 Por exemplo, se um aplicativo web pode lidar com 100 solicitações por segundo, seu throughput é de 100 solicitações por segundo. Um alto throughput indica que o sistema pode processar um grande número de transações rapidamente, o que é crucial para desempenho e escalabilidade.
+
+<!-- TOC --><a name="motivação-para-usar-blazor"></a>
 
 ## Motivação para usar Blazor
 
@@ -30,9 +51,13 @@ Blazor surgiu como uma alternativa ao uso de JavaScript e seus frameworks (React
 
 De outra forma, deixa de ser necessário aprender várias das tecnologias envolvidas na Web, utilizando apenas a linguagem que desenvolvedores C# já conhecem.
 
+<!-- TOC --><a name="o-que-é-blazor"></a>
+
 ## O que é Blazor
 
 Blazor é Framework de UI open-source no qual você pode criar aplicativos web interativos usando HTML, CSS e C# com suporte total para bindings, eventos, formulários e validação, injeção de dependência, depuração e muito mais.
+
+<!-- TOC --><a name="diferentes-maneiras-de-rodar-blazor"></a>
 
 ## Diferentes maneiras de rodar Blazor
 
@@ -40,6 +65,8 @@ Blazor é Framework de UI open-source no qual você pode criar aplicativos web i
 * Blazor WebAssembly
 * Blazor Hybrid (usando .NET MAUI)
 * SSR (Server-Side Rendering)
+
+<!-- TOC --><a name="blazor-server"></a>
 
 ### Blazor Server
 
@@ -74,6 +101,8 @@ Existem, é claro, algumas desvantagens no Blazor Server também:
 * Cada conexão armazena as informações na memória do servidor, aumentando o uso da memória e dificultando o balanceamento de carga.
 * Para poder executar o Blazor Server, você precisa hospedá-lo em um servidor habilitado para ASP.NET Core.
 
+<!-- TOC --><a name="blazor-webassembly"></a>
+
 ### Blazor WebAssembly
 
 O runtime Mono é uma ferramenta que permite que você execute programas feitos com C# e outras linguagens .NET em vários sistemas operacionais, não apenas Windows.
@@ -83,3 +112,13 @@ A Microsoft pegou o runtime Mono (que é escrito em C) e o compilou no WebAssemb
 A versão WebAssembly do Blazor funciona de forma muito similar à versão do servidor, como mostrado no diagrama a seguir. Movemos tudo para fora do servidor, e agora está rodando dentro do nosso navegador da web:
 
 ![Overview Blazor WebAssembly](./img/OverviewBlazorWebAssembly.png)
+
+Uma árvore de renderização ainda é criada e, em vez de executar as páginas do Razor no servidor, elas agora estão sendo executadas dentro do nosso navegador da web. Em vez do SignalR, como o WebAssembly não tem acesso direto ao DOM, o Blazor atualiza o DOM com interoperabilidade direta de JavaScript.
+
+O runtime do Mono que é compilado no WebAssembly é chamado dotnet.wasm. A página contém um pequeno pedaço de JavaScript que garantirá o carregamento do dotnet.wasm. Em seguida, ele baixará o blazor.boot.json, um arquivo JSON contendo todos os arquivos que o aplicativo precisa para ser executado, bem como o ponto de entrada do aplicativo.
+
+Se olharmos para o site de amostra padrão que é criado quando iniciamos um novo projeto Blazor no Visual Studio, o arquivo Blazor.boot.json contém 63 dependências que precisam ser baixadas. Todas as dependências são baixadas e o aplicativo inicializa.
+
+Como mencionamos anteriormente, dotnet.wasm é o runtime do mono que é compilado no WebAssembly. Ele roda DLLs .NET – aquelas que você escreveu e as do .NET Framework (que são necessárias para rodar seu aplicativo) – no seu navegador.
+
+Parece exagerado rodar todo o runtime do .NET no meu navegador, mas por outro lado você pode rodar qualquer DLL .NET Standard no seu navegador.
