@@ -20,6 +20,8 @@ Fontes:
 * [Diferentes maneiras de rodar Blazor](#diferentes-maneiras-de-rodar-blazor)
   * [Blazor Server](#blazor-server)
   * [Blazor WebAssembly](#blazor-webassembly)
+  * [SSR (Server-Side Rendering)](#ssr-server-side-rendering)
+* [Trabalhando com os 3 tipos de uma só vez](#trabalhando-com-os-3-tipos-de-uma-só-vez)
 
 <!-- TOC end -->
 
@@ -122,3 +124,57 @@ Se olharmos para o site de amostra padrão que é criado quando iniciamos um nov
 Como mencionamos anteriormente, dotnet.wasm é o runtime do mono que é compilado no WebAssembly. Ele roda DLLs .NET – aquelas que você escreveu e as do .NET Framework (que são necessárias para rodar seu aplicativo) – no seu navegador.
 
 Parece exagerado rodar todo o runtime do .NET no meu navegador, mas por outro lado você pode rodar qualquer DLL .NET Standard no seu navegador.
+
+Vantagens do Blazor WebAssembly:
+
+* Como o código é executado no navegador, criar um PWA é fácil.
+* Não requer conexão com o servidor. O Blazor WebAssembly funcionará offline.
+* Como não estamos executando nada no servidor, podemos usar qualquer servidor de backend ou compartilhamento de arquivo (não há necessidade de um servidor compatível com .NET no backend).
+* Sem viagens de ida e volta, significa que você pode atualizar a tela mais rápido (é por isso que existem mecanismos de jogo que usam WebAssembly).
+
+Desvantagens no Blazor WebAssembly também:
+
+* Mesmo se compararmos com outros sites grandes, o footprint do Blazor WebAssembly é grande e há muitos arquivos para baixar.
+* Para acessar quaisquer recursos no local, você precisará criar uma API da Web para acessá-los. Você não pode acessar o banco de dados diretamente.
+* O código é executado no navegador, o que significa que pode ser descompilado. Todos os desenvolvedores de aplicativos estão acostumados com isso, mas não é tão comum para desenvolvedores web.
+
+<!-- TOC --><a name="ssr-server-side-rendering"></a>
+
+### SSR (Server-Side Rendering)
+
+A renderização do lado do servidor é a novata no bloco Blazor. Ela torna possível usar a sintaxe Razor para construir páginas da web que são renderizadas do lado do servidor, assim como MVC ou Razor Pages. Isso é chamado de renderização estática do lado do servidor. Ela tem alguns recursos adicionais que continuarão rolando na posição anterior, mesmo que a página inteira seja recarregada, o que é chamado de navegação de formulário aprimorada. Isso renderizará apenas páginas estáticas, sem interatividade (com algumas exceções). Há também algo chamado renderização de streaming que carregará a página ainda mais rápido. Este modo é chamado de renderização do lado do servidor de streaming. Durante tarefas de longa duração, a renderização de streaming primeiro enviará o HTML que possui e, em seguida, atualizará o DOM assim que a tarefa de longa duração for concluída, dando a ela uma sensação mais interativa.
+
+<!-- TOC --><a name="trabalhando-com-os-3-tipos-de-uma-só-vez"></a>
+
+## Trabalhando com os 3 tipos de uma só vez
+
+Podemos escolher quais componentes serão executados usando SSR e quais componentes usarão Blazor Server, Blazor WebAssembly ou uma mistura dos dois.
+
+Anteriormente, tínhamos que escolher um dos dois (Blazor Server ou Blazor WebAssembly), mas agora podemos combinar as tecnologias para obter o melhor dos dois mundos. Agora podemos dizer a cada componente como queremos que ele seja renderizado e podemos misturar e combinar em todo o site. O novo recurso “auto” significa que na primeira vez que nossos usuários visitarem o site, eles executarão o Blazor Server. Isso é para obter uma conexão rápida e obter dados para o usuário o mais rápido possível. Em segundo plano, a versão do WebAssembly é baixada e armazenada em cache para que, na próxima vez que visitarem o site, ele use a versão do Blazor WebAssembly em cache. Se a versão do WebAssembly puder ser baixada e iniciada em 100 milissegundos, ela carregará apenas a versão do WebAssembly. Se demorar mais, ele iniciará o Blazor Server e fará o download em segundo plano.
+
+Esta é uma das maneiras pelas quais podemos acelerar a velocidade de download do nosso site Blazor. Podemos combinar todas essas tecnologias, pré-renderizar o conteúdo no servidor usando o Static Server-side Rendering, tornar o site interativo usando Blazor Server (usando SignalR) e, em seguida, alternar para o Blazor WebAssembly sem o "longo" tempo de download.
+
+## Opções durante a criação de um projeto em Blazor
+
+O template **Blazor Web App** (blazor) nos dá um aplicativo Blazor.
+
+Depois de selecionar esse template, obtemos opções:
+
+* Como queremos que nosso aplicativo seja executado. Podemos configurar nosso aplicativo com código de amostra ou sem.
+* Podemos escolher se nosso aplicativo deve suportar componentes interativos e que tipo de interatividade queremos.
+* Também podemos escolher se queremos especificar o modo de renderização por componente ou para o aplicativo completo. Então, imediatamente, não precisamos escolher se queremos ou não escolher Blazor Server ou Blazor WebAssembly; podemos misturar e combinar.
+
+Se adicionarmos páginas de amostra, obtemos alguns componentes para ver a aparência de um aplicativo Blazor e alguma configuração básica e estrutura de menu. Ele também contém código para adicionar Bootstrap, CSS isolado e coisas assim.
+
+O template **Blazor WebAssembly Standalone App** (blazorwasm) nos dá (como o nome indica) um aplicativo Blazor WebAssembly autônomo. Aqui, podemos escolher:
+
+* Se queremos ter páginas de amostra. Ele contém alguns componentes para ver como é um aplicativo Blazor e alguma configuração básica e estrutura de menu.
+* Contém código para adicionar Bootstrap, CSS isolado e coisas assim.
+
+Então por que temos este? Bem, o Blazor Web App depende de tecnologias de renderização de servidor de uma forma ou de outra. Se você quiser executar seu aplicativo a partir de um compartilhamento de arquivos, GitHub Pages ou Azure Static Web Apps (para citar alguns), este é o modelo para você.
+
+### Linha de comando
+
+A linha de comando abaixo cria um projeto Blazor configurado para suportar tanto Blazor Server quanto Blazor WebAssembly e as páginas usarão a renderização estática do servidor por padrão e podem ser marcadas como interativas por página ou por componente.
+
+`dotnet new blazor --name BlazorWebApp --output MyBlog --framework net8.0 --interactivity Auto --auth None --all-interactive false`
