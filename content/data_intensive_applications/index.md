@@ -14,13 +14,18 @@ Fontes:
 
 * [Preface](#preface)
 * [Conceitos](#conceitos)
-  * [Confiabilidade](#confiabilidade)
+  * [Confiabilidade (Reliability)](#confiabilidade-reliability)
     * [Falhas no hardware](#falhas-no-hardware)
     * [Erros de software](#erros-de-software)
-  * [Escalabilidade](#escalabilidade)
-  * [Capacidade de manutenção](#capacidade-de-manutenção)
+    * [Erros humanos](#erros-humanos)
+  * [Escalabilidade (Scalability)](#escalabilidade-scalability)
+    * [Mas o que vem a ser carga?](#mas-o-que-vem-a-ser-carga)
+    * [E o que vem a ser performance?](#e-o-que-vem-a-ser-performance)
+  * [Capacidade de manutenção (Maintainability)](#capacidade-de-manutenção-maintainability)
 
 <!-- TOC end -->
+
+<!-- TOC --><a name="preface"></a>
 
 ## Preface
 
@@ -34,9 +39,13 @@ Um aplicativo com uso intensivo de dados normalmente é criado a partir de bloco
 * Enviar uma mensagem para outro processo, para ser tratada de forma assíncrona (processamento de fluxo ou "stream processing")
 * Processar periodicamente uma grande quantidade de dados acumulados (processamento em lote)
 
+<!-- TOC --><a name="conceitos"></a>
+
 ## Conceitos
 
-### Confiabilidade
+<!-- TOC --><a name="confiabilidade-reliability"></a>
+
+### Confiabilidade (Reliability)
 
  O sistema deve continuar funcionando corretamente (desempenhando a função correta no nível de desempenho desejado) mesmo diante de adversidades (falhas de hardware ou software, e até erro humano).
 
@@ -51,12 +60,16 @@ As coisas que podem dar errado são chamadas de falhas (faults), e os sistemas q
 
 Observe que uma *fault* não é o mesmo que uma  *failure*. Uma *fault* geralmente é definida como um componente do sistema que se desvia de suas especificações, enquanto uma *failure* ocorre quando o sistema como um todo deixa de fornecer o serviço necessário ao usuário. É impossível reduzir a probabilidade de *fault* a zero; portanto, geralmente é melhor projetar mecanismos tolerância a falhas que evitem que *fault* causem *failure*.
 
+<!-- TOC --><a name="falhas-no-hardware"></a>
+
 #### Falhas no hardware
 
 O tema de falha no hardware pode ser tratado de duas maneiras:
 
 * Construindo sistemas que possam tolerar a perda de máquinas inteiras, usando preferencialmente técnicas de tolerância a falhas de software
 * Adicionando redundância de hardware
+
+<!-- TOC --><a name="erros-de-software"></a>
 
 #### Erros de software
 
@@ -69,6 +82,8 @@ Outra classe de falha é um erro sistemático dentro do sistema:
 
 Não existe uma solução rápida para o problema das falhas sistemáticas de software. Muitas pequenas coisas podem ajudar: pensar cuidadosamente sobre suposições e interações no sistema; testes completos; isolamento de processos; permitindo que processos travem e reiniciem; medir, monitorar e analisar o comportamento do sistema na produção.
 
+<!-- TOC --><a name="erros-humanos"></a>
+
 #### Erros humanos
 
 Como podemos tornar nossos sistemas confiáveis, apesar de seres humanos não confiáveis? Os melhores sistemas combinam várias abordagens:
@@ -80,14 +95,20 @@ Como podemos tornar nossos sistemas confiáveis, apesar de seres humanos não co
 * Configure um monitoramento detalhado e claro, como métricas de desempenho e taxas de erro. Em outras disciplinas de engenharia isso é chamado de telemetria.
 * Implemente boas práticas de gestão e treinamento.
 
-### Escalabilidade
+<!-- TOC --><a name="escalabilidade-scalability"></a>
+
+### Escalabilidade (Scalability)
 
  À medida que o sistema cresce (em volume de dados, volume de tráfego ou complexidade), devem existir formas razoáveis de lidar com esse crescimento. Escalabilidade é o termo que usamos para descrever a capacidade de um sistema de lidar com o aumento da carga.
+
+<!-- TOC --><a name="mas-o-que-vem-a-ser-carga"></a>
 
 #### Mas o que vem a ser carga?
 
 Primeiro, precisamos descrever sucintamente a carga atual no sistema; só então podemos discutir questões de crescimento (o que acontece se nossa carga dobrar?). A carga pode ser descrita com alguns números que chamamos de parâmetros de carga. A melhor escolha de parâmetros depende da arquitetura do seu sistema: pode ser solicitações por segundo para um servidor web, a proporção de leituras para gravações em um banco de dados, o número de usuários ativos simultaneamente em uma sala de bate-papo, a taxa de acertos em um cache ou outra coisa. Talvez o caso médio seja o que importa para você, ou talvez seu gargalo seja dominado por um pequeno
 número de casos extremos.
+
+<!-- TOC --><a name="e-o-que-vem-a-ser-performance"></a>
 
 #### E o que vem a ser performance?
 
@@ -108,6 +129,8 @@ Nesse caso pode-se dizer que 50% (p50) das requisições foram respondidas em me
 
 Outros percentiles importantes são p95, p99 e p999 (95%, 99%, 99.9%)  que geralmente atingem os clientes mais volumosos, e portanto que trazem mais renda para a empresa.
 
-### Capacidade de manutenção
+<!-- TOC --><a name="capacidade-de-manutenção-maintainability"></a>
+
+### Capacidade de manutenção (Maintainability)
 
 Com o tempo, muitas pessoas diferentes trabalharão no sistema (engenharia e operações, mantendo o comportamento atual e adaptando o sistema a novos casos de uso), e todas deverão ser capazes de trabalhar nele de forma produtiva.

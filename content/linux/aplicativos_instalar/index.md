@@ -103,9 +103,68 @@ Em seguida:
 
 ## .NET SDK
 
-Seguir as instruções da [página oficial](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu-2310)
+O SDK do .Net está disponível tanto no repositório de pacotes do Ubuntu quanto no repositório de pacotes da Microsoft. É importante ter apenas um dos repositórios ativos para evitar conflito durante as atualizações.
 
-`sudo apt-get update && sudo apt-get install -y dotnet-sdk-8.0`
+A principal diferença é que no repositório do Ubuntu ficará disponível apenas a versão .1xx, enquanto que no repositório da Microsoft estará disponível sempre a última versão.
+
+Siga o roteiro abaixo para priorizar o repositório da Microsoft corretamente:
+
+### Passo 1 - Remover qualquer versão do SDK instalada
+
+Remova os pacotes existentes do .NET de sua distribuição. Recomece e não os instale por meio do repositório errado.
+
+`sudo apt remove 'dotnet*' 'aspnet*' 'netstandard*'`
+
+### Passo 2 - Crie o /etc/apt/preferences, se ele ainda não existir
+
+`sudo touch /etc/apt/preferences`
+
+### Passo 3 - Localize a origem dos pacotes do SDK no ubuntu
+
+`apt-cache policy '?name(dotnet.*)' | grep -v microsoft | grep '/ubuntu' | cut -d"/" -f3 | sort -u`
+
+O retorno deve ser algo parecido com: archive.ubuntu.com, security.ubuntu.com
+
+### Passo 4 - Abra /etc/apt/preferences no Vim
+
+`sudo vim /etc/apt/preferences`
+
+### Passo 5 - Copie o conteúdo abaixo para o arquivo
+
+```bash
+Package: dotnet* aspnet* netstandard*
+Pin: origin "archive.ubuntu.com"
+Pin-Priority: -10
+
+Package: dotnet* aspnet* netstandard*
+Pin: origin "security.ubuntu.com"
+Pin-Priority: -10`
+```
+
+Isso vai despriorizar a busca dos pacotes do SDK do repositório do Ubuntu.
+
+### Passo 6 - Adicione o repositório da microsoft da lista de origens
+
+```bash
+# Get OS version info which adds the $ID and $VERSION_ID variables
+source /etc/os-release
+
+# Download Microsoft signing key and repository
+wget <https://packages.microsoft.com/config/$ID/$VERSION_ID/packages-microsoft-prod.deb> -O packages-microsoft-prod.deb
+
+# Install Microsoft signing key and repository
+sudo dpkg -i packages-microsoft-prod.deb
+
+# Clean up
+rm packages-microsoft-prod.deb
+
+# Update packages
+sudo apt update
+```
+
+### Passo 7 - Instale o SDK novamente, agora a partir do repositório da microsoft
+
+`sudo apt install dotnet-sdk-8.0`
 
 ## Docker
 
