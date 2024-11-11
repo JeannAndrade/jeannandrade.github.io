@@ -2,26 +2,9 @@
 layout: internal
 ---
 
-# Guia rápido do aplicativos a se instalar no Ubuntu 23.10
+# Guia rápido do aplicativos a se instalar no Ubuntu 24.04
 
-## Navegador
-
-Utilizo o Microsoft Edge, então vou começar por ele já que muita coisa depende de senhas e favoritos já cadastrados na minha conta.
-
-Instalação do programa curl
-
-1. `sudo apt install curl`
-1. `curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg`
-1. `sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/`
-1. `sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list'`
-1. `sudo rm microsoft.gpg`
-1. `sudo apt update && sudo apt install microsoft-edge-stable`
-
-Caso precisa desinstalar:
-
-`sudo apt remove microsoft-edge-stable`
-
-Após a instalação torne o Edge o navegador padrão e faça login.
+Eu utilizo o Ubuntu via WSL2, portanto aqui serão listados apenas as customizações realizadas e aplicativos de desenvolvimento e produtividade instalados.
 
 ## Git
 
