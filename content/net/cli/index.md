@@ -24,10 +24,11 @@ O link de referência para o uso da ferramenta é:
   - [Executando testes](#executando-testes)
   - [Publicar a aplicação](#publicar-a-aplicação)
 - [NuGet Packages](#nuget-packages)
-  - [Add package](#add-package)
+  - [Adicionando Package ao projeto](#adicionando-package-ao-projeto)
   - [Listar packages](#listar-packages)
   - [Remove package](#remove-package)
-  - [Adicionando Package ao projeto](#adicionando-package-ao-projeto)
+- [Instalando o .NET Core SDK Tools](#instalando-o-net-core-sdk-tools)
+- [Migration](#migration)
 - [Criando um Feed local](#criando-um-feed-local)
   - [Configuração inicial do feed](#configuração-inicial-do-feed)
   - [Como empacotar uma lib](#como-empacotar-uma-lib)
@@ -37,15 +38,23 @@ O link de referência para o uso da ferramenta é:
 
 <!-- TOC end -->
 
+<!-- TOC --><a name="comandos-básicos"></a>
+
 ## Comandos básicos
+
+<!-- TOC --><a name="listar-sdks"></a>
 
 ### Listar SDKs
 
 `dotnet --list-sdks`
 
+<!-- TOC --><a name="listar-os-templates-disponíveis"></a>
+
 ### Listar os templates disponíveis
 
 `dotnet new --list`
+
+<!-- TOC --><a name="criar-um-projeto-novo"></a>
 
 ### Criar um projeto novo
 
@@ -58,15 +67,21 @@ dotnet sln PartyInvites add PartyInvites
 
 A Microsoft é boa em garantir compatibilidade com versões anteriores do .NET Core, mas ocorrem alterações significativas e é uma boa ideia adicionar um arquivo global.json aos projetos para que todos na equipe de desenvolvimento usem a mesma versão.
 
+<!-- TOC --><a name="observando-por-alterações-no-projeto"></a>
+
 ### Observando por alterações no projeto
 
 `dotnet watch`
 
 O comando `dotnet watch` é um observador de arquivos. Quando detecta uma alteração, ele executa o comando `dotnet run` ou um comando dotnet especificado. Se ele executar `dotnet run` e a alteração tiver suporte para *hot reloads*, ele recarregará a quente o aplicativo especificado. Se a alteração não for suportada, o aplicativo será reiniciado. Este processo permite o desenvolvimento iterativo rápido a partir da linha de comando.
 
+<!-- TOC --><a name="criar-um-projeto-f-do-tipo-console"></a>
+
 ### Criar um projeto F# do tipo console
 
 `Dotnet new console -lang "F#" -o FirstIonideProject`
+
+<!-- TOC --><a name="compilando-um-projeto"></a>
 
 ### Compilando um projeto
 
@@ -80,11 +95,15 @@ dotnet build -t:Run -f net6.0-android
 
 Serve para buildar e executar um projeto maui Android
 
+<!-- TOC --><a name="executar-a-aplicação"></a>
+
 ### Executar a aplicação
 
 `dotnet build`
 
 `dotnet run`
+
+<!-- TOC --><a name="criar-projeto-de-teste"></a>
 
 ### Criar projeto de teste
 
@@ -92,9 +111,13 @@ Serve para buildar e executar um projeto maui Android
 
 `dotnet sln add SimpleApp.Testsdotnet add SimpleApp.Tests reference SimpleApp`
 
+<!-- TOC --><a name="executando-testes"></a>
+
 ### Executando testes
 
 `dotnet test`
+
+<!-- TOC --><a name="publicar-a-aplicação"></a>
 
 ### Publicar a aplicação
 
@@ -110,19 +133,11 @@ Uma pasta publish será criada com a estrutura do projeto
 
 [top](#table-of-contents)
 
+<!-- TOC --><a name="nuget-packages"></a>
+
 ## NuGet Packages
 
-### Add package
-
-`dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.1.1`
-
-### Listar packages
-
-`dotnet list package`
-
-### Remove package
-
-`dotnet remove package Microsoft.EntityFrameworkCore.SqlServer`
+<!-- TOC --><a name="adicionando-package-ao-projeto"></a>
 
 ### Adicionando Package ao projeto
 
@@ -134,7 +149,27 @@ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 3
 dotnet add package Swashbuckle.AspNetCore --version 5.0.0-rc2
 ```
 
+<!-- TOC --><a name="listar-packages"></a>
+
+### Listar packages
+
+Listar os packages de um projeto:
+
+`dotnet list package`
+
+Listar os packages de um projeto exibindo possíveis atualizações:
+
+`dotnet list package --outdated`
+
+<!-- TOC --><a name="remove-package"></a>
+
+### Remove package
+
+`dotnet remove package Microsoft.EntityFrameworkCore.SqlServer`
+
 [top](#table-of-contents)
+
+<!-- TOC --><a name="instalando-o-net-core-sdk-tools"></a>
 
 ## Instalando o .NET Core SDK Tools
 
@@ -147,6 +182,8 @@ Instalar como ferramenta global: Execute o seguinte comando no terminal para ins
 Verificar a instalação: Após a instalação, você pode verificar se o dotnet ef foi instalado corretamente executando:
 
 `dotnet ef`
+
+<!-- TOC --><a name="migration"></a>
 
 ## Migration
 
@@ -162,7 +199,11 @@ Se você estiver trabalhando com um projeto onde o DbContext está em um assembl
 
 Isso ajuda a garantir que a migração seja adicionada corretamente ao projeto certo
 
+<!-- TOC --><a name="criando-um-feed-local"></a>
+
 ## Criando um Feed local
+
+<!-- TOC --><a name="configuração-inicial-do-feed"></a>
 
 ### Configuração inicial do feed
 
@@ -201,11 +242,15 @@ Agora para publicar um pacote no feed local o comando é:
 
 Depois disso já pode apagar o pacote copiado inicialmente para pasta.
 
+<!-- TOC --><a name="como-empacotar-uma-lib"></a>
+
 ### Como empacotar uma lib
 
 `dotnet pack  .\LumiaFoundation\LumiaFoundation.csproj --include-symbols --output nupkgs`
 
 [top](#table-of-contents)
+
+<!-- TOC --><a name="usando-o-nugetorg"></a>
 
 ## Usando o nuget.org
 
@@ -220,7 +265,11 @@ Os dois comandos abaixo devem ser executados na pasta do projeto e na pasta "nup
 `nuget-push package-name.nupkg`
 }
 
+<!-- TOC --><a name="utilitários"></a>
+
 ## Utilitários
+
+<!-- TOC --><a name="regenerating-the-development-certificates"></a>
 
 ### Regenerating the Development Certificates
 
