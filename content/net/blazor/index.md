@@ -178,3 +178,17 @@ Então por que temos este? Bem, o Blazor Web App depende de tecnologias de rende
 A linha de comando abaixo cria um projeto Blazor configurado para suportar tanto Blazor Server quanto Blazor WebAssembly e as páginas usarão a renderização estática do servidor por padrão e podem ser marcadas como interativas por página ou por componente.
 
 `dotnet new blazor --name BlazorWebApp --output MyBlog --framework net8.0 --interactivity Auto --auth None --all-interactive false`
+
+## Sequência de execução de uma aplicação Blazor
+
+Essa é a sequência de execução dos arquivos em uma aplicação Blazor:
+
+Arquivo | Responsabilidade
+:--- | :---
+Program.cs (BlazorWebApp project) | É a primeira classe a ser chamada e é a responsável por montar a pipeline de middlewares para as requisições que o app receberá.
+Program.cs (BlazorWebApp.Client) | Esse não faz muito. Ele simplesmente configura um construtor de host e usa a configuração padrão para permitir que o app funcione com WebAssembly no client.
+App (BlazorWebApp) | O componente app.razor é o próximo a executar.
+Routes | é o componente acionado de dentro do App (BlazorWebApp) e vai definir o esquema de rotas para o app. Inclusive vai definir o layout default para cada rota.
+MainLayout | contém o layout padrão para todos os componentes quando visualizados como uma página.
+NavMenu | é o componente acionado de dentro do MainLayout. Ele contém o menu do lado esquerdo e é um menu padrão do Bootstrap.
+NavLink | esse componente é construído no framework. Ele renderizará uma tag de âncora, mas também verificará a rota atual. Se você estiver atualmente na mesma rota/URL que o link de navegação, ele adicionará automaticamente uma classe CSS chamada active à tag.
