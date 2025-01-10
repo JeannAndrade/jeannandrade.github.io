@@ -57,7 +57,7 @@ De outra forma, deixa de ser necessário aprender várias das tecnologias envolv
 
 ## O que é Blazor
 
-Blazor é Framework de UI open-source no qual você pode criar aplicativos web interativos usando HTML, CSS e C# com suporte total para bindings, eventos, formulários e validação, injeção de dependência, depuração e muito mais.
+Blazor é um Framework de UI open-source no qual você pode criar aplicativos web interativos usando HTML, CSS e C# com suporte total para bindings, eventos, formulários e validação, injeção de dependência, depuração e muito mais.
 
 <!-- TOC --><a name="diferentes-maneiras-de-rodar-blazor"></a>
 
@@ -132,10 +132,10 @@ Vantagens do Blazor WebAssembly:
 * Como não estamos executando nada no servidor, podemos usar qualquer servidor de backend ou compartilhamento de arquivo (não há necessidade de um servidor compatível com .NET no backend).
 * Sem viagens de ida e volta, significa que você pode atualizar a tela mais rápido (é por isso que existem mecanismos de jogo que usam WebAssembly).
 
-Desvantagens no Blazor WebAssembly também:
+Desvantagens no Blazor WebAssembly:
 
 * Mesmo se compararmos com outros sites grandes, o footprint do Blazor WebAssembly é grande e há muitos arquivos para baixar.
-* Para acessar quaisquer recursos no local, você precisará criar uma API da Web para acessá-los. Você não pode acessar o banco de dados diretamente.
+* Para acessar quaisquer recursos no servidor, você precisará criar uma API da Web para acessá-los. Você não pode acessar o banco de dados diretamente.
 * O código é executado no navegador, o que significa que pode ser descompilado. Todos os desenvolvedores de aplicativos estão acostumados com isso, mas não é tão comum para desenvolvedores web.
 
 <!-- TOC --><a name="ssr-server-side-rendering"></a>
@@ -192,3 +192,57 @@ Routes | é o componente acionado de dentro do App (BlazorWebApp) e vai definir 
 MainLayout | contém o layout padrão para todos os componentes quando visualizados como uma página.
 NavMenu | é o componente acionado de dentro do MainLayout. Ele contém o menu do lado esquerdo e é um menu padrão do Bootstrap.
 NavLink | esse componente é construído no framework. Ele renderizará uma tag de âncora, mas também verificará a rota atual. Se você estiver atualmente na mesma rota/URL que o link de navegação, ele adicionará automaticamente uma classe CSS chamada active à tag.
+
+## Projetos criados pelo template
+
+* Projeto BlazorWebApp.Client - é o projeto WebAssembly. Nesse projeto, devemos colocar todos os componentes que queremos executar como WebAssembly.
+* Projeto BlazorWebApp - referencia o projeto BlazorWebApp.Client, para que ele encontre todos os componentes e possa executá-los como componentes do Blazor Server, se quisermos.
+
+## Componentes
+
+No Blazor, um componente é um arquivo .razor que contém uma funcionalidade pequena e isolada (código e marcação) ou pode ser usado como uma página.
+
+Existem três maneiras diferentes de criar um componente:
+
+* Usando a sintaxe Razor, com o código e o HTML compartilhando o mesmo arquivo
+* Usando um arquivo code-behind junto com um arquivo .razor
+* Usando apenas um arquivo code-behind
+
+### Diretiva @page
+
+```c#
+@page "/counter"
+```
+
+Torna possível rotear diretamente para o componente
+
+### Diretiva @rendermode
+
+```c#
+@rendermode InteractiveAuto
+```
+
+Esta é a maneira como podemos definir o modo de renderização em um componente específico. Isso significa que quando usamos este componente, ele primeiro renderizará a página usando o Blazor Server (com SignalR) e, em segundo plano, baixará a versão do WebAssembly para que, na próxima vez que carregarmos a página, ele execute a versão do WebAssembly.
+
+### Declaração @code
+
+```c#
+@code {
+  private int currentCount = 0;
+  private void IncrementCount()
+  {
+    currentCount++;
+  }
+}
+```
+
+Permite adicionar código C# ao componente. Para acessar o valor armazenado em currentCount basta usar o @.
+
+`<p role="status">Current count: @currentCount</p>`
+
+Para acessar o método *IncrementCount* também basta usar o @.
+
+`<button class="btn btn-primary" @onclick="IncrementCount">Click me</
+button>`
+
+Se usássemos onclick sem o @, ele se referiria ao evento JavaScript e não funcionaria.

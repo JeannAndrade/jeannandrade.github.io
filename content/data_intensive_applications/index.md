@@ -134,3 +134,44 @@ Outros percentiles importantes são p95, p99 e p999 (95%, 99%, 99.9%)  que geral
 ### Capacidade de manutenção (Maintainability)
 
 Com o tempo, muitas pessoas diferentes trabalharão no sistema (engenharia e operações, mantendo o comportamento atual e adaptando o sistema a novos casos de uso), e todas deverão ser capazes de trabalhar nele de forma produtiva.
+
+## Data Models and Query Languages
+
+A maioria dos aplicativos é construída empilhando camadas de modelos de dados uns sobre os outros. Para cada camada, a questão chave é: como ela é representada em relação a camada imediatamente inferior?
+
+Por exemplo:
+
+1. Como desenvolvedor de aplicativos, você olha para o mundo real (no qual existem pessoas, organizações, bens, ações, fluxos de dinheiro, sensores, etc.) e modela-o em termos de objetos ou estruturas de dados e APIs que manipulam essas estruturas de dados. Essas estruturas geralmente são específicas para sua aplicação.
+1. Quando você deseja armazenar essas estruturas de dados, você as expressa em termos de um modelo de dados de uso geral, como documentos JSON ou XML, tabelas em um banco de dados relacional ou um modelo gráfico.
+1. Os engenheiros que construíram seu software de banco de dados decidiram uma forma de representar os dados em JSON/XML/relacionais/gráficos em termos de bytes na memória, no disco ou em uma rede. A representação pode permitir que os dados sejam consultados, pesquisados, manipulados e processados ​​de diversas maneiras.
+1. Em níveis ainda mais baixos, os engenheiros de hardware descobriram como representar bytes em termos de correntes elétricas, pulsos de luz, campos magnéticos e muito mais.
+
+Existem muitos tipos diferentes de modelos de dados, e cada modelo de dados incorpora suposições sobre como ele será usado. Alguns tipos de uso são fáceis e outros não são suportados; algumas operações são rápidas e outras apresentam desempenho ruim; alguns dados as transformações parecem naturais e algumas são estranhas.
+
+### Modelo Relacional versus Modelo baseado em documentos
+
+Argumentos para o uso do modelo baseado em documentos:
+
+* Necessidade de armazenar e manter grandes quantidades de dados não estruturados.
+* Pode lidar com dados semi-estruturados ou não estruturados, o que os torna mais fáceis de escalar e gerenciar, especialmente para organizações com necessidades massivas de armazenamento de dados.
+
+### Modelo Relacional
+
+Proposto pro Edgar Codd em 1970, tornou amplamente utilizado em meados de 1980 sendo a ferramenta escolhida pela maioria das pessoas que precisavam armazenar e consultar dados estruturados.
+
+### Modelo baseado em documentos
+
+Bancos de dados de objetos surgiram e desapareceram no final de 1980, início de 1990. Bancos de dados XML apareceram em meados de 2000, mas tiveram apenas adoção em nichos específicos.
+
+Agora, a partir de 2010, NoSQL (ou Not Only SQL) tem sido a última tentativa pra sobrepor o domínio de modelo relacional.
+
+A maioria dos bancos de dados NoSQL pode conter os quatro tipos de dados a seguir:
+
+* Armazenamento orientado a documentos - Estes permitem um par de chaves com um documento. Os documentos podem conter uma variedade de objetos, como matriz de chaves e pares de valores-chave, bem como outros documentos.
+* Armazenamento de valores-chave - São bancos de dados simples que armazenam informações na forma de atributos (chaves) e valores. Em alguns casos, os valores podem ter tipos como “string” ou “inteiro”.
+* Armazenamento de grafos - Eles armazenam dados sobre redes em um formato orientado a grafo.
+* Armazenamento de colunas largas - Isso ajuda no manuseio de grandes quantidades de dados na forma de colunas.
+
+### Modelo Hierárquico
+
+### Modelo em Rede
