@@ -37,4 +37,4 @@ layout: default
 ## Soft Skills
 
 1. [Code Review](./content/code_review/index.html)
-1. [Design thinking e Design Sprint](./content/code_review/index.html)
+1. [Design thinking e Design Sprint](./content/design/index.html)
