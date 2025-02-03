@@ -13,7 +13,10 @@ Fontes:
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 * [Preface](#preface)
-* [Conceitos](#conceitos)
+* [Glossário](#glossário)
+  * [Latência (Latency)](#latência-latency)
+  * [Throughput](#throughput)
+* [Conceitos fundamentais](#conceitos-fundamentais)
   * [Confiabilidade (Reliability)](#confiabilidade-reliability)
     * [Falhas no hardware](#falhas-no-hardware)
     * [Erros de software](#erros-de-software)
@@ -22,6 +25,12 @@ Fontes:
     * [Mas o que vem a ser carga?](#mas-o-que-vem-a-ser-carga)
     * [E o que vem a ser performance?](#e-o-que-vem-a-ser-performance)
   * [Capacidade de manutenção (Maintainability)](#capacidade-de-manutenção-maintainability)
+* [Data Models and Query Languages](#data-models-and-query-languages)
+  * [Modelo Relacional versus Modelo baseado em documentos](#modelo-relacional-versus-modelo-baseado-em-documentos)
+  * [Modelo Relacional](#modelo-relacional)
+  * [Modelo baseado em documentos](#modelo-baseado-em-documentos)
+  * [Modelo Hierárquico](#modelo-hierárquico)
+  * [Modelo em Rede](#modelo-em-rede)
 
 <!-- TOC end -->
 
@@ -39,9 +48,29 @@ Um aplicativo com uso intensivo de dados normalmente é criado a partir de bloco
 * Enviar uma mensagem para outro processo, para ser tratada de forma assíncrona (processamento de fluxo ou "stream processing")
 * Processar periodicamente uma grande quantidade de dados acumulados (processamento em lote)
 
-<!-- TOC --><a name="conceitos"></a>
+<!-- TOC --><a name="glossário"></a>
 
-## Conceitos
+## Glossário
+
+<!-- TOC --><a name="latência-latency"></a>
+
+### Latência (Latency)
+
+No desenvolvimento de software web, latência se refere ao tempo decorrido entre a ação de um usuário e a resposta do servidor. Essencialmente, é o tempo que os dados levam para viajar da fonte (como o navegador de um usuário) para o destino (como um servidor web) e voltar novamente.
+
+Por exemplo, quando você clica em um link em uma página web, latência é o tempo que o servidor leva para processar essa solicitação e enviar os dados necessários de volta para o seu navegador. Menor latência significa tempos de resposta mais rápidos, o que é crucial para uma boa experiência de usuário.
+
+<!-- TOC --><a name="throughput"></a>
+
+### Throughput
+
+No desenvolvimento de software web, throughput se refere à quantidade de dados ou número de transações que um sistema pode processar dentro de um período específico. É uma medida de quanto trabalho pode ser concluído em um determinado período de tempo, geralmente expresso em termos de solicitações por segundo, transações por segundo ou bits/bytes por segundo.
+
+Por exemplo, se um aplicativo web pode lidar com 100 solicitações por segundo, seu throughput é de 100 solicitações por segundo. Um alto throughput indica que o sistema pode processar um grande número de transações rapidamente, o que é crucial para desempenho e escalabilidade.
+
+<!-- TOC --><a name="conceitos-fundamentais"></a>
+
+## Conceitos fundamentais
 
 <!-- TOC --><a name="confiabilidade-reliability"></a>
 
@@ -135,6 +164,8 @@ Outros percentiles importantes são p95, p99 e p999 (95%, 99%, 99.9%)  que geral
 
 Com o tempo, muitas pessoas diferentes trabalharão no sistema (engenharia e operações, mantendo o comportamento atual e adaptando o sistema a novos casos de uso), e todas deverão ser capazes de trabalhar nele de forma produtiva.
 
+<!-- TOC --><a name="data-models-and-query-languages"></a>
+
 ## Data Models and Query Languages
 
 A maioria dos aplicativos é construída empilhando camadas de modelos de dados uns sobre os outros. Para cada camada, a questão chave é: como ela é representada em relação a camada imediatamente inferior?
@@ -148,6 +179,8 @@ Por exemplo:
 
 Existem muitos tipos diferentes de modelos de dados, e cada modelo de dados incorpora suposições sobre como ele será usado. Alguns tipos de uso são fáceis e outros não são suportados; algumas operações são rápidas e outras apresentam desempenho ruim; alguns dados as transformações parecem naturais e algumas são estranhas.
 
+<!-- TOC --><a name="modelo-relacional-versus-modelo-baseado-em-documentos"></a>
+
 ### Modelo Relacional versus Modelo baseado em documentos
 
 Argumentos para o uso do modelo baseado em documentos:
@@ -155,9 +188,13 @@ Argumentos para o uso do modelo baseado em documentos:
 * Necessidade de armazenar e manter grandes quantidades de dados não estruturados.
 * Pode lidar com dados semi-estruturados ou não estruturados, o que os torna mais fáceis de escalar e gerenciar, especialmente para organizações com necessidades massivas de armazenamento de dados.
 
+<!-- TOC --><a name="modelo-relacional"></a>
+
 ### Modelo Relacional
 
 Proposto pro Edgar Codd em 1970, tornou amplamente utilizado em meados de 1980 sendo a ferramenta escolhida pela maioria das pessoas que precisavam armazenar e consultar dados estruturados.
+
+<!-- TOC --><a name="modelo-baseado-em-documentos"></a>
 
 ### Modelo baseado em documentos
 
@@ -172,6 +209,12 @@ A maioria dos bancos de dados NoSQL pode conter os quatro tipos de dados a segui
 * Armazenamento de grafos - Eles armazenam dados sobre redes em um formato orientado a grafo.
 * Armazenamento de colunas largas - Isso ajuda no manuseio de grandes quantidades de dados na forma de colunas.
 
+<!-- TOC --><a name="modelo-hierárquico"></a>
+
 ### Modelo Hierárquico
 
+<!-- TOC --><a name="modelo-em-rede"></a>
+
 ### Modelo em Rede
+
+Em construção
