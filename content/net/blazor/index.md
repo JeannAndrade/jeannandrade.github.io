@@ -22,6 +22,14 @@ Fontes:
   * [Blazor WebAssembly](#blazor-webassembly)
   * [SSR (Server-Side Rendering)](#ssr-server-side-rendering)
 * [Trabalhando com os 3 tipos de uma só vez](#trabalhando-com-os-3-tipos-de-uma-só-vez)
+* [Opções durante a criação de um projeto em Blazor](#opções-durante-a-criação-de-um-projeto-em-blazor)
+  * [Linha de comando](#linha-de-comando)
+* [Sequência de execução de uma aplicação Blazor](#sequência-de-execução-de-uma-aplicação-blazor)
+* [Projetos criados pelo template](#projetos-criados-pelo-template)
+* [Componentes](#componentes)
+  * [Diretiva @page](#diretiva-page)
+  * [Diretiva @rendermode](#diretiva-rendermode)
+  * [Declaração @code](#declaração-code)
 
 <!-- TOC end -->
 
@@ -154,6 +162,8 @@ Anteriormente, tínhamos que escolher um dos dois (Blazor Server ou Blazor WebAs
 
 Esta é uma das maneiras pelas quais podemos acelerar a velocidade de download do nosso site Blazor. Podemos combinar todas essas tecnologias, pré-renderizar o conteúdo no servidor usando o Static Server-side Rendering, tornar o site interativo usando Blazor Server (usando SignalR) e, em seguida, alternar para o Blazor WebAssembly sem o "longo" tempo de download.
 
+<!-- TOC --><a name="opções-durante-a-criação-de-um-projeto-em-blazor"></a>
+
 ## Opções durante a criação de um projeto em Blazor
 
 O template **Blazor Web App** (blazor) nos dá um aplicativo Blazor.
@@ -173,11 +183,15 @@ O template **Blazor WebAssembly Standalone App** (blazorwasm) nos dá (como o no
 
 Então por que temos este? Bem, o Blazor Web App depende de tecnologias de renderização de servidor de uma forma ou de outra. Se você quiser executar seu aplicativo a partir de um compartilhamento de arquivos, GitHub Pages ou Azure Static Web Apps (para citar alguns), este é o modelo para você.
 
+<!-- TOC --><a name="linha-de-comando"></a>
+
 ### Linha de comando
 
 A linha de comando abaixo cria um projeto Blazor configurado para suportar tanto Blazor Server quanto Blazor WebAssembly e as páginas usarão a renderização estática do servidor por padrão e podem ser marcadas como interativas por página ou por componente.
 
 `dotnet new blazor --name BlazorWebApp --output MyBlog --framework net8.0 --interactivity Auto --auth None --all-interactive false`
+
+<!-- TOC --><a name="sequência-de-execução-de-uma-aplicação-blazor"></a>
 
 ## Sequência de execução de uma aplicação Blazor
 
@@ -193,10 +207,14 @@ MainLayout | contém o layout padrão para todos os componentes quando visualiza
 NavMenu | é o componente acionado de dentro do MainLayout. Ele contém o menu do lado esquerdo e é um menu padrão do Bootstrap.
 NavLink | esse componente é construído no framework. Ele renderizará uma tag de âncora, mas também verificará a rota atual. Se você estiver atualmente na mesma rota/URL que o link de navegação, ele adicionará automaticamente uma classe CSS chamada active à tag.
 
+<!-- TOC --><a name="projetos-criados-pelo-template"></a>
+
 ## Projetos criados pelo template
 
 * Projeto BlazorWebApp.Client - é o projeto WebAssembly. Nesse projeto, devemos colocar todos os componentes que queremos executar como WebAssembly.
 * Projeto BlazorWebApp - referencia o projeto BlazorWebApp.Client, para que ele encontre todos os componentes e possa executá-los como componentes do Blazor Server, se quisermos.
+
+<!-- TOC --><a name="componentes"></a>
 
 ## Componentes
 
@@ -208,6 +226,8 @@ Existem três maneiras diferentes de criar um componente:
 * Usando um arquivo code-behind junto com um arquivo .razor
 * Usando apenas um arquivo code-behind
 
+<!-- TOC --><a name="diretiva-page"></a>
+
 ### Diretiva @page
 
 ```c#
@@ -216,6 +236,8 @@ Existem três maneiras diferentes de criar um componente:
 
 Torna possível rotear diretamente para o componente
 
+<!-- TOC --><a name="diretiva-rendermode"></a>
+
 ### Diretiva @rendermode
 
 ```c#
@@ -223,6 +245,8 @@ Torna possível rotear diretamente para o componente
 ```
 
 Esta é a maneira como podemos definir o modo de renderização em um componente específico. Isso significa que quando usamos este componente, ele primeiro renderizará a página usando o Blazor Server (com SignalR) e, em segundo plano, baixará a versão do WebAssembly para que, na próxima vez que carregarmos a página, ele execute a versão do WebAssembly.
+
+<!-- TOC --><a name="declaração-code"></a>
 
 ### Declaração @code
 
