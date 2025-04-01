@@ -11,27 +11,85 @@ Fontes:
 
 Índice:
 
-1. [Principais comandos](#principais-comandos)
-1. [Help](#help)
-1. [Configurando o Git](#configurando-o-git)
-1. [Ciclo de vida do status de seus arquivos](#ciclo-de-vida-do-status-de-seus-arquivos)
-1. [Getting a git repository](#getting-a-git-repository)
-1. [Recording Changes to the Repository](#recording-changes-to-the-repository)
-1. [Viewing the Commit History](#viewing-the-commit-history)
-1. [Desfazendo as coisas](#desfazendo-as-coisas)
-1. [Working with Remotes](#working-with-remotes)
-1. [Tagging](#tagging)
-1. [Branching](#branching)
-1. [Merging](#merging)
-1. [Rebase](#rebase)
-1. [Merge vs. Rebase](#merge-vs-rebase)
-1. [Estratégias de trabalho com o git](#estratégias-de-trabalho-com-o-git-chamados-de-branching-workflows)
-1. [Aliases (atalhos)](#aliases-atalhos)
-1. [Gerando uma nova chave SSH e adicionando-a ao agente SSH](#gerando-uma-nova-chave-ssh-e-adicionando-a-ao-agente-ssh)
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+* [Principais comandos](#principais-comandos)
+* [Help](#help)
+* [Ciclo de vida do status de seus arquivos](#ciclo-de-vida-do-status-de-seus-arquivos)
+* [Configurando o Git](#configurando-o-git)
+* [Getting a git repository](#getting-a-git-repository)
+  * [Init](#init)
+  * [Clone](#clone)
+* [Recording Changes to the Repository](#recording-changes-to-the-repository)
+  * [Checking the Status of Your Files](#checking-the-status-of-your-files)
+  * [Tracking New Files](#tracking-new-files)
+  * [Staging Modified Files](#staging-modified-files)
+  * [Making merge-conflicted files as resolved](#making-merge-conflicted-files-as-resolved)
+  * [Ignoring Files](#ignoring-files)
+  * [Viewing Your Staged and Unstaged Changes](#viewing-your-staged-and-unstaged-changes)
+  * [Committing Your Changes](#committing-your-changes)
+  * [Skipping the Staging Area](#skipping-the-staging-area)
+  * [Removing Files](#removing-files)
+  * [Renomeando arquivos](#renomeando-arquivos)
+* [Viewing the Commit History](#viewing-the-commit-history)
+* [Desfazendo as coisas](#desfazendo-as-coisas)
+  * [Retirando um arquivo da area de stage](#retirando-um-arquivo-da-area-de-stage)
+  * [Desfazendo alterações em arquivo no diretório de trabalho](#desfazendo-alterações-em-arquivo-no-diretório-de-trabalho)
+  * [Desfazendo um commit no qual ainda não foi feito um push](#desfazendo-um-commit-no-qual-ainda-não-foi-feito-um-push)
+  * [Guardando as alterações quando um commit não é adequado](#guardando-as-alterações-quando-um-commit-não-é-adequado)
+* [Working with Remotes](#working-with-remotes)
+  * [Para ver quais servidores remotos estão configurados](#para-ver-quais-servidores-remotos-estão-configurados)
+  * [Para fazer um repositório local conhecer um repositório remoto](#para-fazer-um-repositório-local-conhecer-um-repositório-remoto)
+  * [Inspecionar um remote](#inspecionar-um-remote)
+  * [Renomeando um remote](#renomeando-um-remote)
+  * [Removendo um remote](#removendo-um-remote)
+  * [Fetching from Your Remotes](#fetching-from-your-remotes)
+  * [Pulling from Your Remotes](#pulling-from-your-remotes)
+  * [Diferença entre fetch e pull](#diferença-entre-fetch-e-pull)
+  * [Pushing to Your Remotes](#pushing-to-your-remotes)
+  * [Migrar o remote do repositório](#migrar-o-remote-do-repositório)
+* [Tagging](#tagging)
+  * [Listing Your Tags](#listing-your-tags)
+  * [Creating annotated Tags](#creating-annotated-tags)
+  * [Creating lightweight Tags](#creating-lightweight-tags)
+  * [Tagging Later](#tagging-later)
+  * [Show tag data](#show-tag-data)
+  * [Levando uma tag para o remote](#levando-uma-tag-para-o-remote)
+  * [Deletando tags](#deletando-tags)
+  * [Vendo o conteúdo de uma tag](#vendo-o-conteúdo-de-uma-tag)
+  * [Criando um novo branch a partir de uma tag](#criando-um-novo-branch-a-partir-de-uma-tag)
+* [Branching](#branching)
+  * [Listando branches](#listando-branches)
+  * [Criando um novo branch](#criando-um-novo-branch)
+  * [Deletando um branch](#deletando-um-branch)
+  * [Alternando entre branches](#alternando-entre-branches)
+  * [Branches remotos](#branches-remotos)
+* [Merging](#merging)
+  * [Mergeando branches](#mergeando-branches)
+  * ["Fast-forward" merge](#fast-forward-merge)
+  * ["Merge commit" merge](#merge-commit-merge)
+  * [Merge conflits](#merge-conflits)
+* [Rebase](#rebase)
+* [Merge vs. Rebase](#merge-vs-rebase)
+* [Estratégias de trabalho com o git (chamados de Branching workflows)](#estratégias-de-trabalho-com-o-git-chamados-de-branching-workflows)
+* [Aliases (atalhos)](#aliases-atalhos)
+* [Gerando uma nova chave SSH e adicionando-a ao agente SSH](#gerando-uma-nova-chave-ssh-e-adicionando-a-ao-agente-ssh)
+  * [Gerando a chave](#gerando-a-chave)
+  * [Guardando a chave no Ubuntu](#guardando-a-chave-no-ubuntu)
+  * [Guardando a chave no Mac](#guardando-a-chave-no-mac)
+  * [Guardando a chave no Windows](#guardando-a-chave-no-windows)
+  * [Adicionar a chave gerada ao seu versionador](#adicionar-a-chave-gerada-ao-seu-versionador)
+  * [Testando a comunicação com o servidor através do ssh](#testando-a-comunicação-com-o-servidor-através-do-ssh)
+
+<!-- TOC end -->
+
+<!-- TOC --><a name="principais-comandos"></a>
 
 ## Principais comandos
 
 [init](#init) | [clone](#clone) | [status](#checking-the-status-of-your-files) | [add](#tracking-new-files) | [diff](#viewing-your-staged-and-unstaged-changes) | [commit](#committing-your-changes) | [rm](#removing-files) | [mv](#renomeando-arquivos) | [log](#viewing-the-commit-history) | [remote](#para-ver-quais-servidores-remotos-estão-configurados) | [fetch](#fetching-from-your-remotes) | [pull](#pulling-from-your-remotes) | [push](#pushing-to-your-remotes) | [tag](#tagging) | [show](#show-tag-data) | [branch](#listando-branches) | [checkout](#alternando-entre-branches) | [merge](#mergeando-branches) | [rebase](#rebase) | [stash](#guardando-as-alterações-quando-um-commit-não-é-adequado)  | [reset](#desfazendo-um-commit-no-qual-ainda-não-foi-feito-um-push)
+
+<!-- TOC --><a name="help"></a>
 
 ## Help
 
@@ -45,11 +103,15 @@ If you ever need help while using Git, there are three equivalent ways to get th
 
  [top](#git-table-of-contents)
 
+<!-- TOC --><a name="ciclo-de-vida-do-status-de-seus-arquivos"></a>
+
 ## Ciclo de vida do status de seus arquivos
 
 ![Ciclo de vida do status de um arquivo git](img/ciclo_vida_status_git_file.png "Ciclo de vida - git status file")
 
  [top](#git-table-of-contents)
+
+<!-- TOC --><a name="configurando-o-git"></a>
 
 ## Configurando o Git
 
@@ -88,7 +150,11 @@ Para fazer com que novos branches sejam levados (push) para o servidor remoto ap
 
 `git config --global --add --bool push.autoSetupRemote true`
 
+<!-- TOC --><a name="getting-a-git-repository"></a>
+
 ## Getting a git repository
+
+<!-- TOC --><a name="init"></a>
 
 ### Init
 
@@ -101,6 +167,8 @@ Será criada uma pasta .git com toda a estrutura necessária ao git, porém nenh
 Para iniciar um repositório remoto que só irá armazenar as alterações. Ele será o nosso servidor de git. Ninguém irá trabalhar diretamente nesta pasta.
 
 `git init --bare`
+
+<!-- TOC --><a name="clone"></a>
 
 ### Clone
 
@@ -127,7 +195,11 @@ Os seguintes protocolos são suportados pelo git:
 
 [top](#git-table-of-contents)
 
+<!-- TOC --><a name="recording-changes-to-the-repository"></a>
+
 ## Recording Changes to the Repository
+
+<!-- TOC --><a name="checking-the-status-of-your-files"></a>
 
 ### Checking the Status of Your Files
 
@@ -152,6 +224,8 @@ M  lib/simplegit.rb
 
  There are two columns to the output - the left-hand column indicates the status of the staging area and the right-hand column indicates the status of the working tree. So for example in that output, the README file is modified in the working directory but not yet staged, while the lib/simplegit.rb file is modified and staged. The Rakefile was modified, staged and then modified again, so there are changes to it that are both staged and unstaged.
 
+<!-- TOC --><a name="tracking-new-files"></a>
+
 ### Tracking New Files
 
 Para levar um arquivo de Untracked para Staged:
@@ -166,9 +240,13 @@ Para levar um arquivo de Untracked para Staged:
 
 The git add command takes a path name for either a file or a directory; if it’s a directory, the command adds all the files in that directory recursively.
 
+<!-- TOC --><a name="staging-modified-files"></a>
+
 ### Staging Modified Files
 
 O comando 'add' também é usando para tornar um aquivo alterado em 'staged for commit'
+
+<!-- TOC --><a name="making-merge-conflicted-files-as-resolved"></a>
 
 ### Making merge-conflicted files as resolved
 
@@ -176,6 +254,8 @@ Também é usado para tornar 'resolvidos' arquivos com conflito no merge
 
 __git add is a multipurpose command — you use it to begin tracking new files, to stage files, and to do other things like marking merge-conflicted files as
 resolved. It may be helpful to think of it more as “add precisely this content to the next commit”__
+
+<!-- TOC --><a name="ignoring-files"></a>
 
 ### Ignoring Files
 
@@ -189,6 +269,8 @@ O arquivo .gitignore é usado para sinalizar ao git quais arquivos na pasta não
 The first line tells Git to ignore any files ending in “.o” or “.a” — object and archive files that may be the product of building your code. The second line tells Git to ignore all files whose names end with a tilde (~), which is used by many text editors such as Emacs to mark temporary files. You may also
 include a log, tmp, or pid directory; automatically generated documentation; and so on.
 
+<!-- TOC --><a name="viewing-your-staged-and-unstaged-changes"></a>
+
 ### Viewing Your Staged and Unstaged Changes
 
 To see what you’ve changed but not yet staged:
@@ -200,6 +282,8 @@ If you want to see what you’ve staged that will go into your next commit
 `git diff --staged`
 
 This command compares your staged changes to your last commit
+
+<!-- TOC --><a name="committing-your-changes"></a>
 
 ### Committing Your Changes
 
@@ -221,9 +305,13 @@ Quando vc precisa corrigir um commit, ou porque esquecer de acrescentar um arqui
 
 `git commit --amend -m "nova mensagem em substituição a anterior"`
 
+<!-- TOC --><a name="skipping-the-staging-area"></a>
+
 ### Skipping the Staging Area
 
 Adicionando a opção *-a* ao command *git commit* fará que qualquer arquivo monitorado pelo git, mas ainda não incluído na area de stage, seja adicionado automaticamente. Arquivos não monitorados pelo git ficarão de fora do commit.
+
+<!-- TOC --><a name="removing-files"></a>
 
 ### Removing Files
 
@@ -235,6 +323,8 @@ Se você já modificou o arquivo ou já o adicionou a area de stage, você deve 
 
 Se quiser remover o arquivo da area de stage, mas ainda sim quer mantê-lo no disco, use a opção *--cached*. Isso é útil quando você acidentalmente adiciona a area de stage algum arquivo importante, que é necessário para o projeto, mas vc não precisa mantê-lo no Git.
 
+<!-- TOC --><a name="renomeando-arquivos"></a>
+
 ### Renomeando arquivos
 
 Assim como ocorre com o Linux, renomear um arquivo é feito através do comando *mv*.
@@ -244,6 +334,8 @@ Assim como ocorre com o Linux, renomear um arquivo é feito através do comando 
 O próprio Git considera essa operação com um renomeio.
 
 [top](#git-table-of-contents)
+
+<!-- TOC --><a name="viewing-the-commit-history"></a>
 
 ## Viewing the Commit History
 
@@ -317,13 +409,19 @@ A parte de log tem outras opções muito interessantes sobre filtros, na página
 
 [top](#git-table-of-contents)
 
+<!-- TOC --><a name="desfazendo-as-coisas"></a>
+
 ## Desfazendo as coisas
+
+<!-- TOC --><a name="retirando-um-arquivo-da-area-de-stage"></a>
 
 ### Retirando um arquivo da area de stage
 
 `git restore --staged file_name`
 
 O arquivo foi colocado na area de stage com o comando *add*, mas agora vc precisa retirá-lo dessa area.
+
+<!-- TOC --><a name="desfazendo-alterações-em-arquivo-no-diretório-de-trabalho"></a>
 
 ### Desfazendo alterações em arquivo no diretório de trabalho
 
@@ -332,6 +430,8 @@ O arquivo foi colocado na area de stage com o comando *add*, mas agora vc precis
 Aqui o arquivo foi alterado, mas ainda não foi dado o add. Dessa forma ele está alterado, mas não está na area de stage. Ex.:
 
 `git restore CONTRIBUTING.md`
+
+<!-- TOC --><a name="desfazendo-um-commit-no-qual-ainda-não-foi-feito-um-push"></a>
 
 ### Desfazendo um commit no qual ainda não foi feito um push
 
@@ -351,6 +451,8 @@ Este comando desfaz o último commit e descarta todas as mudanças no diretório
 
 Escolha o comando que melhor se adapta à sua necessidade. Lembre-se de que HEAD~1 refere-se ao commit anterior ao HEAD atual. Se você precisar reverter mais de um commit, substitua 1 pelo número de commits que deseja reverter.
 
+<!-- TOC --><a name="guardando-as-alterações-quando-um-commit-não-é-adequado"></a>
+
 ### Guardando as alterações quando um commit não é adequado
 
 O git possui o comando *stash* que possibilita vc guardar as alterações em uma área diferente, fora do seu branch, e poder reaplicá-lo mais tarde, no mesmo branch ou em um outro qualquer.
@@ -367,7 +469,11 @@ O git possui o comando *stash* que possibilita vc guardar as alterações em uma
 
 [top](#git-table-of-contents)
 
+<!-- TOC --><a name="working-with-remotes"></a>
+
 ## Working with Remotes
+
+<!-- TOC --><a name="para-ver-quais-servidores-remotos-estão-configurados"></a>
 
 ### Para ver quais servidores remotos estão configurados
 
@@ -379,6 +485,8 @@ para listar os repositórios remotos que o repositório local conhece
 
 verbose para listar mais detalhes
 
+<!-- TOC --><a name="para-fazer-um-repositório-local-conhecer-um-repositório-remoto"></a>
+
 ### Para fazer um repositório local conhecer um repositório remoto
 
 `git remote add <name> <url>`
@@ -386,6 +494,8 @@ verbose para listar mais detalhes
 a url pode ser um endereço local, na rede, na web
 
 `git remote add pb <https://github.com/paulboone/ticgit>`
+
+<!-- TOC --><a name="inspecionar-um-remote"></a>
 
 ### Inspecionar um remote
 
@@ -401,11 +511,15 @@ Esse comando mostra:
 * which remote branches on the server you don’t yet have
 * which remote branches you have that have been removed from the server, and multiple local branches that are able to merge automatically with their remote-tracking branch when you run git pull.
 
+<!-- TOC --><a name="renomeando-um-remote"></a>
+
 ### Renomeando um remote
 
 `git remote rename pb paul`
 
 It’s worth mentioning that this changes all your remote-tracking branch names, too. What used to be referenced at pb/master is now at paul/master.
+
+<!-- TOC --><a name="removendo-um-remote"></a>
 
 ### Removendo um remote
 
@@ -413,11 +527,15 @@ It’s worth mentioning that this changes all your remote-tracking branch names,
 
 Once you delete the reference to a remote this way, all remote-tracking branches and configuration settings associated with that remote are also deleted.
 
+<!-- TOC --><a name="fetching-from-your-remotes"></a>
+
 ### Fetching from Your Remotes
 
 `git fetch remote`
 
 The command goes out to that remote project and pulls down all the data from that remote project that you don’t have yet. After you do this, you should have references to all the branches from that remote, which you can merge in or inspect at any time.
+
+<!-- TOC --><a name="pulling-from-your-remotes"></a>
 
 ### Pulling from Your Remotes
 
@@ -429,10 +547,14 @@ Para baixar um branch específico, use:
 
 `git pull nome-servidor-remoto nome-branch`
 
+<!-- TOC --><a name="diferença-entre-fetch-e-pull"></a>
+
 ### Diferença entre fetch e pull
 
 It’s important to note that the git fetch command only downloads the data to your local repository — it doesn’t automatically merge it with any of your work or
 modify what you’re currently working on. You have to merge it manually into your work when you’re ready. Git pull command will automatically fetch and then merge that remote branch into your current branch.
+
+<!-- TOC --><a name="pushing-to-your-remotes"></a>
 
 ### Pushing to Your Remotes
 
@@ -442,11 +564,25 @@ para subir um branch criado localmente para servidor remoto
 
 This command works only if you cloned from a server to which you have write access and if nobody has pushed in the meantime. If you and someone else clone at the same time and they push upstream and then you push upstream, your push will rightly be rejected. You’ll have to fetch their work first and incorporate it into yours before you’ll be allowed to push. See Git Branching for more detailed information on how to push to remote servers.
 
+<!-- TOC --><a name="migrar-o-remote-do-repositório"></a>
+
+### Migrar o remote do repositório
+
+Quando um repositório remoto é migrado de um local para o outro, o comando abaixo consegue ajustar o endereço do remote no seu repo local.
+
+`git remote set-url origin git@server:new_path_repo.git`
+
+A partir disso o repositório deverá voltar a funcionar normalmente
+
 [top](#git-table-of-contents)
+
+<!-- TOC --><a name="tagging"></a>
 
 ## Tagging
 
 Typically, people use this functionality to mark release points (v1.0, v2.0 and so on).
+
+<!-- TOC --><a name="listing-your-tags"></a>
 
 ### Listing Your Tags
 
@@ -456,17 +592,23 @@ Typically, people use this functionality to mark release points (v1.0, v2.0 and 
 
 para listar apenas as tags da série 1.8.5 (-l ou --list)
 
+<!-- TOC --><a name="creating-annotated-tags"></a>
+
 ### Creating annotated Tags
 
 Annotated tags, however, are stored as full objects in the Git database. They’re checksummed; contain the tagger name, email, and date; have a tagging message; and can be signed and verified with GNU Privacy Guard (GPG). It’s generally recommended that you create annotated tags so you can have all this information;
 
 `git tag -a v1.4 -m "my version 1.4"`
 
+<!-- TOC --><a name="creating-lightweight-tags"></a>
+
 ### Creating lightweight Tags
 
 A lightweight tag is very much like a branch that doesn’t change — it’s just a pointer to a specific commit. To create a lightweight tag, don’t supply any of the -a, -s, or -m options, just provide a tag name
 
 `git tag v1.4-lw`
+
+<!-- TOC --><a name="tagging-later"></a>
 
 ### Tagging Later
 
@@ -478,6 +620,8 @@ Depois crie a tag adicionando o checksum ou parte dele ao final do commando:
 
 `git tag -a v1.2 9fceb02`
 
+<!-- TOC --><a name="show-tag-data"></a>
+
 ### Show tag data
 
 Para ver o que foi alterado em um determinado commit, passe a hash do commit (ou parte dele) como parâmetro do git log:
@@ -487,6 +631,8 @@ Para ver o que foi alterado em um determinado commit, passe a hash do commit (ou
 You can see the tag data along with the commit that was tagged by using the git show command.
 
 `git show v1.4`
+
+<!-- TOC --><a name="levando-uma-tag-para-o-remote"></a>
 
 ### Levando uma tag para o remote
 
@@ -498,15 +644,21 @@ If you have a lot of tags that you want to push up at once, you can also use the
 
 `git push origin --tags`
 
+<!-- TOC --><a name="deletando-tags"></a>
+
 ### Deletando tags
 
 Deletando a tag localmente: `git tag -d v1.4-lw`
 
 Depois, para deletar do remoto: `git push origin --delete v1.4-lw`
 
+<!-- TOC --><a name="vendo-o-conteúdo-de-uma-tag"></a>
+
 ### Vendo o conteúdo de uma tag
 
 `git checkout 2.0.0`
+
+<!-- TOC --><a name="criando-um-novo-branch-a-partir-de-uma-tag"></a>
 
 ### Criando um novo branch a partir de uma tag
 
@@ -518,7 +670,11 @@ Se você fizer um commit, seu branch version2 será um pouco diferente de sua ta
 
 [top](#git-table-of-contents)
 
+<!-- TOC --><a name="branching"></a>
+
 ## Branching
+
+<!-- TOC --><a name="listando-branches"></a>
 
 ### Listando branches
 
@@ -540,6 +696,8 @@ Você também pode passar o branch a ser usado como referência:
 
 `git branch --no-merged master`
 
+<!-- TOC --><a name="criando-um-novo-branch"></a>
+
 ### Criando um novo branch
 
 `git branch testing`
@@ -549,11 +707,15 @@ Como o git sabe em qual commit você está trabalhando agora? Ele manter um pont
 
 ![git branch](img/git_branch_01.png)
 
+<!-- TOC --><a name="deletando-um-branch"></a>
+
 ### Deletando um branch
 
 local: `git branch -d nome_branch`
 
 Remoto: `git push -d nome_branch`
+
+<!-- TOC --><a name="alternando-entre-branches"></a>
 
 ### Alternando entre branches
 
@@ -569,13 +731,19 @@ Esse comando cria o branch iss53 e alterna o HEAD para ele.
 
 ![git checkout](img/git_checkout_01.png)
 
+<!-- TOC --><a name="branches-remotos"></a>
+
 ### Branches remotos
 
 `git ls-remote <remote>`
 
 ou `git remote show <remote>`
 
+<!-- TOC --><a name="merging"></a>
+
 ## Merging
+
+<!-- TOC --><a name="mergeando-branches"></a>
 
 ### Mergeando branches
 
@@ -585,11 +753,15 @@ No merge você junta as alterações de um outro branch no branch apontado pelo 
 
 `git merge hotfix`
 
+<!-- TOC --><a name="fast-forward-merge"></a>
+
 ### "Fast-forward" merge
 
 ![Merge do tipo fast-forward](img/git_merge_02.png)
 
 Note “fast-forward” no merge. Como o commit apontado pelo hotfix do branch no qual você fez o merge estava diretamente à frente do commit em que você está, o Git simplesmente move o ponteiro para frente. Em outras palavras, quando você tenta mesclar um commit com um commit que pode ser alcançado seguindo o histórico do primeiro commit, o Git simplifica as coisas movendo o ponteiro para frente porque não há trabalho divergente para mesclar - isso é chamado de “fast-forward”
+
+<!-- TOC --><a name="merge-commit-merge"></a>
 
 ### "Merge commit" merge
 
@@ -597,9 +769,13 @@ Note “fast-forward” no merge. Como o commit apontado pelo hotfix do branch n
 
 Neste caso o novo merge não foi do tipo “fast-forward”. O git criou um novo snapshot que resulta da junção dos branches, esse snapshot também sofreu um commit automático. Esse tipo de merge é chamado de "merge commit" e é especial porque resulta em um commit com mais de um pai.
 
+<!-- TOC --><a name="merge-conflits"></a>
+
 ### Merge conflits
 
 `git mergetool`
+
+<!-- TOC --><a name="rebase"></a>
 
 ## Rebase
 
@@ -623,6 +799,8 @@ Frequentemente, você fará isso para garantir que seus commits sejam aplicados 
 
 Observação: Não faça rebase de commits que existem fora do seu repositório e nos quais as pessoas possam ter baseado seu trabalho. Em geral, a maneira de obter o melhor dos dois mundos (Merge vs. Rebase) é usar o rebase nas alterações locais que você fez, mas ainda não compartilhou, antes de dar um push, para limpar sua história, mas nunca usar rebase em algo que você já fez push em algum lugar.
 
+<!-- TOC --><a name="merge-vs-rebase"></a>
+
 ## Merge vs. Rebase
 
 A principal diferença entre git merge e git rebase é que git merge é uma maneira de combinar alterações de um branch (branch de origem) em outro branch (branch de destino), enquanto git rebase é uma maneira de mover as alterações de uma branch para outra branch.
@@ -639,6 +817,8 @@ Uma tabela ilustra melhor esse diferença:
 
 [Mais em ...](https://www.simplilearn.com/git-rebase-vs-merge-article#:~:text=The%20main%20difference%20between%20git,one%20branch%20onto%20another%20branch.)
 
+<!-- TOC --><a name="estratégias-de-trabalho-com-o-git-chamados-de-branching-workflows"></a>
+
 ## Estratégias de trabalho com o git (chamados de Branching workflows)
 
 Alguns sites com referência para o assunto:
@@ -646,6 +826,8 @@ Alguns sites com referência para o assunto:
 * [Comparing Git Workflows: What You Should Know](https://www.atlassian.com/git/tutorials/comparing-workflows)
 * [5 Types of Git WorkFlow & Explanation of each Flow](https://razorops.com/blog/5-types-of-git-workflow-&-explanation-of-each-flow)
 * [5 Different Git Workflows](https://medium.com/javarevisited/5-different-git-workflows-50f75d8783a7)
+
+<!-- TOC --><a name="aliases-atalhos"></a>
 
 ## Aliases (atalhos)
 
@@ -667,6 +849,8 @@ Você pode configurar atalhos no git usando o comando de configuração:
 
 [top](#git-table-of-contents)
 
+<!-- TOC --><a name="gerando-uma-nova-chave-ssh-e-adicionando-a-ao-agente-ssh"></a>
+
 ## Gerando uma nova chave SSH e adicionando-a ao agente SSH
 
 Página oficial para os 3 maiores versionadores que eu utilizo:
@@ -674,6 +858,8 @@ Página oficial para os 3 maiores versionadores que eu utilizo:
 * [Github](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 * [Gitlab](https://docs.gitlab.com/ee/user/ssh.html#generate-an-ssh-key-pair)
 * [Bitbucket](https://www.atlassian.com/br/git/tutorials/git-ssh)
+
+<!-- TOC --><a name="gerando-a-chave"></a>
 
 ### Gerando a chave
 
@@ -683,6 +869,8 @@ Página oficial para os 3 maiores versionadores que eu utilizo:
   * Irá aparecer a pergunta: "Enter a file in which to save the key (/home/YOU/.ssh/ALGORITHM):[Press enter]". Aqui vc vai precisar alterar o nome do arquivo caso já existam chaves cadastradas com o nome padrão, senão vai dar erro.
 * Vai pedir uma senha. No prompt, digite uma frase secreta segura.
 
+<!-- TOC --><a name="guardando-a-chave-no-ubuntu"></a>
+
 ### Guardando a chave no Ubuntu
 
 1. `eval "$(ssh-agent -s)"`
@@ -690,12 +878,16 @@ Página oficial para os 3 maiores versionadores que eu utilizo:
 
 cuidado, verificar antes o nome do arquivo da chave, que pode ser diferente
 
+<!-- TOC --><a name="guardando-a-chave-no-mac"></a>
+
 ### Guardando a chave no Mac
 
 1. `eval "$(ssh-agent -s)"`
 1. `ssh-add --apple-use-keychain ~/.ssh/id_ed25519`
 
 cuidado, verificar antes o nome do arquivo da chave, que pode ser diferente
+
+<!-- TOC --><a name="guardando-a-chave-no-windows"></a>
 
 ### Guardando a chave no Windows
 
@@ -706,6 +898,8 @@ Abra o Git Bash, que provavelmente foi instalado pelo instalador do Git.
 
 cuidado, verificar antes o nome do arquivo da chave, que pode ser diferente
 
+<!-- TOC --><a name="adicionar-a-chave-gerada-ao-seu-versionador"></a>
+
 ### Adicionar a chave gerada ao seu versionador
 
 * github
@@ -714,6 +908,8 @@ cuidado, verificar antes o nome do arquivo da chave, que pode ser diferente
   * <https://docs.gitlab.com/ee/user/ssh.html#add-an-ssh-key-to-your-gitlab-account>
 * bitbucket
   * <https://support.atlassian.com/bitbucket-cloud/docs/set-up-personal-ssh-keys-on-linux/>
+
+<!-- TOC --><a name="testando-a-comunicação-com-o-servidor-através-do-ssh"></a>
 
 ### Testando a comunicação com o servidor através do ssh
 
