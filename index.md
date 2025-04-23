@@ -16,6 +16,7 @@ layout: default
 1. [Docker](./content/docker/index.html)
 1. [Git](./content/git/index.html)
 1. Java
+    * [Sobre a linguagem](./content/java/index.html)
     * Micronaut
 1. Kubernetes
 1. Linux
