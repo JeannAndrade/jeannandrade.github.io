@@ -867,16 +867,21 @@ Página oficial para os 3 maiores versionadores que eu utilizo:
   * troque "jeann" pelo seu usuário.
 * No Terminal entre com o comando: `ssh-keygen -t ed25519 -C "your_email@example.com"`
   * Irá aparecer a pergunta: "Enter a file in which to save the key (/home/YOU/.ssh/ALGORITHM):[Press enter]". Aqui vc vai precisar alterar o nome do arquivo caso já existam chaves cadastradas com o nome padrão, senão vai dar erro.
-* Vai pedir uma senha. No prompt, digite uma frase secreta segura.
+* Vai pedir uma senha, mas é opcional. Só coloque se realmente precisar.
 
 <!-- TOC --><a name="guardando-a-chave-no-ubuntu"></a>
 
 ### Guardando a chave no Ubuntu
 
-1. `eval "$(ssh-agent -s)"`
-1. `ssh-add -k ~/.ssh/id_ed25519`
+Melhor maneira de fazer isso é iniciando o agente ssh e adicionar a chave a cada início de sessão do Ubuntu. Geralmente faço isso direto no arquivo .zshrc
 
-cuidado, verificar antes o nome do arquivo da chave, que pode ser diferente
+```bash
+# Iniciando agente ssh
+eval "$(ssh-agent -s)" > /dev/null 2>&1
+ssh-add ~/.ssh/id_ed25519 > /dev/null 2>&1
+```
+
+Direciono a saída para null para não ter retorno no terminal. Cuidado, verificar antes o nome do arquivo da chave, que pode ser diferente.
 
 <!-- TOC --><a name="guardando-a-chave-no-mac"></a>
 
