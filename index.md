@@ -28,6 +28,7 @@ layout: default
     * [C#](./content/net/csharp/index.html)
     * [.Net MAUI](./content/net/maui/index.html)
     * [.Net cli](./content/net/cli/index.html)
+1. [Observabilidade](./content/observabilidade/index.html)
 1. Shell
     * PowerShell
 1. Windows
