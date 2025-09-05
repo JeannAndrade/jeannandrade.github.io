@@ -17,6 +17,7 @@ layout: default
 1. Java
     * [Sobre a linguagem](./content/java/index.html)
     * Micronaut
+1. [Kubernetes](./content/Kubernetes/index.html)
 1. Linux
     * [Lista básica de aplicativos para instalar](./content/linux/aplicativos_instalar/index.html)
     * [Vim](./content/vim/index.html)
