@@ -67,7 +67,11 @@ Node (Nó): o Kubernetes executa a sua carga de trabalho agrupando contêineres 
 
 ![Nos](./img/Node.png)
 
-Pod: um grupo de um ou mais contêineres. Os pods são definidos por um arquivo PodSpec, uma especificação de como executar os contêineres. Os pods são o componente básico do Kubernetes para implantação, scaling e replicação.
+### Pod
+
+Um grupo de um ou mais contêineres. Os pods são definidos por um arquivo PodSpec, uma especificação de como executar os contêineres. Os pods são o componente básico do Kubernetes para implantação, scaling e replicação.
+
+**Analogia:** Os pods são como equipes de trabalho em uma empresa. Cada equipe (pod) reúne profissionais (contêineres) que colaboram diretamente para realizar uma tarefa específica. Eles compartilham recursos e se comunicam facilmente entre si, mas, se necessário, podem ser substituídos por novas equipes para garantir que o trabalho continue sem interrupções.
 
 <!-- TOC --><a name="ephemeral-volume-volume-efêmero"></a>
 
