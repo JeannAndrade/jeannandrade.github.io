@@ -1,5 +1,5 @@
 ---
-layout: internal
+layout: internal_NoButton
 ---
 
 # K9S
