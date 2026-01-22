@@ -90,7 +90,7 @@ O .NET está disponível nos feeds do gerenciador de pacotes do Ubuntu. O reposi
 
 Inclusive o .Net SDK 10.0 já está disponível no gerenciador de pacotes do Ubuntu.
 
-É mais segura seguir as instruções no site oficial da instalação da [Microsoft](https://learn.microsoft.com/pt-br/dotnet/core/install/linux-ubuntu-install?tabs=dotnet10&pivots=os-linux-ubuntu-2404)
+É mais seguro seguir as instruções no site oficial da instalação da [Microsoft](https://learn.microsoft.com/pt-br/dotnet/core/install/linux-ubuntu-install?tabs=dotnet10&pivots=os-linux-ubuntu-2404)
 
 ## Docker
 
