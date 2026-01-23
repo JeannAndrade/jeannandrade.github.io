@@ -38,7 +38,7 @@ A lista estando vazia é preciso instalar a partir do configurador do Visual Stu
 
 ### Verificando os templates disponíveis
 
-`dotnet new --list`
+`dotnet new list`
 
 A lista vai mostrar os templates disponíveis de acordo com os workloads instalados.
 

@@ -52,7 +52,7 @@ O link de referência para o uso da ferramenta é:
 
 ### Listar os templates disponíveis
 
-`dotnet new --list`
+`dotnet new list`
 
 <!-- TOC --><a name="criar-um-projeto-novo"></a>
 

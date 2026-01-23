@@ -89,7 +89,7 @@ SignalR é uma biblioteca de comunicação em tempo real que cria uma conexão e
 O Blazor é criado com elementos de UI reutilizáveis ​​chamados **componentes**. Cada componente contém código C# e marcação. Um componente
 pode incluir outros componentes. Você pode usar a sintaxe Razor para misturar marcação e código C# ou fazer tudo em C#, se desejar. Os componentes podem ser atualizados pela interação do usuário (pressionando um botão) ou gatilhos (como um cronômetro).
 
-Os componentes são renderizados em uma árvore de renderização, uma representação binária do DOM contendo estados de objetos e quaisquer propriedades ou valores. A árvore de renderização manterá o controle de quaisquer alterações em comparação com a árvore de renderização anterior e, em seguida, enviará apenas as coisas que mudaram no SignalR usando um formato binário para atualizar o DOM.
+Os componentes são renderizados em uma árvore de renderização, uma representação binária do DOM contendo estados de objetos e quaisquer propriedades ou valores. A árvore de renderização manterá o controle de quaisquer alterações em comparação com a árvore de renderização anterior e, em seguida, enviará apenas as coisas que mudaram, via SignalR, usando um formato binário para atualizar o DOM.
 
 O JavaScript receberá as alterações no lado do cliente e atualizará a página de acordo. Se compararmos isso ao ASP.NET tradicional, renderizamos apenas o componente em si, não a página inteira, e enviamos apenas as alterações reais para o DOM, não a página inteira.
 
@@ -131,7 +131,7 @@ Se olharmos para o site de amostra padrão que é criado quando iniciamos um nov
 
 Como mencionamos anteriormente, dotnet.wasm é o runtime do mono que é compilado no WebAssembly. Ele roda DLLs .NET – aquelas que você escreveu e as do .NET Framework (que são necessárias para rodar seu aplicativo) – no seu navegador.
 
-Parece exagerado rodar todo o runtime do .NET no meu navegador, mas por outro lado você pode rodar qualquer DLL .NET Standard no seu navegador.
+Parece exagerado rodar todo o runtime do .NET no navegador, mas por outro lado você pode rodar qualquer DLL .NET Standard no seu navegador.
 
 Vantagens do Blazor WebAssembly:
 
