@@ -825,7 +825,7 @@ Alguns sites com referência para o assunto:
 
 * [Comparing Git Workflows: What You Should Know](https://www.atlassian.com/git/tutorials/comparing-workflows)
 * [5 Types of Git WorkFlow & Explanation of each Flow](https://razorops.com/blog/5-types-of-git-workflow-&-explanation-of-each-flow)
-* [5 Different Git Workflows](https://medium.com/javarevisited/5-different-git-workflows-50f75d8783a7)
+* 5 Different Git Workflows - `https://medium.com/javarevisited/5-different-git-workflows-50f75d8783a7`
 
 <!-- TOC --><a name="aliases-atalhos"></a>
 
