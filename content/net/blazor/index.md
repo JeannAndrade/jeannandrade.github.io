@@ -189,7 +189,7 @@ Então por que temos este? Bem, o Blazor Web App depende de tecnologias de rende
 
 A linha de comando abaixo cria um projeto Blazor configurado para suportar tanto Blazor Server quanto Blazor WebAssembly e as páginas usarão a renderização estática do servidor por padrão e podem ser marcadas como interativas por página ou por componente.
 
-`dotnet new blazor --name BlazorWebApp --output MyBlog --framework net8.0 --interactivity Auto --auth None --all-interactive false`
+`dotnet new blazor --name BlazorWebApp --output MyBlog --framework net10.0 --interactivity Auto --auth None --all-interactive false`
 
 <!-- TOC --><a name="sequência-de-execução-de-uma-aplicação-blazor"></a>
 
