@@ -59,8 +59,8 @@ O link de referência para o uso da ferramenta é:
 ### Criar um projeto novo
 
 ```dotnet
-dotnet new globaljson --sdk-version 8.0.107 --output PartyInvites
-dotnet new mvc --no-https --output PartyInvites --framework net8.0
+dotnet new globaljson --sdk-version 10.0.100 --output PartyInvites
+dotnet new mvc --no-https --output PartyInvites --framework net10.0
 dotnet new sln -o PartyInvites
 dotnet sln PartyInvites add PartyInvites
 ```
