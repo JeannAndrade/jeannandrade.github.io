@@ -162,7 +162,7 @@ O que faz? Exibe detalhes como a data de criação, o tamanho e as permissões d
 | `goto_gitlab` | cd ~/repo/gitlab | shell |
 | `goto_github` | cd ~/repo/github | shell |
 | `goto_bitbuket` | cd ~/repo/bitbuket | shell |
-| `code_note` | code ~/repo/github/jeannandrade.github.io/jeannandrade.github.io.code-workspace | VSCode |
+| `code_note` | code ~/repo/github/jeannandrade.github.io/ jeannandrade.github.io.code-workspace | VSCode |
 
 Registre também os seguintes atalhos neste arquivo:
 
