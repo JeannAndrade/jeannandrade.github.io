@@ -4,7 +4,7 @@ layout: internal
 
 # Editor Vim (Table of Contents)
 
-Este é um resumo do [post](https://www.tutorlinux.com.br/editor-vim-guia-completo/) disponível no TutorLinux
+Este é um resumo do post e, `https://www.tutorlinux.com.br/editor-vim-guia-completo/` disponível no TutorLinux
 
 1. [Abrindo o Editor Vim](#abrindo-o-editor-vim)
 1. [Modo de comando](#modo-de-comando)
