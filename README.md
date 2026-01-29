@@ -20,3 +20,18 @@ O tema contém um conjunto mínimo de testes para garantir que um site com o tem
 
 1. Você precisará executar o `script/bootstrap` uma vez para que o script de teste funcione.
 1. Execute o teste: `script/cibuild`
+
+## Alias geralmente criados no zshrc
+
+```bash
+# Example aliases
+alias zshconfig="nano ~/.zshrc"
+alias jekyllbs="script/bootstrap"
+alias jekyllsv="bundle exec jekyll serve"
+alias jekyllts="script/cibuild"
+```
+
+* `zshconfig`  => "nano ~/.zshrc"
+* `jekyllbs`   => "script/bootstrap"
+* `jekyllsv`   => "bundle exec jekyll serve"
+* `jekyllts`   => "script/cibuild"
