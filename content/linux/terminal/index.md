@@ -159,6 +159,7 @@ O que faz? Exibe detalhes como a data de criação, o tamanho e as permissões d
 | `jekyllsv` | bundle exec jekyll serve | Jekyll |
 | `jekyllts` | script/cibuild | Jekyll |
 | `goto_scripts` | cd ~/bin | shell |
+| `list_scripts` | ls -al ~/bin | shell |
 | `goto_gitlab` | cd ~/repo/gitlab | shell |
 | `goto_github` | cd ~/repo/github | shell |
 | `goto_bitbuket` | cd ~/repo/bitbuket | shell |
@@ -174,6 +175,7 @@ alias jekyllbs="script/bootstrap"
 alias jekyllsv="bundle exec jekyll serve"
 alias jekyllts="script/cibuild"
 alias goto_scripts="cd ~/bin"
+alias list_scripts="ls -al ~/bin"
 alias goto_gitlab="cd ~/repo/gitlab"
 alias goto_github="cd ~/repo/github"
 alias goto_bitbuket="cd ~/repo/bitbuket"

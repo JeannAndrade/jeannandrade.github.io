@@ -2,7 +2,10 @@
 layout: default
 ---
 
-# Home (Table of Contents)
+# Meus favoritos
+
+* [Meus alias Linux](./content/linux/terminal/index.md#alias-que-geralmente-uso-no-zshrc)
+* [Meus alias git](./content/git/index.md#aliases-atalhos)
 
 ## Hard Skills
 
