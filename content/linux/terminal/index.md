@@ -163,7 +163,7 @@ O que faz? Exibe detalhes como a data de criação, o tamanho e as permissões d
 | `goto_gitlab` | cd ~/repo/gitlab | shell |
 | `goto_github` | cd ~/repo/github | shell |
 | `goto_bitbuket` | cd ~/repo/bitbuket | shell |
-| `code_note` | code ~/repo/.../jeannandrade.github.io.code-workspace | VSCode |
+| `ws` | $HOME/bin/abrir-workspace-vscode.zsh | Script |
 
 Registre também os seguintes atalhos neste arquivo:
 
@@ -179,7 +179,7 @@ alias list_scripts="ls -al ~/bin"
 alias goto_gitlab="cd ~/repo/gitlab"
 alias goto_github="cd ~/repo/github"
 alias goto_bitbuket="cd ~/repo/bitbuket"
-alias code_note="code ~/repo/github/jeannandrade.github.io/jeannandrade.github.io.code-workspace"
+alias ws="$HOME/bin/abrir-workspace-vscode.zsh"
 ```
 
 [top](#table-of-contents)
