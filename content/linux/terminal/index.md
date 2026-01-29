@@ -12,10 +12,32 @@ Foram usados como fonte:
 
 ## Table of Contents
 
-1. [Lista dos comandos principais](#lista-dos-comandos-principais)
-1. [Instalando o Oh My Zsh no Linux](#instalando-o-oh-my-zsh-no-linux)
-1. [Perguntas e respostas](#perguntas-e-respostas)
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
+- [Lista dos comandos principais](#lista-dos-comandos-principais)
+- [Instalando o Oh My Zsh no Linux](#instalando-o-oh-my-zsh-no-linux)
+   * [Instalando o Zsh](#instalando-o-zsh)
+   * [Tornando o Zsh o shell padrão](#tornando-o-zsh-o-shell-padrão)
+   * [instalando o Oh My Zsh](#instalando-o-oh-my-zsh)
+   * [Instalando as fontes powerline](#instalando-as-fontes-powerline)
+   * [Instalando o pluging Zsh-syntax-highlighting](#instalando-o-pluging-zsh-syntax-highlighting)
+   * [Instalando o plugin FZF](#instalando-o-plugin-fzf)
+   * [Instalando o plugin zsh-autosuggestions](#instalando-o-plugin-zsh-autosuggestions)
+   * [Instalando o plugin k](#instalando-o-plugin-k)
+   * [Registrando os novos plugins no arquivo .zshrc](#registrando-os-novos-plugins-no-arquivo-zshrc)
+- [Alias que geralmente uso no zshrc](#alias-que-geralmente-uso-no-zshrc)
+- [Dicas de uso](#dicas-de-uso)
+   * [xkill](#xkill)
+   * [Alt + F2](#alt-f2)
+   * [Alt + Esc](#alt-esc)
+   * [Arquivo oculto](#arquivo-oculto)
+- [Perguntas e respostas](#perguntas-e-respostas)
+   * [What should/shouldn't go in .zshenv, .zshrc, .zlogin, .zprofile, .zlogout?](#what-shouldshouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout)
+   * [Qual o comando para fazer as alterações .zshrc do terem efeito?](#qual-o-comando-para-fazer-as-alterações-zshrc-do-terem-efeito)
+
+<!-- TOC end -->
+
+<!-- TOC --><a name="lista-dos-comandos-principais"></a>
 ## Lista dos comandos principais
 
 | Símbolo | Descrição |
@@ -65,32 +87,39 @@ Foram usados como fonte:
 
 [top](#table-of-contents)
 
+<!-- TOC --><a name="instalando-o-oh-my-zsh-no-linux"></a>
 ## Instalando o Oh My Zsh no Linux
 
+<!-- TOC --><a name="instalando-o-zsh"></a>
 ### Instalando o Zsh
 
 `sudo apt-get install zsh`
 
+<!-- TOC --><a name="tornando-o-zsh-o-shell-padrão"></a>
 ### Tornando o Zsh o shell padrão
 
 `chsh -s $(which zsh)`
 
 Depois de aplicado o comando, reinicie a Máquina. Reiniciar o terminal não deu certo para mim.
 
+<!-- TOC --><a name="instalando-o-oh-my-zsh"></a>
 ### instalando o Oh My Zsh
 
 `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 
+<!-- TOC --><a name="instalando-as-fontes-powerline"></a>
 ### Instalando as [fontes powerline](https://github.com/powerline/fonts)
 
 `sudo apt-get install fonts-powerline`
 
+<!-- TOC --><a name="instalando-o-pluging-zsh-syntax-highlighting"></a>
 ### Instalando o pluging [Zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
 O que faz? Realça os comando enquanto são digitados. Se estiver escrito errado ficará em vermelho, se certo ficará em verde
 
 `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
 
+<!-- TOC --><a name="instalando-o-plugin-fzf"></a>
 ### Instalando o plugin [FZF](https://github.com/junegunn/fzf)
 
 O que faz? possibilita a pesquisa de arquivos e pastas pelo terminal de forma simples e rápida, além de comandos já digitados. Para pesquisar arquivos e pastas, basta pressionar as teclas CTRL + T + nome do arquivo e, para pesquisar por comandos, digite CTRL + R + comando desejado.
@@ -99,23 +128,41 @@ O que faz? possibilita a pesquisa de arquivos e pastas pelo terminal de forma si
 
 `~/.fzf/install`
 
+<!-- TOC --><a name="instalando-o-plugin-zsh-autosuggestions"></a>
 ### Instalando o plugin [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 
 O que faz? faz a sugestão de comandos com base no que já foi digitado
 
 `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
 
+<!-- TOC --><a name="instalando-o-plugin-k"></a>
 ### Instalando o plugin [k](https://github.com/supercrabtree/k)
 
 O que faz? Exibe detalhes como a data de criação, o tamanho e as permissões de uso de arquivos e pastas. Digite 'k' em qualquer pasta para ver o resultado.
 
 `git clone https://github.com/supercrabtree/k $ZSH_CUSTOM/plugins/k`
 
+<!-- TOC --><a name="registrando-os-novos-plugins-no-arquivo-zshrc"></a>
 ### Registrando os novos plugins no arquivo .zshrc
 
 - Abra o arquivo .zshrc com o comando `sudo nano ~/.zshrc`
 - Altere a linha ZSH_THEME="robbyrussell" para ZSH_THEME="crcandy"
 - Adicione o zsh-syntax-highlighting a lista de plugins `plugins=(git zsh-syntax-highlighting fzf zsh-autosuggestions k)`
+
+<!-- TOC --><a name="alias-que-geralmente-uso-no-zshrc"></a>
+## Alias que geralmente uso no zshrc
+
+| Atalho | Comando | Referência |
+| :---: | :---: | :---: |
+| `zshconfig` | nano ~/.zshrc | Config |
+| `jekyllbs` | script/bootstrap | Jekyll |
+| `jekyllsv` | bundle exec jekyll serve | Jekyll |
+| `jekyllts` | script/cibuild | Jekyll |
+| `goto_scripts` | cd ~/bin | shell |
+| `goto_gitlab` | cd ~/repo/gitlab | shell |
+| `goto_github` | cd ~/repo/github | shell |
+| `goto_bitbuket` | cd ~/repo/bitbuket | shell |
+| `code_note` | code ~/repo/github/jeannandrade.github.io/jeannandrade.github.io.code-workspace | VSCode |
 
 Registre também os seguintes atalhos neste arquivo:
 
@@ -126,32 +173,44 @@ alias zshconfig="nano ~/.zshrc"
 alias jekyllbs="script/bootstrap"
 alias jekyllsv="bundle exec jekyll serve"
 alias jekyllts="script/cibuild"
+alias goto_scripts="cd ~/bin"
+alias goto_gitlab="cd ~/repo/gitlab"
+alias goto_github="cd ~/repo/github"
+alias goto_bitbuket="cd ~/repo/bitbuket"
+alias code_note="code ~/repo/github/jeannandrade.github.io/jeannandrade.github.io.code-workspace"
 ```
 
 [top](#table-of-contents)
 
+<!-- TOC --><a name="dicas-de-uso"></a>
 ## Dicas de uso
 
+<!-- TOC --><a name="xkill"></a>
 ### xkill
 
 Digitando `xkill` no terminal o cursor vai ser transformar em um *x* e vc pode clicar em cima de qualquer janela visível para fecha-la. Util quando um app trava.
 
+<!-- TOC --><a name="alt-f2"></a>
 ### Alt + F2
 
 Abre uma caixa de diálogo para executar um comando. Todo comando digitado aqui precisa estar dentro da pasta \bin
 
+<!-- TOC --><a name="alt-esc"></a>
 ### Alt + Esc
 
 Vai alternar entre as janelas abertas sem exibir as miniaturas, como faria o *alt + tab*. Já a tecla do *Windows* vai abrir a miniatura dos apps abertos.
 
+<!-- TOC --><a name="arquivo-oculto"></a>
 ### Arquivo oculto
 
 Coloque um *.* na frente de um arquivo para torná-lo oculto. *Ctrl + H* vai exibir os arquivos ocultos.
 
 [top](#table-of-contents)
 
+<!-- TOC --><a name="perguntas-e-respostas"></a>
 ## Perguntas e respostas
 
+<!-- TOC --><a name="what-shouldshouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout"></a>
 ### What should/shouldn't go in .zshenv, .zshrc, .zlogin, .zprofile, .zlogout?
 
 fonte: `https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout`
@@ -164,6 +223,7 @@ Here is a non-exhaustive list, in execution-order, of what each file tends to co
 1. .zlogin is for login shells. It is sourced on the start of a login shell but after .zshrc, if the shell is also interactive. This file is often used to start X using startx. Some systems start X on boot, so this file is not always very useful.
 1. .zlogout is sometimes used to clear and reset the terminal. It is called when exiting, not when opening.
 
+<!-- TOC --><a name="qual-o-comando-para-fazer-as-alterações-zshrc-do-terem-efeito"></a>
 ### Qual o comando para fazer as alterações .zshrc do terem efeito?
 
 `source ~/.zshrc`
