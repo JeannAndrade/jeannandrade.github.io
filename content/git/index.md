@@ -845,9 +845,9 @@ Você pode configurar atalhos no git usando o comando de configuração:
 | `git config --global alias.ph push` | `git ph` |
 | `git config --global alias.unstage 'restore --staged'` | `git unstage fileA` |
 | `git config --global alias.last 'log -1 HEAD'` | `git last` |
-| `git config --global alias.full-pull 'git fetch && git pull'` | `git full-pull` |
-| `git config --global alias.go-main 'git checkout main && git fetch && git pull'` | `git go-main` |
-| `git config --global alias.new-bch 'git checkout -b $1'` | `git new-bch` |
+| `git config --global alias.full-pull 'fetch && git pull'` | `git full-pull` |
+| `git config --global alias.go-main 'checkout main && git fetch && git pull'` | `git go-main` |
+| `git config --global alias.new-bch 'checkout -b $1'` | `git new-bch` |
 
 [top](#git-table-of-contents)
 
