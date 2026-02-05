@@ -14,6 +14,7 @@ layout: default
     * [PostgreSQL](./content/postgres/index.html)
     * [MariaDB](./content/mariaDB/index.html)
 1. [Clean Architecture](./content/clean_architecture/index.html)
+    * [Clean Architecture (Interactor/Boundaries) vs CQRS (Command/Query)](./content/clean_architecture/cleanArchitectureVsCQRS.html)
 1. [Data-intensive applications](./content/data_intensive_applications/index.html)
 1. [Docker](./content/docker/index.html)
 1. [Git](./content/git/index.html)

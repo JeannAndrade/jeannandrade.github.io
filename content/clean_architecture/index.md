@@ -91,12 +91,7 @@ Características importantes:
   * Banco de dados concreto
 * Depende apenas de interfaces (ports)
 
-Exemplo conceitual:
-
-CriarPedido
-EfetuarPagamento
-TransferirSaldo
-CadastrarUsuario
+Exemplo conceitual: CriarPedido | EfetuarPagamento | TransferirSaldo | CadastrarUsuario
 
 Em termos práticos:
 
