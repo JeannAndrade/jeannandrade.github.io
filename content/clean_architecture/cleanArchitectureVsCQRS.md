@@ -2,14 +2,45 @@
 
 Fonte: Claude IA
 
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [🎯 Visão Geral](#-visão-geral)
+- [📊 Tabela Comparativa Rápida](#-tabela-comparativa-rápida)
+- [🔍 Semelhanças Detalhadas](#-semelhanças-detalhadas)
+  - [1. **Separação de Responsabilidades**](#1-separação-de-responsabilidades)
+  - [2. **Objetos de Transferência de Dados (DTOs)**](#2-objetos-de-transferência-de-dados-dtos)
+  - [3. **Handlers/Interactors Executam Lógica**](#3-handlersinteractors-executam-lógica)
+  - [4. **Princípio da Responsabilidade Única (SRP)**](#4-princípio-da-responsabilidade-única-srp)
+- [🔄 Diferenças Fundamentais](#-diferenças-fundamentais)
+  - [1. **Propósito Arquitetural**](#1-propósito-arquitetural)
+  - [2. **Separação Read/Write**](#2-separação-readwrite)
+  - [3. **Modelo de Dados**](#3-modelo-de-dados)
+  - [4. **Complexidade e Sincronização**](#4-complexidade-e-sincronização)
+  - [5. **Presenter vs Result**](#5-presenter-vs-result)
+- [🎨 Exemplo Prático: Implementando CQRS na Aplicação](#-exemplo-prático-implementando-cqrs-na-aplicação)
+  - [**Estrutura CQRS**](#estrutura-cqrs)
+  - [**Command Implementation**](#command-implementation)
+  - [**Query Implementation**](#query-implementation)
+- [🤔 Qual Usar e Quando?](#-qual-usar-e-quando)
+  - [**Use Clean Architecture (Boundaries) quando:**](#use-clean-architecture-boundaries-quando)
+  - [**Use CQRS quando:**](#use-cqrs-quando)
+  - [**Use AMBOS quando:**](#use-ambos-quando)
+- [📈 Diagrama Comparativo](#-diagrama-comparativo)
+- [💡 Resumo das Diferenças-Chave](#-resumo-das-diferenças-chave)
+- [🎓 Conclusão](#-conclusão)
+
+<!-- TOC end -->
+
 Achei esse conceito de Interactor e Boundaries parecido com o conceito de Command Query. Existe alguma semelhança? Quais pontos são semelhantes e quais são diferentes?
 
+<!-- TOC --><a name="-visão-geral"></a>
 ## 🎯 Visão Geral
 
 Você está absolutamente correto em perceber a semelhança! Ambos os padrões compartilham filosofias similares, mas têm propósitos e contextos diferentes.
 
 ---
 
+<!-- TOC --><a name="-tabela-comparativa-rápida"></a>
 ## 📊 Tabela Comparativa Rápida
 
 | Aspecto | Clean Architecture (Boundaries) | CQRS (Command Query) |
@@ -24,8 +55,10 @@ Você está absolutamente correto em perceber a semelhança! Ambos os padrões c
 
 ---
 
+<!-- TOC --><a name="-semelhanças-detalhadas"></a>
 ## 🔍 Semelhanças Detalhadas
 
+<!-- TOC --><a name="1-separação-de-responsabilidades"></a>
 ### 1. **Separação de Responsabilidades**
 
 **Clean Architecture:**
@@ -52,6 +85,7 @@ IQueryHandler<GetPersonsQuery, List<PersonDto>>
 
 ---
 
+<!-- TOC --><a name="2-objetos-de-transferência-de-dados-dtos"></a>
 ### 2. **Objetos de Transferência de Dados (DTOs)**
 
 **Clean Architecture:**
@@ -100,6 +134,7 @@ public class RegisterPersonResult
 
 ---
 
+<!-- TOC --><a name="3-handlersinteractors-executam-lógica"></a>
 ### 3. **Handlers/Interactors Executam Lógica**
 
 **Clean Architecture:**
@@ -137,6 +172,7 @@ public class RegisterPersonCommandHandler
 
 ---
 
+<!-- TOC --><a name="4-princípio-da-responsabilidade-única-srp"></a>
 ### 4. **Princípio da Responsabilidade Única (SRP)**
 
 Ambos seguem o SRP criando:
@@ -147,8 +183,10 @@ Ambos seguem o SRP criando:
 
 ---
 
+<!-- TOC --><a name="-diferenças-fundamentais"></a>
 ## 🔄 Diferenças Fundamentais
 
+<!-- TOC --><a name="1-propósito-arquitetural"></a>
 ### 1. **Propósito Arquitetural**
 
 **Clean Architecture (Boundaries):**
@@ -176,6 +214,7 @@ Query → Read Model → Read Database (pode ser diferente!)
 
 ---
 
+<!-- TOC --><a name="2-separação-readwrite"></a>
 ### 2. **Separação Read/Write**
 
 **Clean Architecture:**
@@ -206,6 +245,7 @@ GetPersonsQuery → ReadRepository → NoSQL Database (denormalizado)
 
 ---
 
+<!-- TOC --><a name="3-modelo-de-dados"></a>
 ### 3. **Modelo de Dados**
 
 **Clean Architecture:**
@@ -249,6 +289,7 @@ public class PersonListItem
 
 ---
 
+<!-- TOC --><a name="4-complexidade-e-sincronização"></a>
 ### 4. **Complexidade e Sincronização**
 
 **Clean Architecture:**
@@ -284,6 +325,7 @@ queryHandler.Handle(new GetPersonsQuery());
 
 ---
 
+<!-- TOC --><a name="5-presenter-vs-result"></a>
 ### 5. **Presenter vs Result**
 
 **Clean Architecture:**
@@ -340,10 +382,12 @@ return result.Success ? Ok(result) : BadRequest(result);
 
 ---
 
+<!-- TOC --><a name="-exemplo-prático-implementando-cqrs-na-aplicação"></a>
 ## 🎨 Exemplo Prático: Implementando CQRS na Aplicação
 
 Vou mostrar como seria nossa aplicação usando **CQRS puro**:
 
+<!-- TOC --><a name="estrutura-cqrs"></a>
 ### **Estrutura CQRS**
 
 ```
@@ -366,6 +410,7 @@ Queries/
     └── GetPersonByIdQueryHandler.cs
 ```
 
+<!-- TOC --><a name="command-implementation"></a>
 ### **Command Implementation**
 
 ```csharp
@@ -410,6 +455,7 @@ public class RegisterPersonCommandHandler
 }
 ```
 
+<!-- TOC --><a name="query-implementation"></a>
 ### **Query Implementation**
 
 ```csharp
@@ -442,8 +488,10 @@ public class PersonListDto
 
 ---
 
+<!-- TOC --><a name="-qual-usar-e-quando"></a>
 ## 🤔 Qual Usar e Quando?
 
+<!-- TOC --><a name="use-clean-architecture-boundaries-quando"></a>
 ### **Use Clean Architecture (Boundaries) quando:**
 
 ✅ Você precisa de **independência de frameworks**
@@ -457,6 +505,7 @@ public class PersonListDto
 
 ---
 
+<!-- TOC --><a name="use-cqrs-quando"></a>
 ### **Use CQRS quando:**
 
 ✅ **Performance de leitura** é crítica
@@ -470,6 +519,7 @@ public class PersonListDto
 
 ---
 
+<!-- TOC --><a name="use-ambos-quando"></a>
 ### **Use AMBOS quando:**
 
 ✅ Sistema **grande e complexo**
@@ -503,6 +553,7 @@ Clean Architecture (estrutura geral)
 
 ---
 
+<!-- TOC --><a name="-diagrama-comparativo"></a>
 ## 📈 Diagrama Comparativo
 
 ```
@@ -559,6 +610,7 @@ WriteDB                  ReadDB
 
 ---
 
+<!-- TOC --><a name="-resumo-das-diferenças-chave"></a>
 ## 💡 Resumo das Diferenças-Chave
 
 | Característica | Clean Arch | CQRS |
@@ -574,6 +626,7 @@ WriteDB                  ReadDB
 
 ---
 
+<!-- TOC --><a name="-conclusão"></a>
 ## 🎓 Conclusão
 
 **Clean Architecture (Boundaries)** e **CQRS** são padrões complementares, não excludentes:
