@@ -52,6 +52,96 @@ Se uma determinada classe atende a mais de um ator, ela já está ferindo o SRP.
 
 ![Violação do SRP](./img/SRP.png)
 
+### Open-Closed Principle (OCP)
+
+O OCP diz que: um artefato de software deve ser aberto para extensão mas fechado para modificação. Ou seja, o comportamento de um artefato de software deve ser extensível, sem que seja necessário modificar o artefato.
+
+Se o componente A deve estar protegido de mudanças feitas no componente B, então o componente B deve depender do componente A.
+
+O OCP é uma das forças de direcionamento por traz da arquitetura de sistemas. O Objetivo é tornar o sistema fácil de estender sem que a mudança incorra em um alto impacto. Este objetivo é alcançado particionando o sistema em componentes e os organizando em hierarquias de dependências que protegem os componentes de alto nível de mudanças em componente de baixo nível.
+
+![OCP](./img/OCP.png)
+
+O diagrama é organizado da seguinte maneira:
+
+* Controller → entrada (HTTP, UI, CLI)
+* Interactor → caso de uso (Application Business Rules)
+* Presenter → adaptação da saída para a UI
+* View → renderização final
+* Database → detalhe de infraestrutura
+
+Esses itens são papéis arquiteturais. Eles vêm da evolução de Hexagonal / Ports & Adapters + Use Cases, e o objetivo é isolar regras de negócio de qualquer detalhe de entrega (UI, DB, Web).
+
+A regra de ouro: **todas as dependências apontam para dentro**.
+
+#### Interactor (Use Case)
+
+**Interactor** = implementação de um Caso de Uso.
+
+Ele representa o que o sistema faz, não como ele faz.
+
+Características importantes:
+
+* Contém regras de negócio da aplicação
+* Orquestra entidades
+* Não conhece:
+  * HTTP
+  * Framework
+  * UI
+  * Banco de dados concreto
+* Depende apenas de interfaces (ports)
+
+Exemplo conceitual:
+
+CriarPedido
+EfetuarPagamento
+TransferirSaldo
+CadastrarUsuario
+
+Em termos práticos:
+
+* Ele recebe um Input Model (DTO simples)
+* Executa o fluxo
+* Produz um Output Model
+* Chama um Presenter para entregar o resultado
+
+👉 Interactor não retorna ViewModel nem Response HTTP. Ele só executa regras.
+
+#### Presenter
+
+**Presenter** = adaptador da saída do caso de uso para a UI.
+
+Ele existe porque:
+
+* O Interactor não pode saber como os dados serão exibidos
+* Cada UI (Web, Mobile, API, CLI) pode precisar de formatos diferentes
+
+Responsabilidades:
+
+* Converter Output Model em algo que a View entenda
+* Decidir:
+  * mensagens
+  * estrutura de dados
+  * flags de exibição
+* Não contém regra de negócio
+
+Importante:
+O Presenter implementa uma interface definida pelo Interactor.
+
+Ou seja:
+
+Interactor → depende de IPresenter
+
+Presenter → conhece ViewModel / DTO de saída
+
+Isso garante o OCP:
+
+você troca a UI sem tocar no caso de uso
+
+Queremos proteger o Controller de mudanças nos Presenters.
+Queremos proteger os Presenters de mudanças nas Views.
+Queremos proteger o Interactor de mudanças em qualquer lugar.
+
 ## old
 
 Fiz um resumo do livro do Robert C. Martin, mas ainda não está no formato Markdown.
