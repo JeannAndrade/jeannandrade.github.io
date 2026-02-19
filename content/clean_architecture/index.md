@@ -8,7 +8,7 @@ layout: internal
 
 ### Arquitetura ou Design?
 
-A palavra "arquitetura" é frequentemente usada no contexto de algo mais alto nível, dissociado dos detalhes práticos, enquanto "design" parece implicar estruturas e decisões em um nível mais básico. Mas esse uso é não faz muito sentido quando se observa o trabalho de um arquiteto de verdade.
+A palavra "arquitetura" é frequentemente usada no contexto de algo mais alto nível, dissociado dos detalhes práticos, enquanto "design" parece implicar estruturas e decisões em um nível mais básico. Mas esse uso não faz muito sentido quando se observa o trabalho de um arquiteto de verdade.
 
 Na construção de um software os detalhes de baixo nível e a estrutura de alto nível fazem parte de um mesmo todo. Eles formam um tecido contínuo que define a forma do sistema. Não se pode ter um sem o outro; na verdade, não há uma linha divisória clara que os separe. Existe simplesmente um contínuo de decisões, do nível mais alto ao mais baixo.
 
@@ -27,7 +27,7 @@ Todo sistema de software fornece dois valores diferentes aos seus stakeholder:
 
 Bom software começa com Clean Code.
 
-Entenda o Clean Code como os tijolos de construção que temos as mãos para fazer software. Se os tijolos não estão bem feitos, a arquitetura da construção não importa muito. Por outro lado, ainda podemos fazer um grande bagunça com bons tijolos. É neste ponto que entram os princípios do SOLID.
+Entenda o Clean Code como os tijolos de construção que temos as mãos para fazer software. Se os tijolos não estão bem feitos, a arquitetura da construção não importa muito. Por outro lado, ainda podemos fazer uma grande bagunça com bons tijolos. É neste ponto que entram os princípios do SOLID.
 
 Os princípios do SOLID nos dizem como organizar nossas funções e dados em classes e como essas classes deveriam estar interconectadas.
 
@@ -91,7 +91,7 @@ Características importantes:
   * Banco de dados concreto
 * Depende apenas de interfaces (ports)
 
-Exemplo conceitual: CriarPedido | EfetuarPagamento | TransferirSaldo | CadastrarUsuario
+Exemplo conceitual: CriarPedido, EfetuarPagamento, TransferirSaldo, CadastrarUsuario
 
 Em termos práticos:
 
