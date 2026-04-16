@@ -72,18 +72,6 @@ ruby -v
 #=> ruby 3.2.2 (2023-03-30 revision e51014f9c0) [x86_64-linux]
 ```
 
-## Calibre
-
-Segundo o [site do Calibre](https://calibre-ebook.com/download_linux), a instalação deve ser feita através do binário fornecido pela URL listada abaixo. Não deve ser instalado da Loja.
-
-Primeiro foi preciso instalar uma lib chamada libxcb-cursor0:
-
-`sudo apt-get -y install libxcb-cursor0`
-
-Em seguida:
-
-`sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin`
-
 ## .NET SDK
 
 O .NET está disponível nos feeds do gerenciador de pacotes do Ubuntu. O repositório de pacotes da Microsoft não contém mais pacotes .NET para o Ubuntu.
