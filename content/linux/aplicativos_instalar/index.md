@@ -36,7 +36,7 @@ Primeiro é preciso instalar algumas dependências para compilar o Ruby
 Depois é preciso instalar o [asdf](https://asdf-vm.com/), que é um gerenciador de versões.
 
 ```bash
-cd
+cd ~
 git clone https://github.com/excid3/asdf.git ~/.asdf
 echo '. "$HOME/.asdf/asdf.sh"' >> ~/.zshrc
 echo '. "$HOME/.asdf/completions/asdf.bash"' >> ~/.zshrc
