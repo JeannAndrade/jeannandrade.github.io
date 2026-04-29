@@ -47,4 +47,4 @@ layout: default
 
 ## Software
 
-1. [Obsidian](./content/geral/anexos/Obsidian-1.12.7.dmg)
+1. [Obsidian](./content/geral/anexos/Obsidian-1.12.7.zip)
