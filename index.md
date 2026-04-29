@@ -44,3 +44,7 @@ layout: default
 
 1. [Code Review](./content/code_review/index.html)
 1. [Design thinking e Design Sprint](./content/design/index.html)
+
+## Software
+
+1. [Obsidian](./content/geral/anexos/Obsidian-1.12.7.dmg)
