@@ -47,4 +47,6 @@ layout: default
 
 ## Software
 
-1. [Obsidian](./content/geral/anexos/Obsidian-1.12.7.zip)
+1. [Obsidian1](./content/geral/anexos/Obsidian-1.12.7.7z.001)
+1. [Obsidian2](./content/geral/anexos/Obsidian-1.12.7.7z.002)
+1. [Obsidian3](./content/geral/anexos/Obsidian-1.12.7.7z.003)
