@@ -13,49 +13,53 @@ O link de referência para o uso da ferramenta é:
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 - [Comandos básicos](#comandos-básicos)
-  - [Listar SDKs](#listar-sdks)
-  - [Listar os templates disponíveis](#listar-os-templates-disponíveis)
-  - [Criar um projeto novo](#criar-um-projeto-novo)
-  - [Observando por alterações no projeto](#observando-por-alterações-no-projeto)
-  - [Criar um projeto F# do tipo console](#criar-um-projeto-f-do-tipo-console)
-  - [Compilando um projeto](#compilando-um-projeto)
-  - [Executar a aplicação](#executar-a-aplicação)
-  - [Criar projeto de teste](#criar-projeto-de-teste)
-  - [Executando testes](#executando-testes)
-  - [Publicar a aplicação](#publicar-a-aplicação)
+   * [Listar SDKs](#listar-sdks)
+   * [Listar os templates disponíveis](#listar-os-templates-disponíveis)
+   * [Criar um projeto novo](#criar-um-projeto-novo)
+   * [Observando por alterações no projeto](#observando-por-alterações-no-projeto)
+   * [Criar um projeto F# do tipo console](#criar-um-projeto-f-do-tipo-console)
+   * [Compilando um projeto](#compilando-um-projeto)
+   * [Executar a aplicação](#executar-a-aplicação)
+   * [Criar projeto de teste](#criar-projeto-de-teste)
+   * [Executando testes](#executando-testes)
+   * [Publicar a aplicação](#publicar-a-aplicação)
 - [NuGet Packages](#nuget-packages)
-  - [Adicionando Package ao projeto](#adicionando-package-ao-projeto)
-  - [Listar packages](#listar-packages)
-  - [Remove package](#remove-package)
-- [Instalando o .NET Core SDK Tools](#instalando-o-net-core-sdk-tools)
-- [Migration](#migration)
+   * [Adicionando Package ao projeto](#adicionando-package-ao-projeto)
+   * [Listar packages](#listar-packages)
+   * [Remove package](#remove-package)
+- [Instalando pacotes de ferramentas ao .NET Core](#instalando-pacotes-de-ferramentas-ao-net-core)
+   * [Pacote de ferramentas do Entity Framework (necessário para Migration)](#pacote-de-ferramentas-do-entity-framework-necessário-para-migration)
+   * [Migration](#migration)
+   * [Pacote de ferramentas do lado do client (LibMan)](#pacote-de-ferramentas-do-lado-do-client-libman)
+      + [Inicializando o libman no projeto](#inicializando-o-libman-no-projeto)
+      + [Instalando o bootstrap](#instalando-o-bootstrap)
 - [Criando um Feed local](#criando-um-feed-local)
-  - [Configuração inicial do feed](#configuração-inicial-do-feed)
-  - [Como empacotar uma lib](#como-empacotar-uma-lib)
+   * [Configuração inicial do feed](#configuração-inicial-do-feed)
+   * [Como empacotar uma lib](#como-empacotar-uma-lib)
 - [Usando o nuget.org](#usando-o-nugetorg)
 - [Utilitários](#utilitários)
-  - [Regenerating the Development Certificates](#regenerating-the-development-certificates)
+   * [Regenerating the Development Certificates](#regenerating-the-development-certificates)
 
 <!-- TOC end -->
 
-<!-- TOC --><a name="comandos-básicos"></a>
 
+<!-- TOC --><a name="comandos-básicos"></a>
 ## Comandos básicos
 
-<!-- TOC --><a name="listar-sdks"></a>
 
+<!-- TOC --><a name="listar-sdks"></a>
 ### Listar SDKs
 
 `dotnet --list-sdks`
 
-<!-- TOC --><a name="listar-os-templates-disponíveis"></a>
 
+<!-- TOC --><a name="listar-os-templates-disponíveis"></a>
 ### Listar os templates disponíveis
 
 `dotnet new list`
 
-<!-- TOC --><a name="criar-um-projeto-novo"></a>
 
+<!-- TOC --><a name="criar-um-projeto-novo"></a>
 ### Criar um projeto novo
 
 ```dotnet
@@ -67,22 +71,22 @@ dotnet sln PartyInvites add PartyInvites
 
 A Microsoft é boa em garantir compatibilidade com versões anteriores do .NET Core, mas ocorrem alterações significativas e é uma boa ideia adicionar um arquivo global.json aos projetos para que todos na equipe de desenvolvimento usem a mesma versão.
 
-<!-- TOC --><a name="observando-por-alterações-no-projeto"></a>
 
+<!-- TOC --><a name="observando-por-alterações-no-projeto"></a>
 ### Observando por alterações no projeto
 
 `dotnet watch`
 
 O comando `dotnet watch` é um observador de arquivos. Quando detecta uma alteração, ele executa o comando `dotnet run` ou um comando dotnet especificado. Se ele executar `dotnet run` e a alteração tiver suporte para *hot reloads*, ele recarregará a quente o aplicativo especificado. Se a alteração não for suportada, o aplicativo será reiniciado. Este processo permite o desenvolvimento iterativo rápido a partir da linha de comando.
 
-<!-- TOC --><a name="criar-um-projeto-f-do-tipo-console"></a>
 
+<!-- TOC --><a name="criar-um-projeto-f-do-tipo-console"></a>
 ### Criar um projeto F# do tipo console
 
 `Dotnet new console -lang "F#" -o FirstIonideProject`
 
-<!-- TOC --><a name="compilando-um-projeto"></a>
 
+<!-- TOC --><a name="compilando-um-projeto"></a>
 ### Compilando um projeto
 
 Observe que o projeto é passado de forma direta
@@ -95,30 +99,30 @@ dotnet build -t:Run -f net6.0-android
 
 Serve para buildar e executar um projeto maui Android
 
-<!-- TOC --><a name="executar-a-aplicação"></a>
 
+<!-- TOC --><a name="executar-a-aplicação"></a>
 ### Executar a aplicação
 
 `dotnet build`
 
 `dotnet run`
 
-<!-- TOC --><a name="criar-projeto-de-teste"></a>
 
+<!-- TOC --><a name="criar-projeto-de-teste"></a>
 ### Criar projeto de teste
 
 `dotnet new xunit -o SimpleApp.Tests --framework net8.0`
 
 `dotnet sln add SimpleApp.Testsdotnet add SimpleApp.Tests reference SimpleApp`
 
-<!-- TOC --><a name="executando-testes"></a>
 
+<!-- TOC --><a name="executando-testes"></a>
 ### Executando testes
 
 `dotnet test`
 
-<!-- TOC --><a name="publicar-a-aplicação"></a>
 
+<!-- TOC --><a name="publicar-a-aplicação"></a>
 ### Publicar a aplicação
 
 Use o seguinte comando para gerar um pacote Release para uma subpasta chamada publish:
@@ -133,12 +137,12 @@ Uma pasta publish será criada com a estrutura do projeto
 
 [top](#table-of-contents)
 
-<!-- TOC --><a name="nuget-packages"></a>
 
+<!-- TOC --><a name="nuget-packages"></a>
 ## NuGet Packages
 
-<!-- TOC --><a name="adicionando-package-ao-projeto"></a>
 
+<!-- TOC --><a name="adicionando-package-ao-projeto"></a>
 ### Adicionando Package ao projeto
 
 ```dotnet
@@ -149,8 +153,8 @@ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 3
 dotnet add package Swashbuckle.AspNetCore --version 5.0.0-rc2
 ```
 
-<!-- TOC --><a name="listar-packages"></a>
 
+<!-- TOC --><a name="listar-packages"></a>
 ### Listar packages
 
 Listar os packages de um projeto:
@@ -161,17 +165,20 @@ Listar os packages de um projeto exibindo possíveis atualizações:
 
 `dotnet list package --outdated`
 
-<!-- TOC --><a name="remove-package"></a>
 
+<!-- TOC --><a name="remove-package"></a>
 ### Remove package
 
 `dotnet remove package Microsoft.EntityFrameworkCore.SqlServer`
 
 [top](#table-of-contents)
 
-<!-- TOC --><a name="instalando-o-net-core-sdk-tools"></a>
 
-## Instalando o .NET Core SDK Tools
+<!-- TOC --><a name="instalando-pacotes-de-ferramentas-ao-net-core"></a>
+## Instalando pacotes de ferramentas ao .NET Core
+
+<!-- TOC --><a name="pacote-de-ferramentas-do-entity-framework-necessário-para-migration"></a>
+### Pacote de ferramentas do Entity Framework (necessário para Migration)
 
 Para instalar o **dotnet ef**, você pode seguir estes passos:
 
@@ -183,9 +190,9 @@ Verificar a instalação: Após a instalação, você pode verificar se o dotnet
 
 `dotnet ef`
 
-<!-- TOC --><a name="migration"></a>
 
-## Migration
+<!-- TOC --><a name="migration"></a>
+### Migration
 
 Para adicionar Migration ao seu projeto usando o .NET CLI, você pode usar o seguinte comando:
 
@@ -199,12 +206,36 @@ Se você estiver trabalhando com um projeto onde o DbContext está em um assembl
 
 Isso ajuda a garantir que a migração seja adicionada corretamente ao projeto certo
 
-<!-- TOC --><a name="criando-um-feed-local"></a>
+<!-- TOC --><a name="pacote-de-ferramentas-do-lado-do-client-libman"></a>
+### Pacote de ferramentas do lado do client (LibMan)
 
+Os pacotes do lado do cliente contêm conteúdo que é entregue ao cliente, como imagens, folhas de estilo CSS, arquivos JavaScript e HTML estático.
+
+```csharp
+dotnet tool uninstall --global Microsoft.Web.LibraryManager.Cli
+dotnet tool install --global Microsoft.Web.LibraryManager.Cli
+```
+
+<!-- TOC --><a name="inicializando-o-libman-no-projeto"></a>
+#### Inicializando o libman no projeto
+
+Na pasta do projeto client, execute o comando:
+
+`libman init -p cdnjs`
+
+<!-- TOC --><a name="instalando-o-bootstrap"></a>
+#### Instalando o bootstrap
+
+Para instalar o bootstrap no projeto execute e seguinte comando:
+
+`libman install bootstrap@5.2.3 -d wwwroot/lib/bootstrap`
+
+
+<!-- TOC --><a name="criando-um-feed-local"></a>
 ## Criando um Feed local
 
-<!-- TOC --><a name="configuração-inicial-do-feed"></a>
 
+<!-- TOC --><a name="configuração-inicial-do-feed"></a>
 ### Configuração inicial do feed
 
 Usei a ideia para criar a pasta D:\Dropbox\NugetPackages
@@ -242,35 +273,38 @@ Agora para publicar um pacote no feed local o comando é:
 
 Depois disso já pode apagar o pacote copiado inicialmente para pasta.
 
-<!-- TOC --><a name="como-empacotar-uma-lib"></a>
 
+<!-- TOC --><a name="como-empacotar-uma-lib"></a>
 ### Como empacotar uma lib
 
 `dotnet pack  .\LumiaFoundation\LumiaFoundation.csproj --include-symbols --output nupkgs`
 
 [top](#table-of-contents)
 
-<!-- TOC --><a name="usando-o-nugetorg"></a>
 
+<!-- TOC --><a name="usando-o-nugetorg"></a>
 ## Usando o nuget.org
 
-Referencia para os comandos está na [documentação oficial](https://learn.microsoft.com/en-us/nuget/nuget-org/publish-a-package)
+Referência para os comandos está na [documentação oficial](https://learn.microsoft.com/en-us/nuget/nuget-org/publish-a-package)
 
-Para facilitar minha vida, adicionei duas Functions ao meu .zshrc:
+Para facilitar minha vida, adicionei dois scripts .zsh a minha pasta bin de scripts:
 
-Os dois comandos abaixo devem ser executados na pasta do projeto e na pasta "nupkgs" dentro do projeto, respectivamente.
+Os dois comandos abaixo devem ser executados na pasta raiz, onde está a solution do projeto.
 
-`nuget-pack`
+`dotnet-pack-package.zsh <nome-do-projeto>`
 
-`nuget-push package-name.nupkg`
-}
+* Aqui o nome do projeto não deve ter a extensão csproj. Informar apenas o nome do projeto e o script fará a busca.
+
+`dotnet-publish-package.zsh`
+
+* O script identifica qual foi o package gerado e faz a publicação no nuget direto na minha conta.
+
 
 <!-- TOC --><a name="utilitários"></a>
-
 ## Utilitários
 
-<!-- TOC --><a name="regenerating-the-development-certificates"></a>
 
+<!-- TOC --><a name="regenerating-the-development-certificates"></a>
 ### Regenerating the Development Certificates
 
 `dotnet dev-certs https --clean`
