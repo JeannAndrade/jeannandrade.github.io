@@ -27,7 +27,7 @@ Nesse exercício a imagem não tem o SDK para poder buildar o app. Então o app 
 
 Passo 1 - criar localmente o pacote de binários da aplicação:
 
-`dotnet publish --framework net10.0 --configuration Release --output dist`
+`dotnet publish <project-name> --framework net10.0 --configuration Release --output dist`
 
 Passo 2 - criar a imagem a partir do arquivo Dockerfile disponível na pasta raiz do projeto
 
