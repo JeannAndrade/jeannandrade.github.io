@@ -19,7 +19,9 @@ Foram usados como fonte:
    * [Instalando o Zsh](#instalando-o-zsh)
    * [Tornando o Zsh o shell padrão](#tornando-o-zsh-o-shell-padrão)
    * [instalando o Oh My Zsh](#instalando-o-oh-my-zsh)
-   * [Instalando as fontes powerline](#instalando-as-fontes-powerline)
+   * [Instalando a fonte 'Hack Nerd Font Mono'](#instalando-a-fonte-hack-nerd-font-mono)
+      + [Configure a Fonte no VS Code](#configure-a-fonte-no-vs-code)
+      + [Configure a Fonte no Terminal Windows](#configure-a-fonte-no-terminal-windows)
    * [Instalando o pluging Zsh-syntax-highlighting](#instalando-o-pluging-zsh-syntax-highlighting)
    * [Instalando o plugin FZF](#instalando-o-plugin-fzf)
    * [Instalando o plugin zsh-autosuggestions](#instalando-o-plugin-zsh-autosuggestions)
@@ -107,10 +109,32 @@ Depois de aplicado o comando, reinicie a Máquina. Reiniciar o terminal não deu
 
 `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 
-<!-- TOC --><a name="instalando-as-fontes-powerline"></a>
-### Instalando as [fontes powerline](https://github.com/powerline/fonts)
+<!-- TOC --><a name="instalando-a-fonte-hack-nerd-font-mono"></a>
+### Instalando a fonte 'Hack Nerd Font Mono'
 
-`sudo apt-get install fonts-powerline`
+[fontes Hack](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.1/Hack.zip)
+
+o VS Code e Terminal no Windows gerenciam a interface do terminal, e não o sistema Linux dentro do WSL. Então para usar esse fonte é preciso instalar a fonte Hack no Windows.
+
+* Baixe o arquivo hack.zip no link acima
+* Descompacte o zip e ache o arquivo 'HackNerdFontMono-Regular.ttf'.
+* Clique nele e abra o menu de contexto, peça para isntalar a fonte.
+
+<!-- TOC --><a name="configure-a-fonte-no-vs-code"></a>
+#### Configure a Fonte no VS Code
+
+Com a fonte instalada no Windows, você precisa dizer ao VS Code para usá-la no terminal integrado. Isso é feito nas configurações:
+
+Abra o VS Code e pressione (Ctrl + ,) para abrir as Configurações. Na barra de pesquisa, digite terminal.integrated.fontFamily.
+
+No campo de texto, insira o nome exato da família da fonte que você instalou, entre aspas simples: 'Hack Nerd Font Mono'
+
+<!-- TOC --><a name="configure-a-fonte-no-terminal-windows"></a>
+#### Configure a Fonte no Terminal Windows
+
+* Vá em configuraçãoes (Ctrl + ,)
+* Selecione o perfil do Ubuntu
+* Em configurações Adcionais, clique em Aparência e selecione 'Hack Nerd Font Mono' no Tipo de Fonte.
 
 <!-- TOC --><a name="instalando-o-pluging-zsh-syntax-highlighting"></a>
 ### Instalando o pluging [Zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
@@ -146,7 +170,7 @@ O que faz? Exibe detalhes como a data de criação, o tamanho e as permissões d
 ### Registrando os novos plugins no arquivo .zshrc
 
 - Abra o arquivo .zshrc com o comando `sudo nano ~/.zshrc`
-- Altere a linha ZSH_THEME="robbyrussell" para ZSH_THEME="crcandy"
+- Altere a linha ZSH_THEME="robbyrussell" para ZSH_THEME="amuse"
 - Adicione o zsh-syntax-highlighting a lista de plugins `plugins=(git zsh-syntax-highlighting fzf zsh-autosuggestions k)`
 
 <!-- TOC --><a name="alias-que-geralmente-uso-no-zshrc"></a>

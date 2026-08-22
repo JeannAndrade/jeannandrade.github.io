@@ -36,65 +36,61 @@ EXPOSE 80/tcp
 ENTRYPOINT ["dotnet", "ExampleApp.dll"]
 ```
 
-Vou explicar linha por linha. É um Dockerfile clássico de **multi-stage build**, otimizado para gerar uma imagem final enxuta.
+### Estágio 1 — build
 
-### Estágio 1 — `build`
+*FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build*
 
-```dockerfile
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
-```
 Usa a imagem oficial do **SDK do .NET 10** (contém compilador, ferramentas de restore/build/publish) como base desse estágio, apelidado de `build`. Essa imagem é pesada, mas só existe temporariamente durante o build da imagem Docker.
 
-```dockerfile
 WORKDIR /src
-```
-Define `/src` como diretório de trabalho dentro do container — os comandos seguintes rodam a partir dali.
 
-```dockerfile
+Define **/src** como diretório de trabalho dentro do container — os comandos seguintes rodam a partir dali.
+
+
 COPY ["ExampleApp.csproj", "./"]
 RUN dotnet restore "ExampleApp.csproj"
-```
-Aqui está a parte mais estratégica: copia **apenas o `.csproj`** antes do resto do código, e roda o `dotnet restore` (baixa os pacotes NuGet). Isso é feito de propósito separado do `COPY . .` para aproveitar o **cache de camadas do Docker** — se você só mudar código-fonte (não as dependências), o Docker reaproveita a camada de restore em builds futuros, economizando bastante tempo.
 
-```dockerfile
+Aqui está a parte mais estratégica: copia **apenas o .csproj** antes do resto do código, e roda o dotnet restore (baixa os pacotes NuGet). Isso é feito de propósito separado do COPY . . para aproveitar o **cache de camadas do Docker** — se você só mudar código-fonte (não as dependências), o Docker reaproveita a camada de restore em builds futuros, economizando bastante tempo.
+
+
 COPY . .
 RUN dotnet publish "ExampleApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
-```
+
 Agora copia todo o restante do código-fonte e roda o `dotnet publish`:
-- `-c Release` → build em modo Release (otimizado, sem símbolos de debug).
-- `-o /app/publish` → coloca a saída publicada nesse diretório.
-- `/p:UseAppHost=false` → não gera o executável nativo específico da plataforma (ex: `ExampleApp.exe`/binário nativo), já que a aplicação vai rodar via `dotnet ExampleApp.dll` na imagem final — isso economiza espaço.
+- -c Release → build em modo Release (otimizado, sem símbolos de debug).
+- -o /app/publish → coloca a saída publicada nesse diretório.
+- /p:UseAppHost=false → não gera o executável nativo específico da plataforma (ex: `ExampleApp.exe`/binário nativo), já que a aplicação vai rodar via `dotnet ExampleApp.dll` na imagem final — isso economiza espaço.
 
-### Estágio 2 — `final`
+### Estágio 2 — final
 
-```dockerfile
+
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
-```
+
 Troca para a imagem **ASP.NET Runtime** (bem menor que o SDK), que só tem o necessário para *executar* uma aplicação ASP.NET Core — sem ferramentas de build. Esse é o segredo do multi-stage: o SDK gigante fica só no estágio 1 e nunca vai pra imagem final.
 
-```dockerfile
+
 WORKDIR /app
-```
+
 Define `/app` como diretório de trabalho no container final.
 
-```dockerfile
+
 COPY --from=build /app/publish/ ./
-```
+
 Copia **somente os artefatos publicados** do estágio `build` (não o código-fonte, não os pacotes NuGet intermediários) para dentro da imagem final. Isso é o que mantém a imagem final pequena.
 
-```dockerfile
+
 ENV ASPNETCORE_URLS=http://+:80
-```
+
 Define a variável de ambiente que diz ao Kestrel (servidor web embutido do ASP.NET Core) para escutar em todas as interfaces (`+`) na porta 80.
 
-```dockerfile
+
 EXPOSE 80/tcp
-```
+
 Apenas **documenta** que o container expõe a porta 80/TCP — não abre a porta de fato (isso é feito com `-p` no `docker run` ou `ports:` no compose), mas ajuda quem for rodar o container a saber o que mapear.
 
-```dockerfile
+
 ENTRYPOINT ["dotnet", "ExampleApp.dll"]
-```
+
 Comando que roda quando o container inicia: executa a DLL publicada usando o runtime do .NET. Formato *exec* (array), então sinais como `SIGTERM` são recebidos diretamente pelo processo `dotnet` — importante para shutdown gracioso.
 
 ---
