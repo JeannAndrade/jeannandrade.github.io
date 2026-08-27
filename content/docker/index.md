@@ -92,7 +92,7 @@ ___
 Comando | Descrição | Exemplo
 ----- | ----- | ------
 `docker compose version` | Para verificar a versão do docker-compose instalado | .
-`docker compose up` | Para levantar a aplicação | deve ser rodado na pasta onde está o compose.yaml. `--detach` para subir em background
+`docker compose up` | Para levantar a aplicação | deve ser rodado na pasta onde está o compose.yaml. `--detach` para subir em background. Já a opção --build força a reconstrução das imagens dos serviços antes de iniciar os containers, mesmo que já existam imagens cacheadas localmente. Para determinar o nome do container principal que vai aparecer no docker desktop o comando é docker compose -p meu-projeto up -d.
 `docker compose up -f compose_file.yaml` | Para levantar a aplicação | caso o arquivo compose esteja com outro nome
 `docker compose -f docker-compose.yml build` | processa o conteúdo do arquivo compose e cria as imagens para os container que ele contém. | .
 `docker compose stop` | para os containers. Containers, redes e volumes são mantidos para serem iniciados novamente. | .
