@@ -116,7 +116,12 @@ blockquote {
 
 code {
   font-family: Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal, monospace;
-  color: #efefef;
+  color: #aaffaa;
+  /* verde terminal */
+  text-shadow: 0 0 3px rgba(170, 255, 170, 0.5);
+  /* brilho de fósforo */
+  background-color: #0d0d0d;
+  /* fundo escuro tipo CRT */
   font-size: 15px;
   margin: 0 4px;
   padding: 4px 6px;
