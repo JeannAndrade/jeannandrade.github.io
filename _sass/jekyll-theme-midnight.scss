@@ -174,17 +174,24 @@ dt {
   font-weight: normal;
 }
 
-/* Wrapper que agrupa o code + botão */
+/* Wrapper que agrupa o code + botão lado a lado */
 .code-wrapper {
-  position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  /* centraliza verticalmente */
+  justify-content: flex-start;
+  gap: 6px;
+  /* espaço entre o code e o botão */
+}
+
+/* O <code> pode encolher/crescer conforme necessário */
+.code-wrapper code {
+  flex: 0 1 auto;
 }
 
 /* Botão escondido por padrão */
 .code-wrapper .btn {
-  position: absolute;
-  top: 4px;
-  right: 4px;
+  flex: 0 0 auto;
   padding: 3px 5px;
   border: 1px solid #ccc;
   background: #fff;
@@ -197,7 +204,6 @@ dt {
   /* evita espaço extra ao redor da imagem */
 }
 
-/* Cantos arredondados também na imagem, por garantia */
 .code-wrapper .btn img {
   border-radius: 4px;
   display: block;
@@ -207,6 +213,7 @@ dt {
 .code-wrapper:hover .btn {
   opacity: 1;
 }
+
 
 #header {
   z-index: 100;
