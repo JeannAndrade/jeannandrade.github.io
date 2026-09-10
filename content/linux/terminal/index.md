@@ -44,48 +44,48 @@ Foram usados como fonte:
 
 | Símbolo | Descrição |
 | ----------- | ----------- |
-| ls | comando de listagem para ver conteúdo de uma pasta (ls -al para formato longo)|
-| man | dá acesso ao manual do comando. Ex man ls |
-| clear | limpar o terminal (pode ser o control + L) |
-| mkdir | Criar uma pasta. Se quiser criar várias pastas, separar com espaço os nomes delas |
-| cd | Navegar entre pastas |
-| pwd | imprimir a pasta de trabalho |
-| whoami | quem é o usuário atual |
-| Redirecionadores | redireciona a saída de um comando para outro. O '>' redireciona sobrescrevendo. O '>>' redireciona adiciona ao final.  Ex. whoami >> diolinux.txt |
-| criar e acessar pasta com nome composto | englobar o nome composto entre " ou ' |
-| touch | usado frequentemente para criar arquivo |
-| nano | editar arquivo de texto |
-| cat | ler documentos pequenos. Ele pega o conteúdo do arquivo e exibe no terminal |
-| mv | renomear um arquivo |
-| cp | copiar um arquivo. Ex. cp origem destino |
-| find | encontrar aquivos dentro de pastas. `find . -name curso_de_terminal.txt` |
-| head & tail | ler as primeiras linhas de um arquivo. Ler as ultimas linhas de um arquivo |
-| less | carrega somente uma parte do aquivo e vc pode ir descendo para ver o restante |
-| rm | remover um arquivo |
-| rmdir | remover diretórios, somente diretórios vazios |
-| rm -rf | remove diretórios quando não está vazio |
-| hostname | lista o nome da máquina |
-| hostname -i | vai listas os IPs da máquina |
-| ip a | lista os IPs da máquina e mac e outras info |
-| grep | filtra a informação. Ex ip a \| grep inet  |
-| ping | verifica se está havendo comunicação com outras máquinas |
-| free-h & free-m | verifica o uso da memória da máquina |
-| top | é como se fosse o monitor do sistema, só que mais simplificado |
-| htop | mesmo que o top, só que mais formatado para humanos |
-| ps | listas os processos rodando no terminal. Ex.: `ps -elf`  |
-| ps aux | lista os processos do sistema, geralmente é usado com o filtro grep. ps aux \| grep gnome-terminal |
-| pgrep | já é a combinação do ps com o grep. Ex. pgrep gnome-terminal |
-| kill | serve para gerenciar processos. Matar o processo |
-| df -h | lista os recursos de dados do sistema |
-| ncdu | escaneia a pasta e indica em quais locais existem mais arquivos |
-| uname | lista o kernel do Linux |
-| lscpu & lsusb | mostra informações a respeito dos dispositivos |
-| history | lista os comandos jã executados no terminal. `!n` para executar novamente a linha 'n'.|
-| `history n` | para trazer o histórico da posição 'n' até a última linha registrada.  |
-| `history -n` | para trazer as últimas 'n' linhas. |
+| `!!` | Retorna o último comando digitado. É util quando vc digita um comando e descobre que precisa de permissão de admin. Então basta entrar com `sudo !!` |
+| `cat` | ler documentos pequenos. Ele pega o conteúdo do arquivo e exibe no terminal |
+| `cd` | Navegar entre pastas |
+| `clear` | limpar o terminal (pode ser o control + L) |
+| `cp` | copiar um arquivo. Ex. cp origem destino |
+| `criar e acessar pasta com nome composto` | englobar o nome composto entre " ou ' |
+| `ctrl + r` | para abrir um busca pelo comando que for digitado em seguida |
+| `df -h` | lista os recursos de dados do sistema |
+| `find` | encontrar aquivos dentro de pastas. `find . -name curso_de_terminal.txt` |
+| `free-h & free-m` | verifica o uso da memória da máquina |
+| `grep` | filtra a informação. Ex ip a \| grep inet |
+| `head & tail` | ler as primeiras linhas de um arquivo. Ler as ultimas linhas de um arquivo |
+| `history` | lista os comandos já executados no terminal. `!n` para executar novamente a linha 'n'. |
 | `history \| grep termo` | para filtrar as linhas que contenham o termo. |
-| ctrl + r | para abrir um busca pelo comando que for digitado em seguida |
-| !! | Retorna o último comando digitado. É util quando vc digita um comando e descobre que precisa de permissão de admin. Então basta entrar com `sudo !!` |
+| `history -n` | para trazer as últimas 'n' linhas. |
+| `history n` | para trazer o histórico da posição 'n' até a última linha registrada. |
+| `hostname` | lista o nome da máquina |
+| `hostname -i` | vai listas os IPs da máquina |
+| `htop` | mesmo que o top, só que mais formatado para humanos |
+| `ip a` | lista os IPs da máquina e mac e outras info |
+| `kill` | serve para gerenciar processos. Matar o processo |
+| `less` | carrega somente uma parte do aquivo e vc pode ir descendo para ver o restante |
+| `ls` | comando de listagem para ver conteúdo de uma pasta (ls -al para formato longo) |
+| `lscpu & lsusb` | mostra informações a respeito dos dispositivos |
+| `man` | dá acesso ao manual do comando. Ex man ls |
+| `mkdir` | Criar uma pasta. Se quiser criar várias pastas, separar com espaço os nomes delas |
+| `mv` | renomear um arquivo |
+| `nano` | editar arquivo de texto |
+| `ncdu` | escaneia a pasta e indica em quais locais existem mais arquivos |
+| `pgrep` | já é a combinação do ps com o grep. Ex. pgrep gnome-terminal |
+| `ping` | verifica se está havendo comunicação com outras máquinas |
+| `ps` | listas os processos rodando no terminal. Ex.: `ps -elf` |
+| `ps aux` | lista os processos do sistema, geralmente é usado com o filtro grep. ps aux \| grep gnome-terminal |
+| `pwd` | imprimir a pasta de trabalho |
+| `Redirecionadores` | redireciona a saída de um comando para outro. O '>' redireciona sobrescrevendo. O '>>' redireciona adiciona ao final. Ex. whoami >> diolinux.txt |
+| `rm` | remover um arquivo |
+| `rm -rf` | remove diretórios quando não está vazio |
+| `rmdir` | remover diretórios, somente diretórios vazios |
+| `top` | é como se fosse o monitor do sistema, só que mais simplificado |
+| `touch` | usado frequentemente para criar arquivo |
+| `uname` | lista o kernel do Linux |
+| `whoami` | quem é o usuário atual |
 
 [top](#table-of-contents)
 
